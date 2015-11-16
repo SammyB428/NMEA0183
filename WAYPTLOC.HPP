@@ -1,3 +1,14 @@
+#if ! defined( WAYPOINT_LOCATION_CLASS_HEADER )
+
+#define WAYPOINT_LOCATION_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,43 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+** This Sentence Not Recommended For New Designs
+** A combination of WPL, GLL, ZDA and ZTG is recommended.
+*/
+
+class WAYPOINT_LOCATION : public RESPONSE
+{
+   public:
+
+      WAYPOINT_LOCATION();
+      virtual ~WAYPOINT_LOCATION();
+
+      /*
+      ** Data
+      */
+
+      std::string UTCTime;
+      time_t      Time;
+      LATLONG     Position;
+      std::string Waypoint;
+
+      /*
+      ** Methods
+      */
+
+      virtual void  Empty( void ) override;
+      virtual bool  Parse( const SENTENCE& sentence ) override;
+      virtual std::string PlainEnglish( void ) const override;
+      virtual bool  Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const WAYPOINT_LOCATION& operator = ( const WAYPOINT_LOCATION& source );
+};
+
+#endif // WAYPOINT_LOCATION_CLASS_HEADER

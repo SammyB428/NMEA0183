@@ -1,3 +1,10 @@
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +26,69 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+#include "nmea0183.h"
+#pragma hdrstop
+
+#if defined( _DEBUG ) && defined( _INC_CRTDBG )
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#define new DEBUG_NEW
+#endif // _DEBUG
+
+P::P()
+{
+   Mnemonic = "P";
+   Empty();
+}
+
+P::~P()
+{
+   Mnemonic.clear();
+   Empty();
+}
+
+void P::Empty( void )
+{
+   Sentence.clear();
+   Source.clear();
+}
+
+bool P::Parse( const SENTENCE& sentence )
+{
+   /*
+   ** This is where parsing of proprietary sentences will go...
+   */
+
+   Sentence = sentence;
+
+   std::string temp_string = sentence.Field( 0 );
+
+   Source      = temp_string.substr( 1, 3 );
+   CompanyName = Manufacturers.Find( Source );
+
+   return( true );
+}
+
+bool P::Write( SENTENCE& sentence )
+{
+   /*
+   ** Let the parent do its thing
+   */
+   
+   RESPONSE::Write( sentence );
+
+   sentence += Sentence;
+
+   sentence.Finish();
+
+   return( true );
+}
+
+const P& P::operator = ( const P& source )
+{
+   Sentence = source.Sentence;
+
+   return( *this );
+}

@@ -1,3 +1,14 @@
+#if ! defined( RATIO_AND_PULSE_CLASS_HEADER )
+
+#define RATIO_AND_PULSE_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class RATIO_AND_PULSE
+{
+   public:
+
+      RATIO_AND_PULSE();
+      virtual ~RATIO_AND_PULSE();
+
+      /*
+      ** Data
+      */
+
+      int SignalToNoiseRatio;
+      int PulseShapeECD;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void );
+      virtual void Parse( int field_number, const SENTENCE& sentence );
+      virtual void Write( SENTENCE& sentence );
+
+      /*
+      ** Operators
+      */
+
+      virtual const RATIO_AND_PULSE& operator = ( const RATIO_AND_PULSE& source );
+};
+
+#endif // RATIO_AND_PULSE_CLASS_HEADER

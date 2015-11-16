@@ -1,3 +1,14 @@
+#if ! defined( GTD_CLASS_HEADER )
+
+#define GTD_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class GTD : public RESPONSE
+{
+   public:
+
+      GTD();
+      virtual ~GTD();
+
+      /*
+      ** Data
+      */
+       
+      std::string TimeDifference1;
+      std::string TimeDifference2;
+      std::string TimeDifference3;
+      std::string TimeDifference4;
+      std::string TimeDifference5;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void ) override;
+      virtual bool Parse( const SENTENCE& sentence ) override;
+      virtual bool Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const GTD& operator = ( const GTD& source );
+};
+
+#endif // GTD_CLASS_HEADER

@@ -1,0 +1,90 @@
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
+The MIT License (MIT)
+
+Copyright (c) 1996-2015 Sam Blackburn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+#include "nmea0183.h"
+#pragma hdrstop
+
+#if defined( _DEBUG ) && defined( _INC_CRTDBG )
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#define new DEBUG_NEW
+#endif // _DEBUG
+
+RESPONSE::RESPONSE()
+{
+   DataSource = "--"; // Default to an unknown source
+   Mnemonic.clear();
+   Talker.clear();
+
+   // 15 Jan 98 - Thanks go to Craig Miller (Craig.Miller@Bigfoot.com) for
+   // finding a bug here. I had left off the () after Empty
+   ErrorMessage.clear();
+}
+
+RESPONSE::~RESPONSE()
+{
+   DataSource.clear();
+   Mnemonic.clear();
+   Talker.clear();
+   ErrorMessage.clear();
+}
+
+void RESPONSE::SetContainer( NMEA0183 *container )
+{
+   container_p = container;
+}
+
+void RESPONSE::SetErrorMessage(const std::string &error_message)
+{
+   ErrorMessage  = Mnemonic;
+   ErrorMessage += ", ";
+   ErrorMessage += error_message;
+}
+
+bool RESPONSE::Write( SENTENCE& sentence )
+{
+   /*
+   ** All NMEA0183 sentences begin with the mnemonic...
+   **
+   ** Thanks to Jan-Erik Eriksson (Jan-Erik.Eriksson@st.se) for
+   ** finding and fixing a bug here
+   */
+
+   sentence  = "$" + DataSource + Mnemonic;
+
+   return( true );
+}
+
+std::string RESPONSE::PlainEnglish( void ) const
+{
+   std::string return_string;
+
+   return( return_string );
+}

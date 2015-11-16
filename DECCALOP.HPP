@@ -1,3 +1,14 @@
+#if ! defined( LINE_OF_POSITION_CLASS_HEADER )
+
+#define LINE_OF_POSITION_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,36 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class LINE_OF_POSITION
+{
+   public:
+
+      LINE_OF_POSITION();
+      virtual ~LINE_OF_POSITION();
+
+      /*
+      ** Data
+      */
+
+      std::string      ZoneID;
+      double           LineOfPosition;
+      NMEA0183_BOOLEAN MasterLine;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void );
+      virtual void Parse( int field_number, const SENTENCE& sentence );
+      virtual void Write( SENTENCE& sentence );
+
+      /*
+      ** Operators
+      */
+
+      virtual const LINE_OF_POSITION& operator = ( const LINE_OF_POSITION& source );
+};
+
+#endif // LINE_OF_POSITION_CLASS_HEADER

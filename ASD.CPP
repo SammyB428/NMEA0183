@@ -1,3 +1,10 @@
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +26,57 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+#include "nmea0183.h"
+#pragma hdrstop
+
+#if defined( _DEBUG ) && defined( _INC_CRTDBG )
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#define new DEBUG_NEW
+#endif // _DEBUG
+
+ASD::ASD()
+{
+   Mnemonic = "ASD";
+}
+
+ASD::~ASD()
+{
+   Mnemonic.clear();
+}
+
+#pragma warning( disable : 4100 )
+
+bool ASD::Parse( const SENTENCE& sentence )
+{
+   /*
+   ** ASD - Autopilot System Data
+   **
+   ** FORMAT TO BE DETERMINED
+   **
+   ** As soon as NMEA makes up their mind and publishes this we can't do anything but return TRUE
+   */
+
+   return( true );
+}
+
+void ASD::Empty(void)
+{
+}
+
+#pragma warning( default : 4100 )
+
+bool ASD::Write( SENTENCE& sentence )
+{
+   /*
+   ** Let the parent do its thing
+   */
+   
+   RESPONSE::Write( sentence );
+
+   sentence.Finish();
+
+   return( true );
+}

@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <Keyword>MFCProj</Keyword>
+    <ProjectGuid>{2CAFD3FF-B5D4-48D2-BE8E-A5945C6E70AF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_X86_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>nmea0183.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\NMEA0183.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_X86_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>nmea0183.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\NMEA0183.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>nmea0183.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\NMEA0183.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>nmea0183.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_AFXDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\NMEA0183.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AAM.CPP">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ALM.CPP" />
+    <ClCompile Include="APB.CPP" />
+    <ClCompile Include="ASD.CPP" />
+    <ClCompile Include="BEC.CPP" />
+    <ClCompile Include="BOD.CPP" />
+    <ClCompile Include="BWC.CPP" />
+    <ClCompile Include="BWR.CPP" />
+    <ClCompile Include="BWW.CPP" />
+    <ClCompile Include="DBT.CPP" />
+    <ClCompile Include="DCN.CPP" />
+    <ClCompile Include="DECCALOP.CPP" />
+    <ClCompile Include="DPT.CPP" />
+    <ClCompile Include="EXPID.CPP" />
+    <ClCompile Include="FREQMODE.CPP" />
+    <ClCompile Include="FSI.CPP" />
+    <ClCompile Include="GDA.CPP" />
+    <ClCompile Include="GDF.CPP" />
+    <ClCompile Include="GDP.CPP" />
+    <ClCompile Include="GGA.CPP" />
+    <ClCompile Include="GLA.CPP" />
+    <ClCompile Include="GLC.CPP" />
+    <ClCompile Include="GLF.CPP" />
+    <ClCompile Include="GLL.CPP" />
+    <ClCompile Include="GLP.CPP" />
+    <ClCompile Include="GOA.CPP" />
+    <ClCompile Include="GOF.CPP" />
+    <ClCompile Include="GOP.CPP" />
+    <ClCompile Include="GSA.CPP" />
+    <ClCompile Include="GSV.CPP" />
+    <ClCompile Include="GTD.CPP" />
+    <ClCompile Include="GXA.CPP" />
+    <ClCompile Include="GXF.CPP" />
+    <ClCompile Include="GXP.CPP" />
+    <ClCompile Include="HCC.CPP" />
+    <ClCompile Include="HDG.CPP" />
+    <ClCompile Include="HDM.CPP" />
+    <ClCompile Include="HDT.CPP" />
+    <ClCompile Include="HEX.CPP" />
+    <ClCompile Include="HEXVALUE.CPP" />
+    <ClCompile Include="HSC.CPP" />
+    <ClCompile Include="IMA.cpp" />
+    <ClCompile Include="LAT.CPP" />
+    <ClCompile Include="LATLONG.CPP" />
+    <ClCompile Include="LCD.CPP" />
+    <ClCompile Include="LONG.CPP" />
+    <ClCompile Include="LORANTD.CPP" />
+    <ClCompile Include="MANUFACT.CPP" />
+    <ClCompile Include="MHU.cpp" />
+    <ClCompile Include="MLIST.CPP" />
+    <ClCompile Include="MTA.CPP" />
+    <ClCompile Include="MTW.CPP" />
+    <ClCompile Include="MWV.CPP" />
+    <ClCompile Include="NMEA0183.CPP" />
+    <ClCompile Include="OLN.CPP" />
+    <ClCompile Include="OMEGAPAR.CPP" />
+    <ClCompile Include="OSD.CPP" />
+    <ClCompile Include="P.CPP" />
+    <ClCompile Include="RADARDAT.CPP" />
+    <ClCompile Include="RATIOPLS.CPP" />
+    <ClCompile Include="RESPONSE.CPP" />
+    <ClCompile Include="RMA.CPP" />
+    <ClCompile Include="RMB.CPP" />
+    <ClCompile Include="RMC.CPP" />
+    <ClCompile Include="ROT.CPP" />
+    <ClCompile Include="RPM.CPP" />
+    <ClCompile Include="RSA.CPP" />
+    <ClCompile Include="RSD.CPP" />
+    <ClCompile Include="RTE.CPP" />
+    <ClCompile Include="SATDAT.CPP" />
+    <ClCompile Include="SENTENCE.CPP" />
+    <ClCompile Include="SFI.CPP" />
+    <ClCompile Include="STN.CPP" />
+    <ClCompile Include="TALKERID.CPP" />
+    <ClCompile Include="TEP.CPP" />
+    <ClCompile Include="TRF.CPP" />
+    <ClCompile Include="TTM.CPP" />
+    <ClCompile Include="VBW.CPP" />
+    <ClCompile Include="VDR.CPP" />
+    <ClCompile Include="VHW.CPP" />
+    <ClCompile Include="VLW.CPP" />
+    <ClCompile Include="VPW.CPP" />
+    <ClCompile Include="VTG.CPP" />
+    <ClCompile Include="VWE.CPP" />
+    <ClCompile Include="WAYPTLOC.CPP" />
+    <ClCompile Include="WCV.CPP" />
+    <ClCompile Include="WDC.CPP" />
+    <ClCompile Include="WDR.CPP" />
+    <ClCompile Include="WNC.CPP" />
+    <ClCompile Include="WPL.CPP" />
+    <ClCompile Include="XDR.CPP" />
+    <ClCompile Include="XTE.CPP" />
+    <ClCompile Include="XTR.CPP" />
+    <ClCompile Include="ZDA.CPP" />
+    <ClCompile Include="ZFI.CPP" />
+    <ClCompile Include="ZFO.CPP" />
+    <ClCompile Include="ZLZ.CPP" />
+    <ClCompile Include="ZPI.CPP" />
+    <ClCompile Include="ZTA.CPP" />
+    <ClCompile Include="ZTE.CPP" />
+    <ClCompile Include="ZTG.CPP" />
+    <ClCompile Include="ZTI.CPP" />
+    <ClCompile Include="ZWP.CPP" />
+    <ClCompile Include="ZZU.CPP" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AAM.HPP" />
+    <ClInclude Include="ALM.HPP" />
+    <ClInclude Include="APB.HPP" />
+    <ClInclude Include="ASD.HPP" />
+    <ClInclude Include="BEC.HPP" />
+    <ClInclude Include="BOD.HPP" />
+    <ClInclude Include="BWC.HPP" />
+    <ClInclude Include="BWR.HPP" />
+    <ClInclude Include="BWW.HPP" />
+    <ClInclude Include="DBT.HPP" />
+    <ClInclude Include="DCN.HPP" />
+    <ClInclude Include="DECCALOP.HPP" />
+    <ClInclude Include="DPT.HPP" />
+    <ClInclude Include="FREQMODE.HPP" />
+    <ClInclude Include="FSI.HPP" />
+    <ClInclude Include="GDA.HPP" />
+    <ClInclude Include="GDF.HPP" />
+    <ClInclude Include="GDP.HPP" />
+    <ClInclude Include="GGA.HPP" />
+    <ClInclude Include="GLA.HPP" />
+    <ClInclude Include="GLC.HPP" />
+    <ClInclude Include="GLF.HPP" />
+    <ClInclude Include="GLL.HPP" />
+    <ClInclude Include="GLP.HPP" />
+    <ClInclude Include="GOA.HPP" />
+    <ClInclude Include="GOF.HPP" />
+    <ClInclude Include="GOP.HPP" />
+    <ClInclude Include="GSA.HPP" />
+    <ClInclude Include="GSV.HPP" />
+    <ClInclude Include="GTD.HPP" />
+    <ClInclude Include="GXA.HPP" />
+    <ClInclude Include="GXF.HPP" />
+    <ClInclude Include="GXP.HPP" />
+    <ClInclude Include="HCC.hpp" />
+    <ClInclude Include="HDG.HPP" />
+    <ClInclude Include="HDM.hpp" />
+    <ClInclude Include="HDT.HPP" />
+    <ClInclude Include="HSC.HPP" />
+    <ClInclude Include="IMA.hpp" />
+    <ClInclude Include="LATLONG.HPP" />
+    <ClInclude Include="LCD.HPP" />
+    <ClInclude Include="LORANTD.HPP" />
+    <ClInclude Include="MANUFACT.HPP" />
+    <ClInclude Include="MHU.hpp" />
+    <ClInclude Include="MLIST.HPP" />
+    <ClInclude Include="MTA.HPP" />
+    <ClInclude Include="MTW.HPP" />
+    <ClInclude Include="MWV.HPP" />
+    <ClInclude Include="NMEA0183.H" />
+    <ClInclude Include="NMEA0183.HPP" />
+    <ClInclude Include="OLN.HPP" />
+    <ClInclude Include="OMEGAPAR.HPP" />
+    <ClInclude Include="OSD.HPP" />
+    <ClInclude Include="P.HPP" />
+    <ClInclude Include="RADARDAT.HPP" />
+    <ClInclude Include="RATIOPLS.HPP" />
+    <ClInclude Include="RESPONSE.HPP" />
+    <ClInclude Include="RMA.HPP" />
+    <ClInclude Include="RMB.HPP" />
+    <ClInclude Include="RMC.HPP" />
+    <ClInclude Include="ROT.HPP" />
+    <ClInclude Include="RPM.HPP" />
+    <ClInclude Include="RSA.HPP" />
+    <ClInclude Include="RSD.HPP" />
+    <ClInclude Include="RTE.HPP" />
+    <ClInclude Include="SATDAT.HPP" />
+    <ClInclude Include="SENTENCE.HPP" />
+    <ClInclude Include="SFI.HPP" />
+    <ClInclude Include="STN.HPP" />
+    <ClInclude Include="TEP.HPP" />
+    <ClInclude Include="TRF.HPP" />
+    <ClInclude Include="TTM.HPP" />
+    <ClInclude Include="VBW.HPP" />
+    <ClInclude Include="VDR.HPP" />
+    <ClInclude Include="VHW.HPP" />
+    <ClInclude Include="VLW.HPP" />
+    <ClInclude Include="VPW.HPP" />
+    <ClInclude Include="VTG.HPP" />
+    <ClInclude Include="VWE.HPP" />
+    <ClInclude Include="WAYPTLOC.HPP" />
+    <ClInclude Include="WCV.HPP" />
+    <ClInclude Include="WDC.HPP" />
+    <ClInclude Include="WDR.HPP" />
+    <ClInclude Include="WNC.HPP" />
+    <ClInclude Include="WPL.HPP" />
+    <ClInclude Include="XDR.HPP" />
+    <ClInclude Include="XTE.HPP" />
+    <ClInclude Include="XTR.HPP" />
+    <ClInclude Include="ZDA.HPP" />
+    <ClInclude Include="ZFI.HPP" />
+    <ClInclude Include="ZFO.HPP" />
+    <ClInclude Include="ZLZ.HPP" />
+    <ClInclude Include="ZPI.HPP" />
+    <ClInclude Include="ZTA.HPP" />
+    <ClInclude Include="ZTE.HPP" />
+    <ClInclude Include="ZTG.HPP" />
+    <ClInclude Include="ZTI.HPP" />
+    <ClInclude Include="ZWP.HPP" />
+    <ClInclude Include="ZZU.HPP" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

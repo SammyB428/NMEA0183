@@ -1,3 +1,14 @@
+#if ! defined( ZTA_CLASS_HEADER )
+
+#define ZTA_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,43 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+** This Sentence Not Recommended For New Designs
+** ZTG is recommended.
+*/
+
+class ZTA : public RESPONSE
+{
+   public:
+
+      ZTA();
+      virtual ~ZTA();
+
+      /*
+      ** Data
+      */
+
+      std::string UTCTimeString;
+      time_t      UTCTime;
+      std::string ArrivalTimeString;
+      time_t      ArrivalTime;
+      std::string To;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void ) override;
+      virtual bool Parse( const SENTENCE& sentence ) override;
+      virtual bool Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const ZTA& operator = ( const ZTA& source );
+};
+
+#endif // ZTA_CLASS_HEADER

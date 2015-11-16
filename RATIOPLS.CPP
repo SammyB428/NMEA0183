@@ -1,3 +1,10 @@
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +26,49 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+#include "nmea0183.h"
+#pragma hdrstop
+
+#if defined( _DEBUG ) && defined( _INC_CRTDBG )
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#define new DEBUG_NEW
+#endif // _DEBUG
+
+RATIO_AND_PULSE::RATIO_AND_PULSE()
+{
+   Empty();
+}
+
+RATIO_AND_PULSE::~RATIO_AND_PULSE()
+{
+   Empty();
+}
+
+void RATIO_AND_PULSE::Empty( void )
+{
+   SignalToNoiseRatio = 0;
+   PulseShapeECD      = 0;
+}
+
+void RATIO_AND_PULSE::Parse( int first_field_number, const SENTENCE& sentence )
+{
+   SignalToNoiseRatio = sentence.Integer( first_field_number );
+   PulseShapeECD      = sentence.Integer( first_field_number + 1 );
+}
+
+void RATIO_AND_PULSE::Write( SENTENCE& sentence )
+{
+   sentence += SignalToNoiseRatio;
+   sentence += PulseShapeECD;
+}
+
+const RATIO_AND_PULSE& RATIO_AND_PULSE::operator = ( const RATIO_AND_PULSE& source )
+{
+   SignalToNoiseRatio = source.SignalToNoiseRatio;
+   PulseShapeECD      = source.PulseShapeECD;
+
+   return( *this );
+}

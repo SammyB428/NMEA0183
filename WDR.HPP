@@ -1,3 +1,14 @@
+#if ! defined( WDR_CLASS_HEADER )
+
+#define WDR_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,41 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+** This Sentence Not Recommended For New Designs
+** WDR is recommended (yes, WDR is another sentence not recommended for
+** new designs but that's what the spec says).
+*/
+
+class WDR : public RESPONSE
+{
+   public:
+
+      WDR();
+      virtual ~WDR();
+
+      /*
+      ** Data
+      */
+
+      double      NauticalMiles;
+      std::string To;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void ) override;
+      virtual bool Parse( const SENTENCE& sentence ) override;
+      virtual bool Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const WDR& operator = ( const WDR& source );
+};
+
+#endif // WDR_CLASS_HEADER

@@ -1,3 +1,14 @@
+#if ! defined( RADAR_DATA_CLASS_HEADER )
+
+#define RADAR_DATA_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,37 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class RADAR_DATA
+{
+   public:
+
+      RADAR_DATA();
+      virtual ~RADAR_DATA();
+
+      /*
+      ** Data
+      */
+
+      double OriginRangeFromOwnShip;
+      double OriginBearingDegreesFromZero;
+      double VariableRangeMarkerRange;
+      double BearingLineDegreesFromZero;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void );
+      virtual void Parse( int field_number, const SENTENCE& sentence );
+      virtual void Write( SENTENCE& sentence );
+
+      /*
+      ** Operators
+      */
+
+      virtual const RADAR_DATA& operator = ( const RADAR_DATA& source );
+};
+
+#endif // RADAR_DATA_CLASS_HEADER

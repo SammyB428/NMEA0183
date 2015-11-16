@@ -1,3 +1,14 @@
+#if ! defined( RSD_CLASS_HEADER )
+
+#define RSD_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,49 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+typedef enum
+{
+   RotationUnknown = 0,
+   CourseUpRotation,
+   HeadUpRotation,
+   NorthUpRotation
+}
+ROTATION;
+
+class RSD : public RESPONSE
+{
+   public:
+
+      RSD();
+      virtual ~RSD();
+
+      /*
+      ** Data
+      */
+
+      RADAR_DATA  Data1;
+      RADAR_DATA  Data2;
+      double      CursorRangeFromOwnShip;
+      double      CursorBearingDegreesClockwiseFromZero;
+      double      RangeScale;
+      std::string RangeUnits;
+      ROTATION    DisplayRotation;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void ) override;
+      virtual bool Parse( const SENTENCE& sentence ) override;
+      virtual bool Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const RSD& operator = ( const RSD& source );
+};
+
+#endif // RSD_CLASS_HEADER

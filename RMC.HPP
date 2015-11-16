@@ -1,3 +1,14 @@
+#if ! defined( RMC_CLASS_HEADER )
+
+#define RMC_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,43 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class RMC : public RESPONSE
+{
+   public:
+
+      RMC();
+      virtual ~RMC();
+
+      /*
+      ** Data
+      */
+
+      std::string      UTCTime;
+      time_t           Time;
+      NMEA0183_BOOLEAN IsDataValid;
+      LATLONG          Position;
+      double           SpeedOverGroundKnots;
+      double           TrackMadeGoodDegreesTrue;
+      std::string      Date;
+      double           MagneticVariation;
+      EASTWEST         MagneticVariationDirection;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void ) override;
+      virtual bool Parse( const SENTENCE& sentence ) override;
+      virtual std::string PlainEnglish( void ) const override;
+      virtual bool Write( SENTENCE& sentence ) override;
+
+      /*
+      ** Operators
+      */
+
+      virtual const RMC& operator = ( const RMC& source );
+};
+
+#endif // RMC_CLASS_HEADER

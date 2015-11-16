@@ -1,3 +1,14 @@
+#if ! defined( MANUFACTURER_LIST_CLASS_HEADER )
+
+#define MANUFACTURER_LIST_CLASS_HEADER
+
+/*
+Author: Samuel R. Blackburn
+Internet: wfc@pobox.com
+
+"You can get credit for something or get it done, but not both."
+Dr. Richard Garwin
+
 The MIT License (MIT)
 
 Copyright (c) 1996-2015 Sam Blackburn
@@ -19,4 +30,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+class MANUFACTURER_LIST
+{
+   public:
+
+      MANUFACTURER_LIST();
+      virtual ~MANUFACTURER_LIST();
+
+      /*
+      ** Data
+      */
+
+      std::vector<MANUFACTURER> ManufacturerTable;
+
+      /*
+      ** Methods
+      */
+
+      virtual void Empty( void );
+      virtual void Fill( void );
+      virtual const std::string& Find( const std::string& mnemonic );
+
+      /*
+      ** Operators
+      */
+
+      virtual const std::string& operator [] ( const char *mnemonic );
+};
+
+#endif // MANUFACTURER_LIST_CLASS_HEADER    
