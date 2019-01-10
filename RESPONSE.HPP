@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ class RESPONSE
 {
    private:
 
-      NMEA0183 *container_p;
+       NMEA0183 * container_p{ nullptr };
 
    public:
 
@@ -58,12 +58,12 @@ class RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) = 0;
-      virtual bool Parse( const SENTENCE& sentence ) = 0;
-      virtual std::string PlainEnglish( void ) const;
-      virtual void SetErrorMessage( const std::string& message );
-      virtual void SetContainer( NMEA0183 *container );
-      virtual bool Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept = 0;
+      virtual bool Parse( SENTENCE const& sentence ) noexcept = 0;
+      virtual std::string PlainEnglish( void ) const noexcept;
+      virtual void SetErrorMessage( std::string const& message ) noexcept;
+      virtual void SetContainer( NMEA0183 * container ) noexcept;
+      virtual bool Write( SENTENCE& sentence ) const noexcept;
 };
  
 #endif // RESPONSE_CLASS_HEADER

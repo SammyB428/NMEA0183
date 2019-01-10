@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,24 +44,24 @@ class GXA : public RESPONSE
       */
 
       std::string UTCTime;
-      time_t      Time;
+      time_t      Time{ 0 };
       LATLONG     Position;
       std::string WaypointID;
-      uint16_t    SatelliteNumber;
+      uint16_t    SatelliteNumber{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const GXA& operator = ( const GXA& source );
+      virtual GXA const& operator = ( GXA const& source ) noexcept;
 };
 
 #endif // GXA_CLASS_HEADER

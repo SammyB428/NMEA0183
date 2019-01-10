@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,24 +43,24 @@ class VTG : public RESPONSE
       ** Data
       */
 
-      double TrackDegreesTrue;
-      double TrackDegreesMagnetic;
-	  double SpeedKnots;
-	  double SpeedKilometersPerHour;
+      double TrackDegreesTrue{ 0.0 };
+      double TrackDegreesMagnetic{ 0.0 };
+      double SpeedKnots{ 0.0 };
+      double SpeedKilometersPerHour{ 0.0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const VTG& operator = ( const VTG& source );
+      virtual VTG const& operator = ( VTG const& source ) noexcept;
 };
 
 #endif // VTG_CLASS_HEADER

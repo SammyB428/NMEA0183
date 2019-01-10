@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-typedef enum
+enum class ROTATION
 {
    RotationUnknown = 0,
    CourseUpRotation,
    HeadUpRotation,
    NorthUpRotation
-}
-ROTATION;
+};
 
 class RSD : public RESPONSE
 {
@@ -54,25 +53,25 @@ class RSD : public RESPONSE
 
       RADAR_DATA  Data1;
       RADAR_DATA  Data2;
-      double      CursorRangeFromOwnShip;
-      double      CursorBearingDegreesClockwiseFromZero;
-      double      RangeScale;
+      double      CursorRangeFromOwnShip{ 0.0 };
+      double      CursorBearingDegreesClockwiseFromZero{ 0.0 };
+      double      RangeScale{ 0.0 };
       std::string RangeUnits;
-      ROTATION    DisplayRotation;
+      ROTATION    DisplayRotation{ ROTATION::RotationUnknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const RSD& operator = ( const RSD& source );
+      virtual RSD const& operator = ( RSD const& source ) noexcept;
 };
 
 #endif // RSD_CLASS_HEADER

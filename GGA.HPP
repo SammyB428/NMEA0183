@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,30 +44,30 @@ class GGA : public RESPONSE
       */
 
       std::string UTCTime;
-      time_t      Time;
+      time_t      Time{ 0 };
       LATLONG     Position;
-      int         GPSQuality;
-      int         NumberOfSatellitesInUse;
-      double      HorizontalDilutionOfPrecision;
-      double      AntennaAltitudeMeters;
-      double      GeoidalSeparationMeters;
-      double      AgeOfDifferentialGPSDataSeconds;
-      int         DifferentialReferenceStationID;
+      int         GPSQuality{ 0 };
+      int         NumberOfSatellitesInUse{ 0 };
+      double      HorizontalDilutionOfPrecision{ 0.0 };
+      double      AntennaAltitudeMeters{ 0.0 };
+      double      GeoidalSeparationMeters{ 0.0 };
+      double      AgeOfDifferentialGPSDataSeconds{ 0.0 };
+      int         DifferentialReferenceStationID{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual std::string PlainEnglish( void ) const override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      std::string PlainEnglish( void ) const noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const GGA& GGA::operator = ( const GGA& source );
+      virtual GGA const& operator = ( GGA const& source ) noexcept;
 };
 
 #endif // GGA_CLASS_HEADER

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,9 +49,10 @@ TRF::~TRF()
    Empty();
 }
 
-void TRF::Empty( void )
+void TRF::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time                        = 0;
    Date.clear();
    Position.Empty();
    ElevationAngle              = 0.0;
@@ -59,10 +60,10 @@ void TRF::Empty( void )
    NumberOfDopplerIntervals    = 0.0;
    UpdateDistanceNauticalMiles = 0.0;
    SatelliteID                 = 0;
-   IsDataValid                 = NMEA_Unknown;
+   IsDataValid                 = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool TRF::Parse( const SENTENCE& sentence )
+bool TRF::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** TRF - TRANSIT Fix Data
@@ -91,7 +92,7 @@ bool TRF::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 13 ) == True )
+   if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -111,7 +112,7 @@ bool TRF::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool TRF::Write( SENTENCE& sentence )
+bool TRF::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -134,7 +135,7 @@ bool TRF::Write( SENTENCE& sentence )
    return( true );
 }
 
-const TRF& TRF::operator = ( const TRF& source )
+TRF const& TRF::operator = ( TRF const& source ) noexcept
 {
    UTCTime                     = source.UTCTime;
    Time                        = source.Time;

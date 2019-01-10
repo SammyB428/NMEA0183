@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,26 +44,26 @@ class BEC : public RESPONSE
       */
 
       std::string UTCTime;
-      time_t      Time;
+      time_t      Time{ 0 };
       LATLONG     Position;
-      double      BearingTrue;
-      double      BearingMagnetic;
-      double      DistanceNauticalMiles;
+      double      BearingTrue{ 0.0 };
+      double      BearingMagnetic{ 0.0 };
+      double      DistanceNauticalMiles{ 0.0 };
       std::string To;
 
       /*
       ** Methods
       */
-       
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+
+      virtual void Empty( void ) noexcept override;
+      virtual bool Parse( SENTENCE const& sentence ) noexcept override;
+      virtual bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      const BEC& operator = ( const BEC& source );
+      BEC const& operator = ( BEC const& source ) noexcept;
 };
 
 #endif // BEC_CLASS_HEADER

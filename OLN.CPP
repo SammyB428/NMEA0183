@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,14 @@ OLN::~OLN()
    Empty();
 }
 
-void OLN::Empty( void )
+void OLN::Empty( void ) noexcept
 {
    Pair1.Empty();
    Pair2.Empty();
    Pair3.Empty();
 }
 
-bool OLN::Parse( const SENTENCE& sentence )
+bool OLN::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** OLN - Omega Lane Numbers
@@ -75,7 +75,7 @@ bool OLN::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 10 ) == True )
+   if ( sentence.IsChecksumBad( 10 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +88,7 @@ bool OLN::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool OLN::Write( SENTENCE& sentence )
+bool OLN::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -105,7 +105,7 @@ bool OLN::Write( SENTENCE& sentence )
    return( true );
 }
 
-const OLN& OLN::operator = ( const OLN& source )
+OLN const& OLN::operator = ( OLN const& source ) noexcept
 {
    Pair1 = source.Pair1;
    Pair2 = source.Pair2;

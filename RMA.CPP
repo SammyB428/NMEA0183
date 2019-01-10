@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,18 +49,18 @@ RMA::~RMA()
    Empty();
 }
 
-void RMA::Empty( void )
+void RMA::Empty( void ) noexcept
 {
-   IsDataValid                = NMEA_Unknown;
+   IsDataValid                = NMEA0183_BOOLEAN::NMEA_Unknown;
    TimeDifferenceA            = 0.0;
    TimeDifferenceB            = 0.0;
    SpeedOverGroundKnots       = 0.0;
    TrackMadeGoodDegreesTrue   = 0.0;
    MagneticVariation          = 0.0;
-   MagneticVariationDirection = EW_Unknown;
+   MagneticVariationDirection = EASTWEST::EW_Unknown;
 }
 
-bool RMA::Parse( const SENTENCE& sentence )
+bool RMA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RMA - Recommended Minimum Navigation Information
@@ -88,15 +88,15 @@ bool RMA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   NMEA0183_BOOLEAN check = sentence.IsChecksumBad( 12 );
+   NMEA0183_BOOLEAN const check = sentence.IsChecksumBad( 12 );
 
-   if ( check == True )
+   if ( check == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
    }
    
-   if ( check == NMEA_Unknown )
+   if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
    {
       SetErrorMessage( "Missing Checksum" );
       return( false );
@@ -114,7 +114,7 @@ bool RMA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool RMA::Write( SENTENCE& sentence )
+bool RMA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -136,7 +136,7 @@ bool RMA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const RMA& RMA::operator = ( const RMA& source )
+RMA const& RMA::operator = ( RMA const& source ) noexcept
 {
    IsDataValid                = source.IsDataValid;
    Position                   = source.Position;

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,35 +43,35 @@ class ALM : public RESPONSE
       ** Data
       */
 
-      uint16_t NumberOfMessages;
-      uint16_t MessageNumber;
-      uint16_t PRNNumber;
-      uint16_t WeekNumber;
-      uint16_t SVHealth;
-      uint16_t Eccentricity;
-      uint16_t AlmanacReferenceTime;
-      uint16_t InclinationAngle;
-      uint16_t RateOfRightAscension;
-      uint32_t RootOfSemiMajorAxis;
-      uint32_t ArgumentOfPerigee;
-      uint32_t LongitudeOfAscensionNode;
-      uint32_t MeanAnomaly;
-      uint16_t F0ClockParameter;
-      uint16_t F1ClockParameter;
+      uint16_t NumberOfMessages{ 0 };
+      uint16_t MessageNumber{ 0 };
+      uint16_t PRNNumber{ 0 };
+      uint16_t WeekNumber{ 0 };
+      uint16_t SVHealth{ 0 };
+      uint16_t Eccentricity{ 0 };
+      uint16_t AlmanacReferenceTime{ 0 };
+      uint16_t InclinationAngle{ 0 };
+      uint16_t RateOfRightAscension{ 0 };
+      uint32_t RootOfSemiMajorAxis{ 0 };
+      uint32_t ArgumentOfPerigee{ 0 };
+      uint32_t LongitudeOfAscensionNode{ 0 };
+      uint32_t MeanAnomaly{ 0 };
+      uint16_t F0ClockParameter{ 0 };
+      uint16_t F1ClockParameter{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      const ALM& operator = ( const ALM& source );
+      ALM const& operator = ( ALM const& source ) noexcept;
 };
 
 #endif // ALM_CLASS_HEADER

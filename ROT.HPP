@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,23 +43,23 @@ class ROT : public RESPONSE
       ** Data
       */
 
-      double           RateOfTurn;
-      NMEA0183_BOOLEAN IsDataValid;
+      double           RateOfTurn{ 0.0 };
+      NMEA0183_BOOLEAN IsDataValid{ NMEA0183_BOOLEAN::NMEA_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual std::string PlainEnglish( void ) const override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      std::string PlainEnglish( void ) const noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const ROT& operator = ( const ROT& source );
+      virtual ROT const& operator = ( ROT const& source ) noexcept;
 };
 
 #endif // ROT_CLASS_HEADER

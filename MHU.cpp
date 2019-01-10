@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,14 +54,14 @@ MHU::~MHU()
    Empty();
 }
 
-void MHU::Empty( void )
+void MHU::Empty( void ) noexcept
 {
    RelativeHumidityPercent = 0.0;
    AbsoluteHumidityPercent = 0.0;
    DewPointDegreesCelcius  = 0.0;
 }
 
-bool MHU::Parse( const SENTENCE& sentence )
+bool MHU::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** MHU - Humidity
@@ -82,7 +82,7 @@ bool MHU::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -95,7 +95,7 @@ bool MHU::Parse( const SENTENCE& sentence )
    return( false );
 }
 
-bool MHU::Write( SENTENCE& sentence )
+bool MHU::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -113,7 +113,7 @@ bool MHU::Write( SENTENCE& sentence )
    return( true );
 }
 
-const MHU& MHU::operator = ( const MHU& source )
+MHU const& MHU::operator = ( MHU const& source ) noexcept
 {
    RelativeHumidityPercent  = source.RelativeHumidityPercent;
    AbsoluteHumidityPercent  = source.AbsoluteHumidityPercent;

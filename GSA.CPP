@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,10 +49,10 @@ GSA::~GSA()
    Empty();
 }
 
-void GSA::Empty( void )
+void GSA::Empty( void ) noexcept
 {
-   OperatingMode = UnknownOperatingMode;
-   FixMode       = FixUnknown;
+   OperatingMode = OPERATING_MODE::UnknownOperatingMode;
+   FixMode       = FIX_MODE::FixUnknown;
 
    int index = 0;
 
@@ -67,7 +67,7 @@ void GSA::Empty( void )
    VDOP = 0.0;
 }
 
-bool GSA::Parse( const SENTENCE& sentence )
+bool GSA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** GSA - GPS DOP and Active Satellites
@@ -101,25 +101,25 @@ bool GSA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 18 ) == True )
+   if ( sentence.IsChecksumBad( 18 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
    } 
 
-   std::string field_data = sentence.Field( 1 );
+   std::string const field_data = sentence.Field( 1 );
 
    if ( field_data == "A" )
    {
-      OperatingMode = Automatic;
+      OperatingMode = GSA::OPERATING_MODE::Automatic;
    }
    else if ( field_data == "M" )
    {
-      OperatingMode = Manual;
+      OperatingMode = GSA::OPERATING_MODE::Manual;
    }
    else
    {
-      OperatingMode = UnknownOperatingMode;
+      OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
    }
 
    int index = sentence.Integer( 2 );
@@ -128,22 +128,22 @@ bool GSA::Parse( const SENTENCE& sentence )
    {
       case 1:
 
-         FixMode = FixUnavailable;
+         FixMode = GSA::FIX_MODE::FixUnavailable;
          break;
 
       case 2:
 
-         FixMode = TwoDimensional;
+         FixMode = GSA::FIX_MODE::TwoDimensional;
          break;
 
       case 3:
 
-         FixMode = ThreeDimensional;
+         FixMode = GSA::FIX_MODE::ThreeDimensional;
          break;
 
       default:
 
-         FixMode = FixUnknown;
+         FixMode = GSA::FIX_MODE::FixUnknown;
          break;
    }
 
@@ -162,7 +162,7 @@ bool GSA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool GSA::Write( SENTENCE& sentence )
+bool GSA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -172,12 +172,12 @@ bool GSA::Write( SENTENCE& sentence )
 
    switch( OperatingMode )
    {
-      case Manual:
+      case GSA::OPERATING_MODE::Manual:
 
          sentence += "M";
          break;
 
-      case Automatic:
+      case GSA::OPERATING_MODE::Automatic:
 
          sentence += "A";
          break;
@@ -190,17 +190,17 @@ bool GSA::Write( SENTENCE& sentence )
 
    switch( FixMode )
    {
-      case FixUnavailable:
+      case GSA::FIX_MODE::FixUnavailable:
 
          sentence += "1";
          break;
 
-      case TwoDimensional:
+      case GSA::FIX_MODE::TwoDimensional:
 
          sentence += "2";
          break;
 
-      case ThreeDimensional:
+      case GSA::FIX_MODE::ThreeDimensional:
 
          sentence += "3";
          break;
@@ -236,7 +236,7 @@ bool GSA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const GSA& GSA::operator = ( const GSA& source )
+GSA const& GSA::operator = ( GSA const& source ) noexcept
 {
    OperatingMode = source.OperatingMode;
    FixMode       = source.FixMode;

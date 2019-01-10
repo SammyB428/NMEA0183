@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ class LCD : public RESPONSE
       ** Data
       */
 
-      int             GroupRepetitionInterval;
+      int             GroupRepetitionInterval{ 0 };
       RATIO_AND_PULSE Master;
       RATIO_AND_PULSE Secondary1;
       RATIO_AND_PULSE Secondary2;
@@ -55,15 +55,15 @@ class LCD : public RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      virtual void Empty( void ) noexcept override;
+      virtual bool Parse( SENTENCE const& sentence ) noexcept override;
+      virtual bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const LCD& operator = ( const LCD& source );
+      virtual LCD const& operator = ( LCD const& source ) noexcept;
 };
 
 #endif // LCD_CLASS_HEADER

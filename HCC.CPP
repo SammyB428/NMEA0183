@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,12 +54,12 @@ HCC::~HCC()
    Empty();
 }
 
-void HCC::Empty( void )
+void HCC::Empty( void ) noexcept
 {
    HeadingDegrees = 0.0;
 }
 
-bool HCC::Parse( const SENTENCE& sentence )
+bool HCC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** HCC - Compass Heading
@@ -79,7 +79,7 @@ bool HCC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 2 ) == True )
+   if ( sentence.IsChecksumBad( 2 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -90,7 +90,7 @@ bool HCC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string HCC::PlainEnglish( void ) const
+std::string HCC::PlainEnglish( void ) const noexcept
 {
    std::string return_string("The compass heading is ");
 
@@ -103,7 +103,7 @@ std::string HCC::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool HCC::Write( SENTENCE& sentence )
+bool HCC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -118,7 +118,7 @@ bool HCC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const HCC& HCC::operator = ( const HCC& source )
+HCC const& HCC::operator = ( HCC const& source ) noexcept
 {
    HeadingDegrees = source.HeadingDegrees;
 

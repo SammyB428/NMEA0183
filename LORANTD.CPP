@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,62 +47,62 @@ LORAN_TIME_DIFFERENCE::~LORAN_TIME_DIFFERENCE()
    Empty();
 }
 
-void LORAN_TIME_DIFFERENCE::Empty( void )
+void LORAN_TIME_DIFFERENCE::Empty( void ) noexcept
 {
    Microseconds = 0.0;
-   SignalStatus = LoranUnknown;
+   SignalStatus = LORAN_SIGNAL_STATUS::LoranUnknown;
 }
 
-void LORAN_TIME_DIFFERENCE::Parse( int first_field_number, const SENTENCE& sentence )
+void LORAN_TIME_DIFFERENCE::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    Microseconds = sentence.Double( first_field_number );
 
-   std::string field_data = sentence.Field( first_field_number + 1 );
+   std::string const field_data = sentence.Field( first_field_number + 1 );
 
    if ( field_data == "B" )
    {
-      SignalStatus = LoranBlinkWarning;   
+      SignalStatus = LORAN_SIGNAL_STATUS::LoranBlinkWarning;
    }
    else if ( field_data == "C" )
    {
-      SignalStatus = LoranCycleWarning;
+      SignalStatus = LORAN_SIGNAL_STATUS::LoranCycleWarning;
    }
    else if ( field_data == "S" )
    {
-      SignalStatus = LoranSignalToNoiseRatioWarning;
+      SignalStatus = LORAN_SIGNAL_STATUS::LoranSignalToNoiseRatioWarning;
    }
    else if ( field_data == "A" )
    {
-      SignalStatus = LoranValid;
+      SignalStatus = LORAN_SIGNAL_STATUS::LoranValid;
    }
    else
    {
-      SignalStatus = LoranUnknown;
+      SignalStatus = LORAN_SIGNAL_STATUS::LoranUnknown;
    }
 }
 
-void LORAN_TIME_DIFFERENCE::Write( SENTENCE& sentence )
+void LORAN_TIME_DIFFERENCE::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += Microseconds;
 
    switch( SignalStatus )
    {
-      case LoranValid:
+   case LORAN_SIGNAL_STATUS::LoranValid:
       
          sentence += "A";
          break; 
 
-      case LoranBlinkWarning:
+   case LORAN_SIGNAL_STATUS::LoranBlinkWarning:
       
          sentence += "B";
          break; 
 
-      case LoranCycleWarning:
+   case LORAN_SIGNAL_STATUS::LoranCycleWarning:
       
          sentence += "C";
          break; 
 
-      case LoranSignalToNoiseRatioWarning:
+   case LORAN_SIGNAL_STATUS::LoranSignalToNoiseRatioWarning:
       
          sentence += "S";
          break; 
@@ -113,7 +113,7 @@ void LORAN_TIME_DIFFERENCE::Write( SENTENCE& sentence )
    }
 }
 
-const LORAN_TIME_DIFFERENCE& LORAN_TIME_DIFFERENCE::operator = ( const LORAN_TIME_DIFFERENCE& source )
+LORAN_TIME_DIFFERENCE const& LORAN_TIME_DIFFERENCE::operator = ( LORAN_TIME_DIFFERENCE const& source ) noexcept
 {
    Microseconds = source.Microseconds;
    SignalStatus = source.SignalStatus;

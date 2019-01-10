@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,16 +49,18 @@ BWC::~BWC()
    Empty();
 }
 
-void BWC::Empty( void )
+void BWC::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time            = 0;
    BearingTrue     = 0.0;
    BearingMagnetic = 0.0;
    NauticalMiles   = 0.0;
    To.clear();
+   Position.Empty();
 }
 
-bool BWC::Parse( const SENTENCE& sentence )
+bool BWC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** BWC - Bearing and Distance to Waypoint
@@ -87,7 +89,7 @@ bool BWC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 13 ) == True )
+   if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -104,7 +106,7 @@ bool BWC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool BWC::Write( SENTENCE& sentence )
+bool BWC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -127,7 +129,7 @@ bool BWC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const BWC& BWC::operator = ( const BWC& source )
+BWC const& BWC::operator = ( BWC const& source ) noexcept
 {
    UTCTime         = source.UTCTime;
    Time            = source.Time;

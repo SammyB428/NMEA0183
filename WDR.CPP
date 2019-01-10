@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,13 +54,13 @@ WDR::~WDR()
    Empty();
 }
 
-void WDR::Empty( void )
+void WDR::Empty( void ) noexcept
 {
-   NauticalMiles = 0;
+   NauticalMiles = 0.0;
    To.clear();
 }
 
-bool WDR::Parse( const SENTENCE& sentence )
+bool WDR::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** WDR - Distance to Waypoint, Rhumb Line
@@ -79,7 +79,7 @@ bool WDR::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -91,7 +91,7 @@ bool WDR::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool WDR::Write( SENTENCE& sentence )
+bool WDR::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -108,7 +108,7 @@ bool WDR::Write( SENTENCE& sentence )
    return( true );
 }
 
-const WDR& WDR::operator = ( const WDR& source )
+WDR const& WDR::operator = ( WDR const& source ) noexcept
 {
    NauticalMiles = source.NauticalMiles;
    To            = source.To;

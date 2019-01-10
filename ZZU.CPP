@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,12 +54,13 @@ ZZU::~ZZU()
    Empty();
 }
 
-void ZZU::Empty( void )
+void ZZU::Empty( void ) noexcept
 {
    UTCTimeString.clear();
+   UTCTime = 0;
 }
 
-bool ZZU::Parse( const SENTENCE& sentence )
+bool ZZU::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ZZU - Time UTC
@@ -76,7 +77,7 @@ bool ZZU::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 2 ) == True )
+   if ( sentence.IsChecksumBad( 2 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -84,7 +85,7 @@ bool ZZU::Parse( const SENTENCE& sentence )
 
    time_t temp_time = time(nullptr);
 
-   struct tm * tm_p = gmtime(&temp_time);
+   auto tm_p = gmtime(&temp_time);
 
    int year = tm_p->tm_year + 1900;
    int month = tm_p->tm_mon;
@@ -116,7 +117,7 @@ bool ZZU::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool ZZU::Write( SENTENCE& sentence )
+bool ZZU::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -131,7 +132,7 @@ bool ZZU::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ZZU& ZZU::operator = ( const ZZU& source )
+ZZU const& ZZU::operator = ( ZZU const& source ) noexcept
 {
    UTCTimeString = source.UTCTimeString;
    UTCTime = source.UTCTime;

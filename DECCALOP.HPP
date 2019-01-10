@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,22 +44,22 @@ class LINE_OF_POSITION
       */
 
       std::string      ZoneID;
-      double           LineOfPosition;
-      NMEA0183_BOOLEAN MasterLine;
+      double           LineOfPosition{ 0.0 };
+      NMEA0183_BOOLEAN MasterLine{ NMEA0183_BOOLEAN::NMEA_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const LINE_OF_POSITION& operator = ( const LINE_OF_POSITION& source );
+      virtual LINE_OF_POSITION const& operator = ( LINE_OF_POSITION const& source ) noexcept;
 };
 
 #endif // LINE_OF_POSITION_CLASS_HEADER

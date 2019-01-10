@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ P::~P()
    Empty();
 }
 
-void P::Empty( void )
+void P::Empty( void ) noexcept
 {
    Sentence.clear();
    Source.clear();
 }
 
-bool P::Parse( const SENTENCE& sentence )
+bool P::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** This is where parsing of proprietary sentences will go...
@@ -63,7 +63,7 @@ bool P::Parse( const SENTENCE& sentence )
 
    Sentence = sentence;
 
-   std::string temp_string = sentence.Field( 0 );
+   std::string const temp_string = sentence.Field( 0 );
 
    Source      = temp_string.substr( 1, 3 );
    CompanyName = Manufacturers.Find( Source );
@@ -71,7 +71,7 @@ bool P::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool P::Write( SENTENCE& sentence )
+bool P::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -86,7 +86,7 @@ bool P::Write( SENTENCE& sentence )
    return( true );
 }
 
-const P& P::operator = ( const P& source )
+P const& P::operator = ( P const& source ) noexcept
 {
    Sentence = source.Sentence;
 

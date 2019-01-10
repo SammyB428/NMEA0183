@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,25 +43,25 @@ class HDG : public RESPONSE
       ** Data
       */
 
-      double   MagneticSensorHeadingDegrees;
-      double   MagneticDeviationDegrees;
-      EASTWEST MagneticDeviationDirection;
-      double   MagneticVariationDegrees;
-      EASTWEST MagneticVariationDirection;
+      double   MagneticSensorHeadingDegrees{ 0.0 };
+      double   MagneticDeviationDegrees{ 0.0 };
+      EASTWEST MagneticDeviationDirection{ EASTWEST::EW_Unknown };
+      double   MagneticVariationDegrees{ 0.0 };
+      EASTWEST MagneticVariationDirection{ EASTWEST::EW_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const HDG& operator = ( const HDG& source );
+      virtual HDG const& operator = ( HDG const& source ) noexcept;
 };
 
 #endif // HDG_CLASS_HEADER

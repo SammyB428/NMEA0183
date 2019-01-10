@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,25 +47,25 @@ FREQUENCY_AND_MODE::~FREQUENCY_AND_MODE()
    Empty();
 }
 
-void FREQUENCY_AND_MODE::Empty( void )
+void FREQUENCY_AND_MODE::Empty( void ) noexcept
 {
    Frequency = 0.0;
-   Mode      = CommunicationsModeUnknown;
+   Mode      = COMMUNICATIONS_MODE::CommunicationsModeUnknown;
 }
 
-void FREQUENCY_AND_MODE::Parse( int first_field_number, const SENTENCE& sentence )
+void FREQUENCY_AND_MODE::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    Frequency = sentence.Double( first_field_number );
    Mode      = sentence.CommunicationsMode( first_field_number + 1 );
 }
 
-void FREQUENCY_AND_MODE::Write( SENTENCE& sentence )
+void FREQUENCY_AND_MODE::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += Frequency;
    sentence += Mode;
 }
 
-const FREQUENCY_AND_MODE& FREQUENCY_AND_MODE::operator = ( const FREQUENCY_AND_MODE& source )
+FREQUENCY_AND_MODE const& FREQUENCY_AND_MODE::operator = ( FREQUENCY_AND_MODE const& source ) noexcept
 {
    Frequency = source.Frequency;
    Mode      = source.Mode;

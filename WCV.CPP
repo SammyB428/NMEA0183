@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ WCV::~WCV()
    Empty();
 }
 
-void WCV::Empty( void )
+void WCV::Empty( void ) noexcept
 {
    Velocity = 0.0;
    To.clear();
 }
 
-bool WCV::Parse( const SENTENCE& sentence )
+bool WCV::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** WCV - Waypoint Closure Velocity
@@ -75,7 +75,7 @@ bool WCV::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -87,7 +87,7 @@ bool WCV::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool WCV::Write( SENTENCE& sentence )
+bool WCV::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -103,7 +103,7 @@ bool WCV::Write( SENTENCE& sentence )
    return( true );
 }
 
-const WCV& WCV::operator = ( const WCV& source )
+WCV const& WCV::operator = ( WCV const& source ) noexcept
 {
    Velocity = source.Velocity;
    To       = source.To;

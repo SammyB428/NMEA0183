@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ MTW::~MTW()
    Empty();
 }
 
-void MTW::Empty( void )
+void MTW::Empty( void ) noexcept
 {
    Temperature = 0.0;
    UnitOfMeasurement.clear();
 }
 
-bool MTW::Parse( const SENTENCE& sentence )
+bool MTW::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** MTW - Water Temperature
@@ -74,7 +74,7 @@ bool MTW::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 3 ) == True )
+   if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -86,7 +86,7 @@ bool MTW::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string MTW::PlainEnglish( void ) const
+std::string MTW::PlainEnglish( void ) const noexcept
 {
    std::string return_string("The water temperature is ");
     
@@ -101,7 +101,7 @@ std::string MTW::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool MTW::Write( SENTENCE& sentence )
+bool MTW::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -117,7 +117,7 @@ bool MTW::Write( SENTENCE& sentence )
    return( true );
 }
 
-const MTW& MTW::operator = ( const MTW& source )
+MTW const& MTW::operator = ( MTW const& source ) noexcept
 {
    Temperature       = source.Temperature;
    UnitOfMeasurement = source.UnitOfMeasurement;

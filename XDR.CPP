@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,12 +49,12 @@ XDR::~XDR()
    Empty();
 }
 
-void XDR::Empty( void )
+void XDR::Empty( void ) noexcept
 {
     Transducers.clear();
 }
 
-bool XDR::Parse( const SENTENCE& sentence )
+bool XDR::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** XDR - Transducer Reading
@@ -91,7 +91,7 @@ bool XDR::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool XDR::Write( SENTENCE& sentence )
+bool XDR::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -99,13 +99,9 @@ bool XDR::Write( SENTENCE& sentence )
    
    RESPONSE::Write( sentence );
 
-   size_t index = 0;
-   size_t number_of_entries = Transducers.size();
-
-   while( index < number_of_entries )
+   for (auto const& entry : Transducers)
    {
-      Transducers[ index ].Write( sentence );
-      index++;
+       entry.Write(sentence);
    }
 
    sentence.Finish();
@@ -123,15 +119,15 @@ TRANSDUCER_DATA::~TRANSDUCER_DATA()
    Empty();
 }
 
-void TRANSDUCER_DATA::Empty( void )
+void TRANSDUCER_DATA::Empty( void ) noexcept
 {
-   TransducerType  = TransducerUnknown;
+   TransducerType  = TRANSDUCER_TYPE::TransducerUnknown;
    MeasurementData = 0.0;
    MeasurementUnits.clear();
    TransducerName.clear();
 }
 
-void TRANSDUCER_DATA::Parse( int first_field_number, const SENTENCE& sentence )
+void TRANSDUCER_DATA::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    TransducerType   = sentence.TransducerType( first_field_number );
    MeasurementData  = sentence.Double( first_field_number + 1 );
@@ -139,7 +135,7 @@ void TRANSDUCER_DATA::Parse( int first_field_number, const SENTENCE& sentence )
    TransducerName   = sentence.Field(  first_field_number + 3 );
 }
 
-void TRANSDUCER_DATA::Write( SENTENCE& sentence )
+void TRANSDUCER_DATA::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += TransducerType;
    sentence += MeasurementData;
@@ -147,7 +143,7 @@ void TRANSDUCER_DATA::Write( SENTENCE& sentence )
    sentence += TransducerName;
 }
 
-const TRANSDUCER_DATA& TRANSDUCER_DATA::operator = ( const TRANSDUCER_DATA& source )
+TRANSDUCER_DATA const& TRANSDUCER_DATA::operator = ( TRANSDUCER_DATA const& source ) noexcept
 {
    TransducerType   = source.TransducerType;
    MeasurementData  = source.MeasurementData;

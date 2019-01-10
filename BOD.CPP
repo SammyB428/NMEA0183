@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ BOD::~BOD()
    Empty();
 }
 
-void BOD::Empty( void )
+void BOD::Empty( void ) noexcept
 {
    BearingTrue     = 0.0;
    BearingMagnetic = 0.0;
@@ -57,7 +57,7 @@ void BOD::Empty( void )
    From.clear();
 }
 
-bool BOD::Parse( const SENTENCE& sentence )
+bool BOD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** BOD - Bearing - Origin Waypoint to Destination Waypoint
@@ -80,7 +80,7 @@ bool BOD::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -94,7 +94,7 @@ bool BOD::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string BOD::PlainEnglish(void) const
+std::string BOD::PlainEnglish(void) const noexcept
 {
     std::string return_string( "You are bearing " );
 
@@ -113,7 +113,7 @@ std::string BOD::PlainEnglish(void) const
    return( return_string );
 }
 
-bool BOD::Write( SENTENCE& sentence )
+bool BOD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -133,7 +133,7 @@ bool BOD::Write( SENTENCE& sentence )
    return( true );
 }
 
-const BOD& BOD::operator = ( const BOD& source )
+BOD const& BOD::operator = ( BOD const& source ) noexcept
 {
    BearingTrue     = source.BearingTrue;
    BearingMagnetic = source.BearingMagnetic;

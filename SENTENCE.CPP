@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,80 +47,80 @@ SENTENCE::~SENTENCE()
    Sentence.clear();
 }
 
-NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const
+NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 {
    std::string field_data = Field( field_number );
 
    if ( field_data == "A" )
    {
-      return( True );
+      return(NMEA0183_BOOLEAN::True );
    }
    else if ( field_data == "V" )
    {
-      return( False );
+      return(NMEA0183_BOOLEAN::False );
    }
    else
    {
-      return( NMEA_Unknown );
+      return(NMEA0183_BOOLEAN::NMEA_Unknown );
    }
 }
 
-COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const
+COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const noexcept
 {
    std::string field_data = Field( field_number );
 
    if ( field_data == "d" )
-   {		 
-      return( F3E_G3E_SimplexTelephone );
+   {
+      return(COMMUNICATIONS_MODE::F3E_G3E_SimplexTelephone );
    }
    else if ( field_data == "e" )
    {
-      return( F3E_G3E_DuplexTelephone );
+      return(COMMUNICATIONS_MODE::F3E_G3E_DuplexTelephone );
    }
    else if ( field_data == "m" )
    {
-      return( J3E_Telephone );
+      return(COMMUNICATIONS_MODE::J3E_Telephone );
    }
    else if ( field_data == "o" )
    {
-      return( H3E_Telephone );
+      return(COMMUNICATIONS_MODE::H3E_Telephone );
    }
    else if ( field_data == "q" )
    {
-      return( F1B_J2B_FEC_NBDP_TelexTeleprinter );
+      return(COMMUNICATIONS_MODE::F1B_J2B_FEC_NBDP_TelexTeleprinter );
    }
    else if ( field_data == "s" )
    {
-      return( F1B_J2B_ARQ_NBDP_TelexTeleprinter );
+      return(COMMUNICATIONS_MODE::F1B_J2B_ARQ_NBDP_TelexTeleprinter );
    }
    else if ( field_data == "w" )
    {
-      return( F1B_J2B_ReceiveOnlyTeleprinterDSC );
+      return(COMMUNICATIONS_MODE::F1B_J2B_ReceiveOnlyTeleprinterDSC );
    }
    else if ( field_data == "x" )
    {
-      return( A1A_MorseTapeRecorder );
+      return(COMMUNICATIONS_MODE::A1A_MorseTapeRecorder );
    }
    else if ( field_data == "{" )
    {
-      return( A1A_MorseKeyHeadset );
+      return(COMMUNICATIONS_MODE::A1A_MorseKeyHeadset );
    }
    else if ( field_data == "|" )
    {
-      return( F1C_F2C_F3C_FaxMachine );
+      return(COMMUNICATIONS_MODE::F1C_F2C_F3C_FaxMachine );
    }
    else
    {
-      return( CommunicationsModeUnknown );
+      return(COMMUNICATIONS_MODE::CommunicationsModeUnknown );
    }
 }
 
-uint8_t SENTENCE::ComputeChecksum( void ) const
+uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 {
    uint8_t checksum_value = 0;
 
-   size_t string_length = Sentence.length();
-   size_t index = 1; // Skip over the $ at the begining of the sentence
+   std::size_t string_length = Sentence.length();
+   std::size_t index = 1; // Skip over the $ at the begining of the sentence
 
    while( index < string_length    && 
           Sentence[ index ] != '*' && 
@@ -134,42 +134,42 @@ uint8_t SENTENCE::ComputeChecksum( void ) const
    return( checksum_value );
 }
 
-double SENTENCE::Double( int field_number ) const
+double SENTENCE::Double( int field_number ) const noexcept
 {
    std::string field_data = Field( field_number );
 
    return( ::atof( field_data.c_str() ) );
 }
 
-EASTWEST SENTENCE::EastOrWest( int field_number ) const
+EASTWEST SENTENCE::EastOrWest( int field_number ) const noexcept
 {
    std::string field_data = Field( field_number );
 
    if ( field_data == "E" )
    {
-      return( East );
+      return(EASTWEST::East);
    }
    else if ( field_data == "W" )
    {
-      return( West );
+      return(EASTWEST::West);
    }
    else
    {
-      return( EW_Unknown );
+      return(EASTWEST::EW_Unknown);
    }
 }
 
-const std::string SENTENCE::Field( int desired_field_number ) const
+const std::string SENTENCE::Field( int desired_field_number ) const noexcept
 {
    // Thanks to Vilhelm Persson (vilhelm.persson@st.se) for finding a 
    // bug that lived here.
 
    std::string return_string;
 
-   size_t index             = 1; // Skip over the $ at the begining of the sentence
+   std::size_t index        = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
 
-   const size_t string_length = Sentence.length();
+   std::size_t const string_length = Sentence.length();
 
    while( current_field_number < desired_field_number && index < string_length )
    {
@@ -196,18 +196,18 @@ const std::string SENTENCE::Field( int desired_field_number ) const
    return( return_string );
 }
 
-uint16_t SENTENCE::GetNumberOfDataFields( void ) const
+uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
 {
    int index                = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
 
-   const size_t string_length = Sentence.length();
+   std::size_t const string_length = Sentence.length();
 
    while( index < string_length )
    {
       if ( Sentence[ index ] == '*' )
       {
-         return( (uint16_t) current_field_number );
+         return( static_cast<uint16_t>(current_field_number) );
       }
 
       if ( Sentence[ index ] == ',' )
@@ -218,12 +218,12 @@ uint16_t SENTENCE::GetNumberOfDataFields( void ) const
       index++;
    }
 
-   return( (uint16_t) current_field_number );
+   return( static_cast<uint16_t>(current_field_number) );
 }
 
-void SENTENCE::Finish( void )
+void SENTENCE::Finish( void ) noexcept
 {
-   const uint8_t checksum = ComputeChecksum();
+   uint8_t const checksum = ComputeChecksum();
 
    char temp_string[ 10 ];
 
@@ -232,105 +232,105 @@ void SENTENCE::Finish( void )
    Sentence += temp_string;
 }
 
-int SENTENCE::Integer( int field_number ) const
+int SENTENCE::Integer( int field_number ) const noexcept
 {
    std::string integer_string = Field( field_number );
 
    return( ::atoi( integer_string.c_str() ) );
 }
 
-NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const
+NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noexcept
 {
    /*
    ** Checksums are optional, return TRUE if an existing checksum is known to be bad
    */
 
-   std::string checksum_in_sentence = Field( checksum_field_number );
+   std::string const checksum_in_sentence = Field( checksum_field_number );
 
-   if ( checksum_in_sentence == "" )
+   if ( checksum_in_sentence.empty() == true )
    {
-      return( NMEA_Unknown );
+      return(NMEA0183_BOOLEAN::NMEA_Unknown);
    }
 
    if ( ComputeChecksum() != HexValue( checksum_in_sentence ) )
    {
-      return( True );
+      return(NMEA0183_BOOLEAN::True);
    } 
 
-   return( False );
+   return(NMEA0183_BOOLEAN::False);
 }
 
-LEFTRIGHT SENTENCE::LeftOrRight( int field_number ) const
+LEFTRIGHT SENTENCE::LeftOrRight( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "L" )
    {
-      return( Left );
+      return(LEFTRIGHT::Left );
    }
    else if ( field_data == "R" )
    {
-      return( Right );
+      return(LEFTRIGHT::Right );
    }
    else
    {
-      return( LR_Unknown );
+      return(LEFTRIGHT::LR_Unknown );
    }
 }
 
-NORTHSOUTH SENTENCE::NorthOrSouth( int field_number ) const
+NORTHSOUTH SENTENCE::NorthOrSouth( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "N" )
    {
-      return( North );
+      return(NORTHSOUTH::North );
    }
    else if ( field_data == "S" )
    {
-      return( South );
+      return(NORTHSOUTH::South );
    }
    else
    {
-      return( NS_Unknown );
+      return(NORTHSOUTH::NS_Unknown );
    }
 }
 
-REFERENCE SENTENCE::Reference( int field_number ) const
+REFERENCE SENTENCE::Reference( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "B" )
    {
-      return( BottomTrackingLog );
+      return(REFERENCE::BottomTrackingLog );
    }
    else if ( field_data == "M" )
    {
-      return( ManuallyEntered );
+      return(REFERENCE::ManuallyEntered );
    }
    else if ( field_data == "W" )
    {
-      return( WaterReferenced );
+      return(REFERENCE::WaterReferenced );
    }
    else if ( field_data == "R" )
    {
-      return( RadarTrackingOfFixedTarget );
+      return(REFERENCE::RadarTrackingOfFixedTarget );
    }
    else if ( field_data == "P" )
    {
-      return( PositioningSystemGroundReference );
+      return(REFERENCE::PositioningSystemGroundReference );
    }
    else
    {
-      return( ReferenceUnknown );
+      return(REFERENCE::ReferenceUnknown );
    }
 }
 
-const time_t SENTENCE::Time( int field_number ) const
+time_t SENTENCE::Time( int field_number ) const noexcept
 {
    time_t return_value = time(nullptr);
 
-   std::string temp_string = Field( field_number );
+   std::string const temp_string = Field( field_number );
 
    if ( temp_string.length() >= 6 )
    {
@@ -353,7 +353,7 @@ const time_t SENTENCE::Time( int field_number ) const
 
       int seconds = ::atoi( temp_number );
 
-      struct tm * tm_p = gmtime(&return_value);
+      auto tm_p = gmtime(&return_value);
 
       int year = tm_p->tm_year + 1900;
       int month = tm_p->tm_mon;
@@ -365,53 +365,53 @@ const time_t SENTENCE::Time( int field_number ) const
    return( return_value );
 }
 
-TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const
+TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "A" )
-   {		 
-      return( AngularDisplacementTransducer );
+   {
+      return(TRANSDUCER_TYPE::AngularDisplacementTransducer );
    }
    else if ( field_data == "D" )
    {
-      return( LinearDisplacementTransducer );
+      return(TRANSDUCER_TYPE::LinearDisplacementTransducer );
    }
    else if ( field_data == "C" )
    {
-      return( TemperatureTransducer );
+      return(TRANSDUCER_TYPE::TemperatureTransducer );
    }
    else if ( field_data == "F" )
    {
-      return( FrequencyTransducer );
+      return(TRANSDUCER_TYPE::FrequencyTransducer );
    }
    else if ( field_data == "N" )
    {
-      return( ForceTransducer );
+      return(TRANSDUCER_TYPE::ForceTransducer );
    }
    else if ( field_data == "P" )
    {
-      return( PressureTransducer );
+      return(TRANSDUCER_TYPE::PressureTransducer );
    }
-   else if ( field_data == "R" )
+   else if (field_data == "R" )
    {
-      return( FlowRateTransducer );
+      return(TRANSDUCER_TYPE::FlowRateTransducer );
    }
    else if ( field_data == "T" )
    {
-      return( TachometerTransducer );
+      return(TRANSDUCER_TYPE::TachometerTransducer );
    }
    else if ( field_data == "H" )
    {
-      return( HumidityTransducer );
+      return(TRANSDUCER_TYPE::HumidityTransducer );
    }
    else if ( field_data == "V" )
    {
-      return( VolumeTransducer );
+      return(TRANSDUCER_TYPE::VolumeTransducer );
    }
    else
    {
-      return( TransducerUnknown );
+      return(TRANSDUCER_TYPE::TransducerUnknown );
    }
 }
 
@@ -419,242 +419,293 @@ TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const
 ** Operators
 */
 
-SENTENCE::operator std::string() const
+SENTENCE::operator std::string() const noexcept
 {
    return( Sentence );
 }
 
-const SENTENCE& SENTENCE::operator = ( const SENTENCE& source )
+SENTENCE const& SENTENCE::operator = ( SENTENCE const& source ) noexcept
 {
    Sentence = source.Sentence;
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator = ( const std::string& source )
+SENTENCE const& SENTENCE::operator = ( std::string const& source ) noexcept
 {
    Sentence = source;
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( const std::string& source )
+SENTENCE const& SENTENCE::operator += ( std::string const& source ) noexcept
 {
-   Sentence += ",";
-   Sentence += source;
+    Sentence.push_back(',');
+    Sentence += source;
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( double value )
+SENTENCE const& SENTENCE::operator += ( double value ) noexcept
 {
    char temp_string[ 80 ];
 
    ::sprintf( temp_string, "%.3f", value );
 
-   Sentence += ",";
+   Sentence.push_back(',');
    Sentence += temp_string;
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( COMMUNICATIONS_MODE mode )
+SENTENCE const& SENTENCE::operator += ( COMMUNICATIONS_MODE mode ) noexcept
 {
-   Sentence += ",";
+   Sentence.push_back(',');
 
    switch( mode )
    {
-      case F3E_G3E_SimplexTelephone:
+   case COMMUNICATIONS_MODE::F3E_G3E_SimplexTelephone:
 
-	      Sentence += "d";
-		   break;
+       Sentence.push_back('d');
+       break;
 
-      case F3E_G3E_DuplexTelephone:
+   case COMMUNICATIONS_MODE::F3E_G3E_DuplexTelephone:
 
-	      Sentence += "e";
-		   break;
+       Sentence.push_back('e');
+       break;
 
-      case J3E_Telephone:
+   case COMMUNICATIONS_MODE::J3E_Telephone:
 
-	      Sentence += "m";
-		   break;
+       Sentence.push_back('m');
+       break;
 
-      case H3E_Telephone:
+   case COMMUNICATIONS_MODE::H3E_Telephone:
 
-	      Sentence += "o";
-		   break;
+       Sentence.push_back('o');
+       break;
 
-      case F1B_J2B_FEC_NBDP_TelexTeleprinter:
+   case COMMUNICATIONS_MODE::F1B_J2B_FEC_NBDP_TelexTeleprinter:
 
-	      Sentence += "q";
-		   break;
+       Sentence.push_back('1');
+       break;
 
-      case F1B_J2B_ARQ_NBDP_TelexTeleprinter:
+   case COMMUNICATIONS_MODE::F1B_J2B_ARQ_NBDP_TelexTeleprinter:
 
-	      Sentence += "s";
-		   break;
+       Sentence.push_back('s');
+       break;
 
-      case F1B_J2B_ReceiveOnlyTeleprinterDSC:
+   case COMMUNICATIONS_MODE::F1B_J2B_ReceiveOnlyTeleprinterDSC:
 
-	      Sentence += "w";
-		   break;
+       Sentence.push_back('w');
+       break;
 
-      case A1A_MorseTapeRecorder:
+   case COMMUNICATIONS_MODE::A1A_MorseTapeRecorder:
 
-	      Sentence += "x";
-		   break;
+       Sentence.push_back('x');
+       break;
 
-      case A1A_MorseKeyHeadset:
+   case COMMUNICATIONS_MODE::A1A_MorseKeyHeadset:
 
-	      Sentence += "{";
-		   break;
+       Sentence.push_back('{');
+       break;
 
-      case F1C_F2C_F3C_FaxMachine:
+   case COMMUNICATIONS_MODE::F1C_F2C_F3C_FaxMachine:
 
-	      Sentence += "|";
-		   break;
+       Sentence.push_back('|');
+       break;
    }
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( TRANSDUCER_TYPE transducer )
+SENTENCE const& SENTENCE::operator += ( TRANSDUCER_TYPE transducer ) noexcept
 {
-   Sentence += ",";
+    Sentence.push_back(',');
 
    switch( transducer )
    {
-      case TemperatureTransducer:
+   case TRANSDUCER_TYPE::TemperatureTransducer:
 
-	      Sentence += "C";
-		   break;
+       Sentence.push_back('C');
+       break;
 
-      case AngularDisplacementTransducer:
+   case TRANSDUCER_TYPE::AngularDisplacementTransducer:
 
-	      Sentence += "A";
-		   break;
+       Sentence.push_back('A');
+       break;
 
-      case LinearDisplacementTransducer:
+   case TRANSDUCER_TYPE::LinearDisplacementTransducer:
 
-	      Sentence += "D";
-		   break;
+       Sentence.push_back('D');
+       break;
 
-      case FrequencyTransducer:
+   case TRANSDUCER_TYPE::FrequencyTransducer:
 
-	      Sentence += "F";
-		   break;
+       Sentence.push_back('F');
+       break;
 
-      case ForceTransducer:
+   case TRANSDUCER_TYPE::ForceTransducer:
 
-	      Sentence += "N";
-		   break;
+       Sentence.push_back('N');
+       break;
 
-      case PressureTransducer:
+   case TRANSDUCER_TYPE::PressureTransducer:
 
-	      Sentence += "P";
-		   break;
+       Sentence.push_back('P');
+       break;
 
-      case FlowRateTransducer:
+   case TRANSDUCER_TYPE::FlowRateTransducer:
 
-	      Sentence += "R";
-		   break;
+       Sentence.push_back('R');
+       break;
 
-      case TachometerTransducer:
+   case TRANSDUCER_TYPE::TachometerTransducer:
 
-	      Sentence += "T";
-		   break;
+       Sentence.push_back('T');
+       break;
 
-      case HumidityTransducer:
+   case TRANSDUCER_TYPE::HumidityTransducer:
 
-	      Sentence += "H";
-		   break;
+       Sentence.push_back('H');
+       break;
 
-      case VolumeTransducer:
+   case TRANSDUCER_TYPE::VolumeTransducer:
 
-	      Sentence += "V";
-		   break;
+       Sentence.push_back('V');
+       break;
    }
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( NORTHSOUTH northing )
+SENTENCE const& SENTENCE::operator += ( NORTHSOUTH northing ) noexcept
 {
-   Sentence += ",";
+    Sentence.push_back(',');
 
-   if ( northing == North )
+   if ( northing == NORTHSOUTH::North )
    {
-      Sentence += "N";
+       Sentence.push_back('N');
    }
-   else if ( northing == South )
+   else if ( northing == NORTHSOUTH::South )
    {
-      Sentence += "S";
+       Sentence.push_back('S');
    }
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( int value )
+SENTENCE const& SENTENCE::operator += ( int value ) noexcept
 {
    char temp_string[ 80 ];
 
    ::sprintf( temp_string, "%d", value );
 
-   Sentence += ",";
+   Sentence.push_back(',');
    Sentence += temp_string;
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( EASTWEST easting )
+SENTENCE const& SENTENCE::operator += ( EASTWEST easting ) noexcept
 {
-   Sentence += ",";
+    Sentence.push_back(',');
 
-   if ( easting == East )
+   if ( easting == EASTWEST::East )
    {
-      Sentence += "E";
+       Sentence.push_back('E');
    }
-   else if ( easting == West )
+   else if ( easting == EASTWEST::West )
    {
-      Sentence += "W";
+       Sentence.push_back('W');
    }
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( NMEA0183_BOOLEAN boolean )
+SENTENCE const& SENTENCE::operator += ( NMEA0183_BOOLEAN boolean ) noexcept
 {
-   Sentence += ",";
+    Sentence.push_back(',');
 
-   if ( boolean == True )
+   if ( boolean == NMEA0183_BOOLEAN::True )
    {
-      Sentence += "A";
+       Sentence.push_back('A');
    }
-   else if ( boolean == False )
+   else if ( boolean == NMEA0183_BOOLEAN::False )
    {
-      Sentence += "V";
+       Sentence.push_back('V');
    }
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( LATLONG& source )
+SENTENCE const& SENTENCE::operator += ( LATLONG const& source ) noexcept
 {
    source.Write( *this );
 
    return( *this );
 }
 
-const SENTENCE& SENTENCE::operator += ( const time_t time_value )
+SENTENCE const& SENTENCE::operator += ( time_t const time_value ) noexcept
 {
-   struct tm * tm_p = gmtime(&time_value);
+   auto tm_p = gmtime(&time_value);
 
    char temp_string[65];
 
    sprintf( temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec );
 
-   Sentence += ",";
+   Sentence.push_back(',');
    Sentence += temp_string;
 
    return( *this );
+}
+
+SENTENCE const& SENTENCE::operator += (LEFTRIGHT left_or_right) noexcept
+{
+    Sentence.push_back(',');
+
+    if (left_or_right == LEFTRIGHT::Left)
+    {
+        Sentence.push_back('L');
+    }
+    else if (left_or_right == LEFTRIGHT::Right)
+    {
+        Sentence.push_back('R');
+    }
+
+    return(*this);
+}
+
+SENTENCE const& SENTENCE::operator += (REFERENCE a_reference) noexcept
+{
+    Sentence.push_back(',');
+
+    switch (a_reference)
+    {
+    case REFERENCE::BottomTrackingLog:
+
+        Sentence.push_back('B');
+        break;
+
+    case REFERENCE::ManuallyEntered:
+
+        Sentence.push_back('M');
+        break;
+
+    case REFERENCE::WaterReferenced:
+
+        Sentence.push_back('W');
+        break;
+
+    case REFERENCE::RadarTrackingOfFixedTarget:
+
+        Sentence.push_back('R');
+        break;
+
+    case REFERENCE::PositioningSystemGroundReference:
+
+        Sentence.push_back('P');
+        break;
+    }
+
+    return(*this);
 }

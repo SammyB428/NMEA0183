@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,17 +49,17 @@ APB::~APB()
    Empty();
 }
 
-void APB::Empty( void )
+void APB::Empty( void ) noexcept
 {
    CrossTrackErrorMagnitude = 0.0;
-   DirectionToSteer         = LR_Unknown;
+   DirectionToSteer         = LEFTRIGHT::LR_Unknown;
    CrossTrackUnits.clear();
    To.clear();
-   IsArrivalCircleEntered   = NMEA_Unknown;
-   IsPerpendicular          = NMEA_Unknown;
+   IsArrivalCircleEntered   = NMEA0183_BOOLEAN::NMEA_Unknown;
+   IsPerpendicular          = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool APB::Parse( const SENTENCE& sentence )
+bool APB::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** APB - Autopilot Sentence "B"
@@ -96,7 +96,7 @@ bool APB::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 15 ) == True )
+   if ( sentence.IsChecksumBad( 15 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -124,7 +124,7 @@ bool APB::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool APB::Write( SENTENCE& sentence )
+bool APB::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -152,7 +152,7 @@ bool APB::Write( SENTENCE& sentence )
    return( true );
 }
 
-const APB& APB::operator = ( const APB& source )
+APB const& APB::operator = ( APB const& source ) noexcept
 {
    IsLoranBlinkOK                           = source.IsLoranBlinkOK;
    IsLoranCCycleLockOK                      = source.IsLoranCCycleLockOK;

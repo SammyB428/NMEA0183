@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ GTD::~GTD()
    Empty();
 }
 
-void GTD::Empty( void )
+void GTD::Empty( void ) noexcept
 {
    TimeDifference1.clear();
    TimeDifference2.clear();
@@ -58,7 +58,7 @@ void GTD::Empty( void )
    TimeDifference5.clear();
 }
 
-bool GTD::Parse( const SENTENCE& sentence )
+bool GTD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** GTD - Geographical Position, Loran-C TDs
@@ -79,7 +79,7 @@ bool GTD::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 6 ) == True )
+   if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -94,7 +94,7 @@ bool GTD::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool GTD::Write( SENTENCE& sentence )
+bool GTD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -113,7 +113,7 @@ bool GTD::Write( SENTENCE& sentence )
    return( true );
 }
 
-const GTD& GTD::operator = ( const GTD& source )
+GTD const& GTD::operator = ( GTD const& source ) noexcept
 {
    TimeDifference1 = source.TimeDifference1;
    TimeDifference2 = source.TimeDifference2;

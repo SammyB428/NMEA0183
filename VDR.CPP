@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,14 @@ VDR::~VDR()
    Empty();
 }
 
-void VDR::Empty( void )
+void VDR::Empty( void ) noexcept
 {
    DegreesTrue     = 0.0;
    DegreesMagnetic = 0.0;
    Knots           = 0.0;
 }
 
-bool VDR::Parse( const SENTENCE& sentence )
+bool VDR::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** VDR - Set and Drift
@@ -79,7 +79,7 @@ bool VDR::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -92,7 +92,7 @@ bool VDR::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool VDR::Write( SENTENCE& sentence )
+bool VDR::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -112,7 +112,7 @@ bool VDR::Write( SENTENCE& sentence )
    return( true );
 }
 
-const VDR& VDR::operator = ( const VDR& source )
+VDR const& VDR::operator = ( VDR const& source ) noexcept
 {
    DegreesTrue     = source.DegreesTrue;
    DegreesMagnetic = source.DegreesMagnetic;

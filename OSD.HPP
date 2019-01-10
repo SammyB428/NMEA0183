@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,29 +43,29 @@ class OSD : public RESPONSE
       ** Data
       */
 
-      double           HeadingDegreesTrue;
-      NMEA0183_BOOLEAN IsHeadingValid;
-      double           VesselCourseDegreesTrue;
-      REFERENCE        VesselCourseReference;
-      double           VesselSpeed;
-      REFERENCE        VesselSpeedReference;
-      double           VesselSetDegreesTrue;
-      double           VesselDriftSpeed;
+      double           HeadingDegreesTrue{ 0.0 };
+      NMEA0183_BOOLEAN IsHeadingValid{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      double           VesselCourseDegreesTrue{ 0.0 };
+      REFERENCE        VesselCourseReference{ REFERENCE::ReferenceUnknown };
+      double           VesselSpeed{ 0.0 };
+      REFERENCE        VesselSpeedReference{ REFERENCE::ReferenceUnknown };
+      double           VesselSetDegreesTrue{ 0.0 };
+      double           VesselDriftSpeed{ 0.0 };
       std::string      VesselDriftSpeedUnits;
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const OSD& operator = ( const OSD& source );
+      virtual OSD const& operator = ( OSD const& source ) noexcept;
 };
 
 #endif // OSD_CLASS_HEADER

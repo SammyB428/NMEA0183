@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -57,35 +57,35 @@ SOFTWARE.
 #define LINE_FEED       (0x0A)
 #endif
 
-typedef enum _NMEA0183_BOOLEAN
+enum class NMEA0183_BOOLEAN
 {
    NMEA_Unknown = 0,
    True,
    False
-} NMEA0183_BOOLEAN;
+};
 
-typedef enum _leftright
+enum class LEFTRIGHT
 {
    LR_Unknown = 0,
    Left,
    Right
-} LEFTRIGHT;
+};
 
-typedef enum _eastwest
+enum class EASTWEST
 {
    EW_Unknown = 0,
    East,
    West
-} EASTWEST;
+};
 
-typedef enum
+enum class NORTHSOUTH
 {
    NS_Unknown = 0,
    North,
    South
-} NORTHSOUTH;
+};
 
-typedef enum
+enum class REFERENCE
 {
    ReferenceUnknown = 0,
    BottomTrackingLog,
@@ -93,9 +93,9 @@ typedef enum
    WaterReferenced,
    RadarTrackingOfFixedTarget,
    PositioningSystemGroundReference
-} REFERENCE;
+};
 
-typedef enum
+enum class COMMUNICATIONS_MODE
 {
    CommunicationsModeUnknown         = 0,
    F3E_G3E_SimplexTelephone          = 'd',
@@ -108,9 +108,9 @@ typedef enum
    A1A_MorseTapeRecorder             = 'x',
    A1A_MorseKeyHeadset               = '{',
    F1C_F2C_F3C_FaxMachine            = '|'
-} COMMUNICATIONS_MODE;
+};
 
-typedef enum
+enum class TRANSDUCER_TYPE
 {
    TransducerUnknown   = 0,
    AngularDisplacementTransducer = 'A',
@@ -123,22 +123,22 @@ typedef enum
    FlowRateTransducer            = 'R',
    TachometerTransducer          = 'T',
    VolumeTransducer              = 'V'
-} TRANSDUCER_TYPE;
+};
 
 /*
 ** Misc Function Prototypes
 */
 
-uint32_t HexValue( const char *hex_string );
-inline uint32_t HexValue(const std::string& hex_string)
+uint32_t HexValue( char const * hex_string ) noexcept;
+inline uint32_t HexValue(std::string const& hex_string) noexcept
 {
     return(HexValue(hex_string.c_str()));
 }
 
-std::string expand_talker_id( const std::string & );
-std::string Hex( const uint32_t value );
-std::string talker_id( const std::string& sentence );
-time_t ctime( const int year, const int month, const int day, const int hour, const int minute, const int second);
+std::string expand_talker_id( std::string const& ) noexcept;
+std::string Hex( uint32_t const value ) noexcept;
+std::string talker_id( std::string const& sentence ) noexcept;
+time_t ctime( int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept;
 
 #include "nmea0183.hpp"
 

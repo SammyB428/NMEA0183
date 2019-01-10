@@ -2,17 +2,316 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{30e4c22e-fcad-483f-915f-e5e4eceacbeb}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90</Extensions>
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{ccec6097-368c-4997-849d-fdc862037546}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;fi;fd</Extensions>
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{3e6f5a2d-c33b-46ff-8a1c-e9886aec8dd5}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AAM.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ALM.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="APB.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ASD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BEC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BOD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BWC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BWR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BWW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DBT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCN.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DECCALOP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DPT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FREQMODE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FSI.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GDA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GDF.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GDP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GGA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLF.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLL.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GOA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GOF.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GOP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GSA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GSV.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GTD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GXA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GXF.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GXP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HCC.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HDG.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HDM.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HDT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IMA.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LATLONG.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LCD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LORANTD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MANUFACT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MHU.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MLIST.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MTA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MTW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MWV.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NMEA0183.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NMEA0183.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OLN.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OMEGAPAR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OSD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RADARDAT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RATIOPLS.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RESPONSE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RMA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RMB.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RMC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ROT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RPM.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RSA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RSD.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RTE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SATDAT.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SENTENCE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SFI.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="STN.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TEP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TRF.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TTM.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VBW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VDR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VHW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VLW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VPW.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VTG.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VWE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WAYPTLOC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WCV.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WDC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WDR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WNC.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WPL.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XDR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XTE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XTR.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZDA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFI.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFO.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZLZ.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZPI.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZTA.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZTE.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZTG.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZTI.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZWP.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZZU.HPP">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AAM.CPP">
@@ -327,304 +626,5 @@
     <ClCompile Include="ZZU.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AAM.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ALM.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="APB.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ASD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BEC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BOD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BWC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BWR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BWW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DBT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DCN.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DECCALOP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DPT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FREQMODE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FSI.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDF.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GGA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLF.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLL.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GOA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GOF.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GOP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GSA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GSV.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GTD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GXA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GXF.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GXP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HCC.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HDG.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HDM.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HDT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HSC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IMA.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LATLONG.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LCD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LORANTD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MANUFACT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MHU.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MLIST.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MTA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MTW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MWV.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NMEA0183.H">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NMEA0183.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OLN.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OMEGAPAR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OSD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="P.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RADARDAT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RATIOPLS.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RESPONSE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RMA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RMB.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RMC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ROT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RPM.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RSA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RSD.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RTE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SATDAT.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SENTENCE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SFI.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="STN.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TEP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TRF.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TTM.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VBW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VDR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VHW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VLW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VPW.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VTG.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VWE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WAYPTLOC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WCV.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WDC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WDR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WNC.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WPL.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XDR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XTE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XTR.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZDA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZFI.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZFO.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZLZ.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZPI.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZTA.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZTE.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZTG.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZTI.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZWP.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZZU.HPP">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

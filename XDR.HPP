@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,30 +37,30 @@ class TRANSDUCER_DATA
    public:
 
       TRANSDUCER_DATA();
-	  virtual ~TRANSDUCER_DATA();
+      virtual ~TRANSDUCER_DATA();
 
-	   /*
+      /*
       ** Data
       */
 
-	   TRANSDUCER_TYPE TransducerType;
-	   double          MeasurementData;
-       std::string     MeasurementUnits;
-       std::string     TransducerName;
+      TRANSDUCER_TYPE TransducerType{ TRANSDUCER_TYPE::TransducerUnknown };
+      double          MeasurementData{ 0.0 };
+      std::string     MeasurementUnits;
+      std::string     TransducerName;
 
 	   /*
       ** Methods
       */
 
-      virtual void Empty( void );
-	  virtual void Parse( int first_field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      void Empty( void ) noexcept;
+	  void Parse( int first_field_number, SENTENCE const& sentence ) noexcept;
+      void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const TRANSDUCER_DATA& operator = ( const TRANSDUCER_DATA& source );
+      virtual TRANSDUCER_DATA const& operator = ( TRANSDUCER_DATA const& source ) noexcept;
 };
 
 class XDR : public RESPONSE
@@ -72,9 +72,9 @@ class XDR : public RESPONSE
 
       std::vector<TRANSDUCER_DATA> Transducers;
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 };
 
 #endif // XDR_CLASS_HEADER

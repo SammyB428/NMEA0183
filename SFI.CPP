@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ SFI::~SFI()
    Empty();
 }
 
-void SFI::Empty( void )
+void SFI::Empty( void ) noexcept
 {
    TotalMessages = 0.0;
    MessageNumber = 0.0;
@@ -64,7 +64,7 @@ void SFI::Empty( void )
 
 }
 
-bool SFI::Parse( const SENTENCE& sentence )
+bool SFI::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** SFI - Scanning Frequency Information
@@ -86,7 +86,7 @@ bool SFI::Parse( const SENTENCE& sentence )
 
    int number_of_data_fields = sentence.GetNumberOfDataFields();
 
-   if ( sentence.IsChecksumBad( number_of_data_fields + 1 ) == True )
+   if ( sentence.IsChecksumBad( number_of_data_fields + 1 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -127,7 +127,7 @@ bool SFI::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool SFI::Write( SENTENCE& sentence )
+bool SFI::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -151,7 +151,7 @@ bool SFI::Write( SENTENCE& sentence )
    return( true );
 }
 
-const SFI& SFI::operator = ( const SFI& source )
+SFI const& SFI::operator = ( SFI const& source ) noexcept
 {
    TotalMessages = source.TotalMessages;
    MessageNumber = source.MessageNumber;

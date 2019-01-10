@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,9 +49,10 @@ GGA::~GGA()
    Empty();
 }
 
-void GGA::Empty( void )
+void GGA::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time                            = 0;
    Position.Empty();
    GPSQuality                      = 0;
    NumberOfSatellitesInUse         = 0;
@@ -62,7 +63,7 @@ void GGA::Empty( void )
    DifferentialReferenceStationID  = 0;
 }
 
-bool GGA::Parse( const SENTENCE& sentence )
+bool GGA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** GGA - Global Positioning System Fix Data
@@ -101,7 +102,7 @@ bool GGA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 15 ) == True )
+   if ( sentence.IsChecksumBad( 15 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -121,7 +122,7 @@ bool GGA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string GGA::PlainEnglish( void ) const
+std::string GGA::PlainEnglish( void ) const noexcept
 {
    std::string return_string( "At " );
    std::string time_string = ctime( &Time );
@@ -156,7 +157,7 @@ std::string GGA::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool GGA::Write( SENTENCE& sentence )
+bool GGA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -181,7 +182,7 @@ bool GGA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const GGA& GGA::operator = ( const GGA& source )
+GGA const& GGA::operator = ( GGA const& source ) noexcept
 {
    UTCTime                         = source.UTCTime;
    Time                            = source.Time;

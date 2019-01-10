@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ TTM::~TTM()
    Empty();
 }
 
-void TTM::Empty( void )
+void TTM::Empty( void ) noexcept
 {
    TargetNumber                            = 0;
    TargetDistance                          = 0.0;
@@ -62,10 +62,10 @@ void TTM::Empty( void )
    NumberOfMinutesToClosestPointOfApproach = 0.0;
    Increasing.clear();
    TargetName.clear();
-   TargetStatus                            = TargetUnknown;
+   TargetStatus                            = TARGET_STATUS::TargetUnknown;
 }
 
-bool TTM::Parse( const SENTENCE& sentence )
+bool TTM::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** TTM - Tracked Target Message
@@ -95,7 +95,7 @@ bool TTM::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 14 ) == True )
+   if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -113,23 +113,23 @@ bool TTM::Parse( const SENTENCE& sentence )
    Increasing                              = sentence.Field( 10 );
    TargetName                              = sentence.Field( 11 );
    
-   std::string field_data = sentence.Field( 12 );
+   std::string const field_data = sentence.Field( 12 );
 
    if ( field_data == "L" )
    {
-      TargetStatus = TargetLost;
+      TargetStatus = TARGET_STATUS::TargetLost;
    }
    else if ( field_data == "Q" )
    {
-      TargetStatus = TargetQuery;
+      TargetStatus = TARGET_STATUS::TargetQuery;
    }
    else if ( field_data == "T" )
    {
-      TargetStatus = TargetTracking;
+      TargetStatus = TARGET_STATUS::TargetTracking;
    }
    else
    {
-      TargetStatus = TargetUnknown;
+      TargetStatus = TARGET_STATUS::TargetUnknown;
    }
 
    ReferenceTarget = sentence.Field( 13 );
@@ -137,7 +137,7 @@ bool TTM::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool TTM::Write( SENTENCE& sentence )
+bool TTM::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -159,17 +159,17 @@ bool TTM::Write( SENTENCE& sentence )
    
    switch( TargetStatus )
    {
-      case TargetLost:
+   case TARGET_STATUS::TargetLost:
 
          sentence += "L";
          break;
 
-      case TargetQuery:
+   case TARGET_STATUS::TargetQuery:
 
          sentence += "Q";
          break;
 
-      case TargetTracking:
+   case TARGET_STATUS::TargetTracking:
 
          sentence += "T";
          break;
@@ -187,7 +187,7 @@ bool TTM::Write( SENTENCE& sentence )
    return( true );
 }
 
-const TTM& TTM::operator = ( const TTM& source )
+TTM const& TTM::operator = ( TTM const& source ) noexcept
 {
    TargetNumber                            = source.TargetNumber;
    TargetDistance                          = source.TargetDistance;

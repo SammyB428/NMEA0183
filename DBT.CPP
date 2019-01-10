@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,14 @@ DBT::~DBT()
    Empty();
 }
 
-void DBT::Empty( void )
+void DBT::Empty( void ) noexcept
 {
    DepthFeet    = 0.0;
    DepthMeters  = 0.0;
    DepthFathoms = 0.0;
 }
 
-bool DBT::Parse( const SENTENCE& sentence )
+bool DBT::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** DBT - Depth below transducer
@@ -79,7 +79,7 @@ bool DBT::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -92,7 +92,7 @@ bool DBT::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool DBT::Write( SENTENCE& sentence )
+bool DBT::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -112,7 +112,7 @@ bool DBT::Write( SENTENCE& sentence )
    return( true );
 }
 
-const DBT& DBT::operator = ( const DBT& source )
+DBT const& DBT::operator = ( DBT const& source ) noexcept
 {
    DepthFeet    = source.DepthFeet;
    DepthMeters  = source.DepthMeters;

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ VPW::~VPW()
    Empty();
 }
 
-void VPW::Empty( void )
+void VPW::Empty( void ) noexcept
 {
    Knots           = 0.0;
    MetersPerSecond = 0.0;
 }
 
-bool VPW::Parse( const SENTENCE& sentence )
+bool VPW::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** VPW - Speed - Measured Parallel to Wind
@@ -76,7 +76,7 @@ bool VPW::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +88,7 @@ bool VPW::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool VPW::Write( SENTENCE& sentence )
+bool VPW::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -106,7 +106,7 @@ bool VPW::Write( SENTENCE& sentence )
    return( true );
 }
 
-const VPW& VPW::operator = ( const VPW& source )
+VPW const& VPW::operator = ( VPW const& source ) noexcept
 {
    Knots           = source.Knots;
    MetersPerSecond = source.MetersPerSecond;

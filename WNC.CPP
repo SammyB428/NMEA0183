@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ WNC::~WNC()
    Empty();
 }
 
-void WNC::Empty( void )
+void WNC::Empty( void ) noexcept
 {
    MilesDistance      = 0.0;
    KilometersDistance = 0.0;
@@ -57,7 +57,7 @@ void WNC::Empty( void )
    From.clear();
 }
 
-bool WNC::Parse( const SENTENCE& sentence )
+bool WNC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** WNC - Distance - Waypoint to Waypoint
@@ -80,7 +80,7 @@ bool WNC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -94,7 +94,7 @@ bool WNC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool WNC::Write( SENTENCE& sentence )
+bool WNC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -114,7 +114,7 @@ bool WNC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const WNC& WNC::operator = ( const WNC& source )
+WNC const& WNC::operator = ( WNC const& source ) noexcept
 {
    MilesDistance      = source.MilesDistance;
    KilometersDistance = source.KilometersDistance;

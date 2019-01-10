@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,22 +44,22 @@ class OMEGA_PAIR
       */
 
       std::string Name;
-      int         LaneNumber;
-      int         CentilaneNumber;
+      int         LaneNumber{ 0 };
+      int         CentilaneNumber{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      void Empty( void ) noexcept;
+      void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const OMEGA_PAIR& operator = ( const OMEGA_PAIR& source );
+      virtual OMEGA_PAIR const& operator = ( OMEGA_PAIR const& source ) noexcept;
 };
 
 #endif // OMEGA_PAIR_CLASS_HEADER

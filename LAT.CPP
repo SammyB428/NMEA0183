@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,15 +47,15 @@ LATITUDE::~LATITUDE()
    Empty();
 }
 
-void LATITUDE::Empty( void )
+void LATITUDE::Empty( void ) noexcept
 {
    Latitude = 0.0;
-   Northing = NS_Unknown;
+   Northing = NORTHSOUTH::NS_Unknown;
 }
 
-bool LATITUDE::IsDataValid( void )
+bool LATITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Northing != North && Northing != South )
+   if ( Northing != NORTHSOUTH::North && Northing != NORTHSOUTH::South )
    {
       return( false );
    }
@@ -63,7 +63,7 @@ bool LATITUDE::IsDataValid( void )
    return( true );
 }
 
-void LATITUDE::Parse( int position_field_number, int north_or_south_field_number, const SENTENCE& sentence )
+void LATITUDE::Parse( int position_field_number, int north_or_south_field_number, SENTENCE const& sentence ) noexcept
 {
    // Thanks go to Eric Parsonage (ericpa@mpx.com.au) for finding a nasty
    // little bug that used to live here.
@@ -72,42 +72,42 @@ void LATITUDE::Parse( int position_field_number, int north_or_south_field_number
 
    position = sentence.Double( position_field_number );
 
-   std::string north_or_south = sentence.Field( north_or_south_field_number );
+   std::string const north_or_south = sentence.Field( north_or_south_field_number );
 
    Set( position, north_or_south.c_str() );
 }
 
-void LATITUDE::Set( double position, const char *north_or_south )
+void LATITUDE::Set( double position, char const *north_or_south ) noexcept
 {
    Latitude   = position;
    Coordinate = position;
    
    if ( north_or_south[ 0 ] == 'N' )
    {
-      Northing = North;
+      Northing = NORTHSOUTH::North;
    }
    else if ( north_or_south[ 0 ] == 'S' )
    {
-      Northing = South;
+      Northing = NORTHSOUTH::South;
    }
    else
    {
-      Northing = NS_Unknown;
+      Northing = NORTHSOUTH::NS_Unknown;
    }
 }
 
-void LATITUDE::Write( SENTENCE& sentence )
+void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
    ::sprintf( temp_string, "%07.2f", Latitude );
    sentence += temp_string;
    
-   if ( Northing == North )
+   if ( Northing == NORTHSOUTH::North )
    {
       sentence += "N";
    }
-   else if ( Northing == South )
+   else if ( Northing == NORTHSOUTH::South )
    {
       sentence += "S";
    }
@@ -122,7 +122,7 @@ void LATITUDE::Write( SENTENCE& sentence )
    }
 }
 
-const LATITUDE& LATITUDE::operator = ( const LATITUDE& source )
+LATITUDE const& LATITUDE::operator = ( LATITUDE const& source ) noexcept
 {
    Latitude = source.Latitude;
    Northing = source.Northing;
@@ -135,7 +135,7 @@ const LATITUDE& LATITUDE::operator = ( const LATITUDE& source )
 // Coordinates are in the format dddmm.ddd
 // For example, 76 degrees 46.887 minutes would be 7646.887
 
-double COORDINATE::GetDecimalDegrees( void ) const
+double COORDINATE::GetDecimalDegrees( void ) const noexcept
 {
    double return_value = 0.0;
 
@@ -157,7 +157,7 @@ double COORDINATE::GetDecimalDegrees( void ) const
    return( return_value );
 }
 
-double COORDINATE::GetDecimalMinutes( void ) const
+double COORDINATE::GetDecimalMinutes( void ) const noexcept
 {
    double return_value = 0.0;
 
@@ -175,7 +175,7 @@ double COORDINATE::GetDecimalMinutes( void ) const
    return( return_value );
 }
 
-double COORDINATE::GetDecimalSeconds( void ) const
+double COORDINATE::GetDecimalSeconds( void ) const noexcept
 {
    double return_value = 0.0;
 
@@ -191,17 +191,17 @@ double COORDINATE::GetDecimalSeconds( void ) const
    return( return_value );
 }
 
-int COORDINATE::GetWholeDegrees( void ) const
+int COORDINATE::GetWholeDegrees( void ) const noexcept
 {
    return( (int) ::floor( GetDecimalDegrees() ) );
 }
 
-int COORDINATE::GetWholeMinutes( void ) const
+int COORDINATE::GetWholeMinutes( void ) const noexcept
 {
    return( (int) ::floor( GetDecimalMinutes() ) );
 }
 
-int COORDINATE::GetWholeSeconds( void ) const
+int COORDINATE::GetWholeSeconds( void ) const noexcept
 {
    return( (int) ::floor( GetDecimalSeconds() ) );
 }

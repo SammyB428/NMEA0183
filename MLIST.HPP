@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,15 +49,15 @@ class MANUFACTURER_LIST
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Fill( void );
-      virtual const std::string& Find( const std::string& mnemonic );
+      virtual void Empty( void ) noexcept;
+      virtual void Fill( void ) noexcept;
+      virtual const std::string& Find( std::string const& mnemonic ) noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const std::string& operator [] ( const char *mnemonic );
+      virtual std::string const& operator [] (char const * mnemonic) noexcept;
 };
 
-#endif // MANUFACTURER_LIST_CLASS_HEADER    
+#endif // MANUFACTURER_LIST_CLASS_HEADER

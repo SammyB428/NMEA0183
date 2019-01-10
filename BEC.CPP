@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,16 +49,18 @@ BEC::~BEC()
    Empty();
 }
 
-void BEC::Empty( void )
+void BEC::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time                  = 0;
+   Position.Empty();
    BearingTrue           = 0.0;
    BearingMagnetic       = 0.0;
    DistanceNauticalMiles = 0.0;
    To.clear();
 }
 
-bool BEC::Parse( const SENTENCE& sentence )
+bool BEC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** BEC - Bearing & Distance to Waypoint - Dead Reckoning
@@ -72,7 +74,7 @@ bool BEC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 13 ) == True )
+   if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -89,7 +91,7 @@ bool BEC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool BEC::Write( SENTENCE& sentence )
+bool BEC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -112,7 +114,7 @@ bool BEC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const BEC& BEC::operator = ( const BEC& source )
+BEC const& BEC::operator = ( BEC const& source ) noexcept
 {
    UTCTime               = source.UTCTime;
    Time                  = source.Time;

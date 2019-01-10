@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,15 @@ ZFO::~ZFO()
    Empty();
 }
 
-void ZFO::Empty( void )
+void ZFO::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time = 0;
    ElapsedTime.clear();
    From.clear();
 }
 
-bool ZFO::Parse( const SENTENCE& sentence )
+bool ZFO::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ZFO - UTC & Time from origin Waypoint
@@ -76,7 +77,7 @@ bool ZFO::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -90,7 +91,7 @@ bool ZFO::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool ZFO::Write( SENTENCE& sentence )
+bool ZFO::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -107,7 +108,7 @@ bool ZFO::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ZFO& ZFO::operator = ( const ZFO& source )
+ZFO const& ZFO::operator = ( ZFO const& source ) noexcept
 {
    UTCTime     = source.UTCTime;
    Time        = source.Time;

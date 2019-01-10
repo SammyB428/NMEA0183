@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ RSD::~RSD()
    Empty();
 }
 
-void RSD::Empty( void )
+void RSD::Empty( void ) noexcept
 {
    Data1.Empty();
    Data2.Empty();
@@ -57,10 +57,10 @@ void RSD::Empty( void )
    CursorBearingDegreesClockwiseFromZero = 0.0;
    RangeScale                            = 0.0;
    RangeUnits.clear();
-   DisplayRotation                       = RotationUnknown;
+   DisplayRotation                       = ROTATION::RotationUnknown;
 }
 
-bool RSD::Parse( const SENTENCE& sentence )
+bool RSD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RSD - RADAR System Data
@@ -76,7 +76,7 @@ bool RSD::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 14 ) == True )
+   if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -95,29 +95,29 @@ bool RSD::Parse( const SENTENCE& sentence )
    {
       case 'C':
 
-         DisplayRotation = CourseUpRotation;
+         DisplayRotation = ROTATION::CourseUpRotation;
          break;
 
       case 'H':
 
-         DisplayRotation = HeadUpRotation;
+         DisplayRotation = ROTATION::HeadUpRotation;
          break;
 
       case 'N':
 
-         DisplayRotation = NorthUpRotation;
+         DisplayRotation = ROTATION::NorthUpRotation;
          break;
 
       default:
 
-         DisplayRotation = RotationUnknown;
+         DisplayRotation = ROTATION::RotationUnknown;
          break;
    }
 
    return( true );
 }
 
-bool RSD::Write( SENTENCE& sentence )
+bool RSD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -134,17 +134,17 @@ bool RSD::Write( SENTENCE& sentence )
 
    switch( DisplayRotation )
    {
-      case CourseUpRotation:
+   case ROTATION::CourseUpRotation:
 
          sentence += "C";
          break;
 
-      case HeadUpRotation:
+   case ROTATION::HeadUpRotation:
 
          sentence += "H";
          break;
 
-      case NorthUpRotation:
+   case ROTATION::NorthUpRotation:
 
          sentence += "N";
          break;
@@ -160,7 +160,7 @@ bool RSD::Write( SENTENCE& sentence )
    return( true );
 }
 
-const RSD& RSD::operator = ( const RSD& source )
+RSD const& RSD::operator = ( RSD const& source ) noexcept
 {
    Data1                                 = source.Data1;
    Data2                                 = source.Data2;

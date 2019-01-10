@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,9 +49,10 @@ ZDA::~ZDA()
    Empty();
 }
 
-void ZDA::Empty( void )
+void ZDA::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time                  = 0;
    Day                   = 0;
    Month                 = 0;
    Year                  = 0;
@@ -59,7 +60,7 @@ void ZDA::Empty( void )
    LocalMinutesDeviation = 0;
 }
 
-bool ZDA::Parse( const SENTENCE& sentence )
+bool ZDA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ZDA - Time & Date
@@ -79,7 +80,7 @@ bool ZDA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -117,7 +118,7 @@ bool ZDA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool ZDA::Write( SENTENCE& sentence )
+bool ZDA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -137,7 +138,7 @@ bool ZDA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ZDA& ZDA::operator = ( const ZDA& source )
+ZDA const& ZDA::operator = ( ZDA const& source ) noexcept
 {
    UTCTime               = source.UTCTime;
    Time                  = source.Time;

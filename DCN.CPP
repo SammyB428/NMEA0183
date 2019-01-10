@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,20 +49,20 @@ DCN::~DCN()
    Empty();
 }
 
-void DCN::Empty( void )
+void DCN::Empty( void ) noexcept
 {
    DeccaChainID                     = 0;
    Red.Empty();
    Green.Empty();
    Purple.Empty();
-   RedLineNavigationUse             = NMEA_Unknown;
-   GreenLineNavigationUse           = NMEA_Unknown;
-   PurpleLineNavigationUse          = NMEA_Unknown;
+   RedLineNavigationUse             = NMEA0183_BOOLEAN::NMEA_Unknown;
+   GreenLineNavigationUse           = NMEA0183_BOOLEAN::NMEA_Unknown;
+   PurpleLineNavigationUse          = NMEA0183_BOOLEAN::NMEA_Unknown;
    PositionUncertaintyNauticalMiles = 0.0;
-   Basis                            = BasisUnknown;
+   Basis                            = FIX_DATA_BASIS::BasisUnknown;
 }
 
-bool DCN::Parse( const SENTENCE& sentence )
+bool DCN::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** DCN - Decca Position
@@ -97,7 +97,7 @@ bool DCN::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 17 ) == True )
+   if ( sentence.IsChecksumBad( 17 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -118,29 +118,29 @@ bool DCN::Parse( const SENTENCE& sentence )
    {
       case 1:
 
-         Basis = NormalPatternBasis;
+         Basis = FIX_DATA_BASIS::NormalPatternBasis;
          break;
 
       case 2:
 
-         Basis = LaneIdentificationPatternBasis;
+         Basis = FIX_DATA_BASIS::LaneIdentificationPatternBasis;
          break;
 
       case 3:
 
-         Basis = LaneIdentificationTransmissionsBasis;
+         Basis = FIX_DATA_BASIS::LaneIdentificationTransmissionsBasis;
          break;
 
       default:
 
-         Basis = BasisUnknown;
+         Basis = FIX_DATA_BASIS::BasisUnknown;
          break;
    }
 
    return( true );
 }
 
-bool DCN::Write( SENTENCE& sentence )
+bool DCN::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -160,17 +160,17 @@ bool DCN::Write( SENTENCE& sentence )
 
    switch( Basis )
    {
-      case NormalPatternBasis:
+   case FIX_DATA_BASIS::NormalPatternBasis:
 
          sentence += 1;
          break;
 
-      case LaneIdentificationPatternBasis:
+   case FIX_DATA_BASIS::LaneIdentificationPatternBasis:
 
          sentence += 2;
          break;
 
-      case LaneIdentificationTransmissionsBasis:
+   case FIX_DATA_BASIS::LaneIdentificationTransmissionsBasis:
 
          sentence += 3;
          break;
@@ -186,7 +186,7 @@ bool DCN::Write( SENTENCE& sentence )
    return( true );
 }
 
-const DCN& DCN::operator = ( const DCN& source )
+DCN const& DCN::operator = ( DCN const& source ) noexcept
 {
    DeccaChainID                     = source.DeccaChainID;
    Red                              = source.Red;
@@ -197,6 +197,6 @@ const DCN& DCN::operator = ( const DCN& source )
    PurpleLineNavigationUse          = source.PurpleLineNavigationUse;
    PositionUncertaintyNauticalMiles = source.PositionUncertaintyNauticalMiles;
    Basis                            = source.Basis;
-   
+
    return( *this );
 }

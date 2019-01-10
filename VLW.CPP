@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ VLW::~VLW()
    Empty();
 }
 
-void VLW::Empty( void )
+void VLW::Empty( void ) noexcept
 {
    TotalDistanceNauticalMiles      = 0.0;
    DistanceSinceResetNauticalMiles = 0.0;
 }
 
-bool VLW::Parse( const SENTENCE& sentence )
+bool VLW::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** VLW - Distance Traveled through Water
@@ -76,7 +76,7 @@ bool VLW::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +88,7 @@ bool VLW::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool VLW::Write( SENTENCE& sentence )
+bool VLW::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -106,7 +106,7 @@ bool VLW::Write( SENTENCE& sentence )
    return( true );
 }
 
-const VLW& VLW::operator = ( const VLW& source )
+VLW const& VLW::operator = ( VLW const& source ) noexcept
 {
    TotalDistanceNauticalMiles      = source.TotalDistanceNauticalMiles;
    DistanceSinceResetNauticalMiles = source.DistanceSinceResetNauticalMiles;

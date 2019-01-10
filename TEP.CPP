@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,12 +54,12 @@ TEP::~TEP()
    Empty();
 }
 
-void TEP::Empty( void )
+void TEP::Empty( void ) noexcept
 {
    ElevationDegrees = 0.0;
 }
 
-bool TEP::Parse( const SENTENCE& sentence )
+bool TEP::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** TEP - TRANSIT Satellite Predicted Elevation
@@ -78,7 +78,7 @@ bool TEP::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 3 ) == True )
+   if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -89,7 +89,7 @@ bool TEP::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string TEP::PlainEnglish( void ) const
+std::string TEP::PlainEnglish( void ) const noexcept
 {
    std::string return_string("TRANSIT satellite predicted elevation is ");
     
@@ -102,7 +102,7 @@ std::string TEP::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool TEP::Write( SENTENCE& sentence )
+bool TEP::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -118,7 +118,7 @@ bool TEP::Write( SENTENCE& sentence )
    return( true );
 }
 
-const TEP& TEP::operator = ( const TEP& source )
+TEP const& TEP::operator = ( TEP const& source ) noexcept
 {
    ElevationDegrees = source.ElevationDegrees;
 

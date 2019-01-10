@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ DPT::~DPT()
    Empty();
 }
 
-void DPT::Empty( void )
+void DPT::Empty( void ) noexcept
 {
    DepthMeters                = 0.0;
    OffsetFromTransducerMeters = 0.0;
 }
 
-bool DPT::Parse( const SENTENCE& sentence )
+bool DPT::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** DPT - Heading - Deviation & Variation
@@ -76,7 +76,7 @@ bool DPT::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 3 ) == True )
+   if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +88,7 @@ bool DPT::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool DPT::Write( SENTENCE& sentence )
+bool DPT::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -103,8 +103,8 @@ bool DPT::Write( SENTENCE& sentence )
 
    return( true );
 }
-
-const DPT& DPT::operator = ( const DPT& source )
+ 
+DPT const& DPT::operator = ( DPT const& source ) noexcept
 {
    DepthMeters                = source.DepthMeters;
    OffsetFromTransducerMeters = source.OffsetFromTransducerMeters;

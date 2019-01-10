@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,15 +49,15 @@ FSI::~FSI()
    Empty();
 }
 
-void FSI::Empty( void )
+void FSI::Empty( void ) noexcept
 {
    TransmittingFrequency = 0.0;
    ReceivingFrequency    = 0.0;
-   Mode                  = CommunicationsModeUnknown;
+   Mode                  = COMMUNICATIONS_MODE::CommunicationsModeUnknown;
    PowerLevel            = 0;
 }
 
-bool FSI::Parse( const SENTENCE& sentence )
+bool FSI::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** FSI - Frequency Set Information
@@ -78,7 +78,7 @@ bool FSI::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -92,7 +92,7 @@ bool FSI::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool FSI::Write( SENTENCE& sentence )
+bool FSI::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -110,7 +110,7 @@ bool FSI::Write( SENTENCE& sentence )
    return( true );
 }
 
-const FSI& FSI::operator = ( const FSI& source )
+FSI const& FSI::operator = ( FSI const& source ) noexcept
 {
    TransmittingFrequency = source.TransmittingFrequency;
    ReceivingFrequency    = source.ReceivingFrequency;

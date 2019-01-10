@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ IMA::~IMA()
    Empty();
 }
 
-void IMA::Empty( void )
+void IMA::Empty( void ) noexcept
 {
    VesselName.clear();
    Callsign.clear();
@@ -63,7 +63,7 @@ void IMA::Empty( void )
    SpeedKnots             = 0.0;
 }
 
-bool IMA::Parse( const SENTENCE& sentence )
+bool IMA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** IMA - Vessel Identification
@@ -91,7 +91,7 @@ bool IMA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 13 ) == True )
+   if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -107,7 +107,7 @@ bool IMA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool IMA::Write( SENTENCE& sentence )
+bool IMA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -130,7 +130,7 @@ bool IMA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const IMA& IMA::operator = ( const IMA& source )
+IMA const& IMA::operator = ( IMA const& source ) noexcept
 {
    VesselName             = source.VesselName;
    Callsign               = source.Callsign;

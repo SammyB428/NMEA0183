@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ LCD::~LCD()
    Empty();
 }
 
-void LCD::Empty( void )
+void LCD::Empty( void ) noexcept
 {
    GroupRepetitionInterval = 0;
    Master.Empty();
@@ -60,7 +60,7 @@ void LCD::Empty( void )
    Secondary5.Empty();
 }
 
-bool LCD::Parse( const SENTENCE& sentence )
+bool LCD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** LCD - Loran-C Signal Data
@@ -89,7 +89,7 @@ bool LCD::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 14 ) == True )
+   if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -106,7 +106,7 @@ bool LCD::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool LCD::Write( SENTENCE& sentence )
+bool LCD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -127,7 +127,7 @@ bool LCD::Write( SENTENCE& sentence )
    return( true );
 }
 
-const LCD& LCD::operator = ( const LCD& source )
+LCD const& LCD::operator = ( LCD const& source ) noexcept
 {
    GroupRepetitionInterval = source.GroupRepetitionInterval;
    Master                  = source.Master;

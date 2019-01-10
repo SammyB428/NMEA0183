@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,20 +49,20 @@ OSD::~OSD()
    Empty();
 }
 
-void OSD::Empty( void )
+void OSD::Empty( void ) noexcept
 {
    HeadingDegreesTrue       = 0.0;
-   IsHeadingValid           = NMEA_Unknown;
+   IsHeadingValid           = NMEA0183_BOOLEAN::NMEA_Unknown;
    VesselCourseDegreesTrue  = 0.0;
-   VesselCourseReference    = ReferenceUnknown;
+   VesselCourseReference    = REFERENCE::ReferenceUnknown;
    VesselSpeed              = 0.0;
-   VesselSpeedReference     = ReferenceUnknown;
+   VesselSpeedReference     = REFERENCE::ReferenceUnknown;
    VesselSetDegreesTrue     = 0.0;
    VesselDriftSpeed         = 0.0;
    VesselDriftSpeedUnits.clear();
 }
 
-bool OSD::Parse( const SENTENCE& sentence )
+bool OSD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** OSD - Own Ship Data
@@ -87,7 +87,7 @@ bool OSD::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 10 ) == True )
+   if ( sentence.IsChecksumBad( 10 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -106,7 +106,7 @@ bool OSD::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool OSD::Write( SENTENCE& sentence )
+bool OSD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -129,7 +129,7 @@ bool OSD::Write( SENTENCE& sentence )
    return( true );
 }
 
-const OSD& OSD::operator = ( const OSD& source )
+OSD const& OSD::operator = ( OSD const& source ) noexcept
 {
    HeadingDegreesTrue      = source.HeadingDegreesTrue;
    IsHeadingValid          = source.IsHeadingValid;

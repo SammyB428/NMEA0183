@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -145,13 +145,13 @@ class NMEA0183
 
       SENTENCE m_Sentence;
 
-      void m_Initialize( void );
+      void m_Initialize( void ) noexcept;
 
    protected:
 
       std::vector<RESPONSE *> m_ResponseTable;
 
-      void m_SetContainerPointers( void );
+      void m_SetContainerPointers( void ) noexcept;
 
    public:
 
@@ -255,13 +255,13 @@ class NMEA0183
       std::string TalkerID;
       std::string ExpandedTalkerID;
 
-      virtual bool IsGood( void ) const;
-      virtual bool Parse( void );
-      virtual void SetSentence(const char * source);
-      virtual void GetSentence(std::string& destination) const;
+      virtual bool IsGood( void ) const noexcept;
+      virtual bool Parse( void ) noexcept;
+      virtual void SetSentence(char const * source) noexcept;
+      virtual void GetSentence(std::string& destination) const noexcept;
 
-      NMEA0183& operator << ( const char *source );
-      NMEA0183& operator >> ( std::string& destination );
+      NMEA0183& operator << ( char const * source ) noexcept;
+      NMEA0183& operator >> ( std::string& destination ) noexcept;
 };
 
 #endif // NMEA_0183_CLASS_HEADER

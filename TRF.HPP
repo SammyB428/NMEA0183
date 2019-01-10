@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,29 +44,29 @@ class TRF : public RESPONSE
       */
 
       std::string      UTCTime;
-      time_t           Time;
+      time_t           Time{ 0 };
       std::string      Date;
       LATLONG          Position;
-      double           ElevationAngle;
-      double           NumberOfIterations;
-      double           NumberOfDopplerIntervals;
-      double           UpdateDistanceNauticalMiles;
-      double           SatelliteID;
-      NMEA0183_BOOLEAN IsDataValid;
+      double           ElevationAngle{ 0.0 };
+      double           NumberOfIterations{ 0.0 };
+      double           NumberOfDopplerIntervals{ 0.0 };
+      double           UpdateDistanceNauticalMiles{ 0.0 };
+      double           SatelliteID{ 0.0 };
+      NMEA0183_BOOLEAN IsDataValid{ NMEA0183_BOOLEAN::NMEA_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const TRF& operator = ( const TRF& source );
+      virtual TRF const& operator = ( TRF const& source ) noexcept;
 };
 
 #endif // TRF_CLASS_HEADER

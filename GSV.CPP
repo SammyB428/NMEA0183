@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ GSV::~GSV()
    Empty();
 }
 
-void GSV::Empty( void )
+void GSV::Empty( void ) noexcept
 {
   
    NumberOfSatellites = 0;
@@ -63,7 +63,7 @@ void GSV::Empty( void )
    }
 }
 
-bool GSV::Parse( const SENTENCE& sentence )
+bool GSV::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** GSV - TRANSIT Position - Latitude/Longitude
@@ -99,13 +99,13 @@ bool GSV::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 20 ) == True )
+   if ( sentence.IsChecksumBad( 20 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
    }
 
-   int message_number = sentence.Integer( 2 );
+   int const message_number = sentence.Integer( 2 );
 
    NumberOfSatellites = sentence.Integer( 3 );
 
@@ -120,7 +120,7 @@ bool GSV::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool GSV::Write( SENTENCE& sentence )
+bool GSV::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -137,7 +137,7 @@ bool GSV::Write( SENTENCE& sentence )
    return( true );
 }
 
-const GSV& GSV::operator = ( const GSV& source )
+GSV const& GSV::operator = ( GSV const& source ) noexcept
 {
    NumberOfSatellites = source.NumberOfSatellites;
 

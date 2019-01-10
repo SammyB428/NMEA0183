@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,19 +49,19 @@ RTE::~RTE()
    Empty();
 }
 
-void RTE::Empty( void )
+void RTE::Empty( void ) noexcept
 {
    m_TotalNumberOfMessages     = 0.0;
    m_LastMessageNumberReceived = 0.0;
    m_MessageNumber             = 0.0;
    m_LastWaypointNumberWritten = 0;
 
-   TypeOfRoute = RouteUnknown;
-   RouteName.clear();                  
+   TypeOfRoute = RTE::ROUTE_TYPE::RouteUnknown;
+   RouteName.clear();
    Waypoints.clear();
 }
 
-bool RTE::Parse( const SENTENCE& sentence )
+bool RTE::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RTE - Routes
@@ -98,19 +98,19 @@ bool RTE::Parse( const SENTENCE& sentence )
        Waypoints.clear();
    }
 
-   std::string field_data = sentence.Field( 3 );
+   std::string const field_data = sentence.Field( 3 );
 
    if ( field_data == "c" )
    {
-      TypeOfRoute = CompleteRoute;
+      TypeOfRoute = RTE::ROUTE_TYPE::CompleteRoute;
    }
    else if ( field_data == "w" )
    {
-      TypeOfRoute = WorkingRoute;
+      TypeOfRoute = RTE::ROUTE_TYPE::WorkingRoute;
    }
    else
    {
-      TypeOfRoute = RouteUnknown;
+      TypeOfRoute = RTE::ROUTE_TYPE::RouteUnknown;
    }
 
    RouteName = sentence.Field( 4 );
@@ -129,7 +129,7 @@ bool RTE::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool RTE::Write( SENTENCE& sentence )
+bool RTE::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -142,12 +142,12 @@ bool RTE::Write( SENTENCE& sentence )
 
    switch( TypeOfRoute )
    {
-      case CompleteRoute:
+      case RTE::ROUTE_TYPE::CompleteRoute:
 
          sentence += "c";
          break;
 
-      case WorkingRoute:
+      case RTE::ROUTE_TYPE::WorkingRoute:
 
          sentence += "w";
          break;

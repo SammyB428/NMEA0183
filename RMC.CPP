@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,19 +49,20 @@ RMC::~RMC()
    Empty();
 }
 
-void RMC::Empty( void )
+void RMC::Empty( void ) noexcept
 {
    UTCTime.clear();
-   IsDataValid                = NMEA_Unknown;
-   SpeedOverGroundKnots       = 0.0;
+   Time                       = 0;
+   IsDataValid                = NMEA0183_BOOLEAN::NMEA_Unknown;
    Position.Empty();
+   SpeedOverGroundKnots       = 0.0;
    TrackMadeGoodDegreesTrue   = 0.0;
    Date.clear();
    MagneticVariation          = 0.0;
-   MagneticVariationDirection = EW_Unknown;
+   MagneticVariationDirection = EASTWEST::EW_Unknown;
 }
 
-bool RMC::Parse( const SENTENCE& sentence )
+bool RMC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RMC - Recommended Minimum Navigation Information
@@ -89,15 +90,15 @@ bool RMC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   NMEA0183_BOOLEAN check = sentence.IsChecksumBad( 12 );
+   NMEA0183_BOOLEAN const check = sentence.IsChecksumBad( 12 );
 
-   if ( check == True )
+   if ( check == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
    }
    
-   if ( check == NMEA_Unknown )
+   if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
    {
       SetErrorMessage( "Missing Checksum" );
       return( false );
@@ -116,7 +117,7 @@ bool RMC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string RMC::PlainEnglish( void ) const
+std::string RMC::PlainEnglish( void ) const noexcept
 {
    std::string return_string( "At " );
    std::string time_string = ctime(&Time);
@@ -139,7 +140,7 @@ std::string RMC::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool RMC::Write( SENTENCE& sentence )
+bool RMC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -161,7 +162,7 @@ bool RMC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const RMC& RMC::operator = ( const RMC& source )
+RMC const& RMC::operator = ( RMC const& source ) noexcept
 {
    UTCTime                    = source.UTCTime;
    Time                       = source.Time;

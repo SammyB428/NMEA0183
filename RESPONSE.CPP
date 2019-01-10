@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,19 +56,19 @@ RESPONSE::~RESPONSE()
    ErrorMessage.clear();
 }
 
-void RESPONSE::SetContainer( NMEA0183 *container )
+void RESPONSE::SetContainer( NMEA0183 *container ) noexcept
 {
    container_p = container;
 }
 
-void RESPONSE::SetErrorMessage(const std::string &error_message)
+void RESPONSE::SetErrorMessage(std::string const& error_message) noexcept
 {
    ErrorMessage  = Mnemonic;
    ErrorMessage += ", ";
    ErrorMessage += error_message;
 }
 
-bool RESPONSE::Write( SENTENCE& sentence )
+bool RESPONSE::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** All NMEA0183 sentences begin with the mnemonic...
@@ -82,7 +82,7 @@ bool RESPONSE::Write( SENTENCE& sentence )
    return( true );
 }
 
-std::string RESPONSE::PlainEnglish( void ) const
+std::string RESPONSE::PlainEnglish( void ) const noexcept
 {
    std::string return_string;
 

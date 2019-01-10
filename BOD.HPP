@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,8 +43,8 @@ class BOD : public RESPONSE
       ** Data
       */
 
-      double      BearingTrue;
-      double      BearingMagnetic;
+      double      BearingTrue{ 0.0 };
+      double      BearingMagnetic{ 0.0 };
       std::string To;
       std::string From;
 
@@ -52,16 +52,16 @@ class BOD : public RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual std::string PlainEnglish( void ) const override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      std::string PlainEnglish( void ) const noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const BOD& operator = ( const BOD& source );
+      virtual BOD const& operator = ( BOD const& source ) noexcept;
 };
 
 #endif // BOD_CLASS_HEADER

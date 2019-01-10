@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-typedef enum
+enum class FIX_DATA_BASIS
 {
    BasisUnknown = 0,
    NormalPatternBasis,
    LaneIdentificationPatternBasis,
    LaneIdentificationTransmissionsBasis
-}
-FIX_DATA_BASIS;
+};
 
 class DCN : public RESPONSE
 {
@@ -52,29 +51,29 @@ class DCN : public RESPONSE
       ** Data
       */
 
-      int              DeccaChainID;
+      int              DeccaChainID{ 0 };
       LINE_OF_POSITION Red;
       LINE_OF_POSITION Green;
       LINE_OF_POSITION Purple;
-      NMEA0183_BOOLEAN RedLineNavigationUse;
-      NMEA0183_BOOLEAN GreenLineNavigationUse;
-      NMEA0183_BOOLEAN PurpleLineNavigationUse;
-      double           PositionUncertaintyNauticalMiles;
-      FIX_DATA_BASIS   Basis;
+      NMEA0183_BOOLEAN RedLineNavigationUse{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      NMEA0183_BOOLEAN GreenLineNavigationUse{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      NMEA0183_BOOLEAN PurpleLineNavigationUse{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      double           PositionUncertaintyNauticalMiles{ 0.0 };
+      FIX_DATA_BASIS   Basis{ FIX_DATA_BASIS::BasisUnknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const DCN& operator = ( const DCN& source );
+      virtual DCN const& operator = ( DCN const& source ) noexcept;
 };
 
 #endif // DCN_CLASS_HEADER

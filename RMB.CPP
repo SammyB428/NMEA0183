@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,21 +49,21 @@ RMB::~RMB()
    Empty();
 }
 
-void RMB::Empty( void )
+void RMB::Empty( void ) noexcept
 {
-   IsDataValid                     = NMEA_Unknown;
+   IsDataValid                     = NMEA0183_BOOLEAN::NMEA_Unknown;
    CrossTrackError                 = 0.0;
-   DirectionToSteer                = LR_Unknown;
+   DirectionToSteer                = LEFTRIGHT::LR_Unknown;
    To.clear();
    From.clear();
    DestinationPosition;
    RangeToDestinationNauticalMiles = 0.0;
    BearingToDestinationDegreesTrue = 0.0;
    DestinationClosingVelocityKnots = 0.0;
-   IsArrivalCircleEntered          = NMEA_Unknown;
+   IsArrivalCircleEntered          = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool RMB::Parse( const SENTENCE& sentence )
+bool RMB::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RMB - Recommended Minimum Navigation Information
@@ -93,15 +93,15 @@ bool RMB::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   NMEA0183_BOOLEAN check = sentence.IsChecksumBad( 14 );
+   NMEA0183_BOOLEAN const check = sentence.IsChecksumBad( 14 );
 
-   if ( check == True )
+   if ( check == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
    }
    
-   if ( check == NMEA_Unknown )
+   if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
    {
       SetErrorMessage( "Missing Checksum" );
       return( false );
@@ -121,7 +121,7 @@ bool RMB::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool RMB::Write( SENTENCE& sentence )
+bool RMB::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -145,7 +145,7 @@ bool RMB::Write( SENTENCE& sentence )
    return( true );
 }
 
-const RMB& RMB::operator = ( const RMB& source )
+RMB const& RMB::operator = ( RMB const& source ) noexcept
 {
    IsDataValid                     = source.IsDataValid;
    CrossTrackError                 = source.CrossTrackError;

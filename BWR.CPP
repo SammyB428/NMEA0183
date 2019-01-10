@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,16 +49,18 @@ BWR::~BWR()
    Empty();
 }
 
-void BWR::Empty( void )
+void BWR::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time            = 0;
    BearingTrue     = 0.0;
    BearingMagnetic = 0.0;
    NauticalMiles   = 0.0;
    To.clear();
+   Position.Empty();
 }
 
-bool BWR::Parse( const SENTENCE& sentence )
+bool BWR::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** BWR - Bearing and Distance to Waypoint - Rhumb Line
@@ -87,7 +89,7 @@ bool BWR::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 13 ) == True )
+   if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -104,7 +106,7 @@ bool BWR::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool BWR::Write( SENTENCE& sentence )
+bool BWR::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -127,7 +129,7 @@ bool BWR::Write( SENTENCE& sentence )
    return( true );
 }
 
-const BWR& BWR::operator = ( const BWR& source )
+BWR const& BWR::operator = ( BWR const& source ) noexcept
 {
    UTCTime         = source.UTCTime;
    Time            = source.Time;

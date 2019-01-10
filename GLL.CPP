@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,15 @@ GLL::~GLL()
    Empty();
 }
 
-void GLL::Empty( void )
+void GLL::Empty( void ) noexcept
 {
-   Position.Empty();
    UTCTime.clear();
-   IsDataValid = NMEA_Unknown;
+   Time = 0;
+   IsDataValid = NMEA0183_BOOLEAN::NMEA_Unknown;
+   Position.Empty();
 }
 
-bool GLL::Parse( const SENTENCE& sentence )
+bool GLL::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** GLL - Geographic Position - Latitude/Longitude
@@ -80,7 +81,7 @@ bool GLL::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -94,7 +95,7 @@ bool GLL::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string GLL::PlainEnglish( void ) const
+std::string GLL::PlainEnglish( void ) const noexcept
 {
    std::string return_string( "At " );
    std::string time_string = ctime(&Time);
@@ -106,7 +107,7 @@ std::string GLL::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool GLL::Write( SENTENCE& sentence )
+bool GLL::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -123,7 +124,7 @@ bool GLL::Write( SENTENCE& sentence )
    return( true );
 }
 
-const GLL& GLL::operator = ( const GLL& source )
+GLL const& GLL::operator = ( GLL const& source ) noexcept
 {
    Position    = source.Position;
    UTCTime     = source.UTCTime;

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,15 +47,15 @@ LONGITUDE::~LONGITUDE()
    Empty();
 }
 
-void LONGITUDE::Empty( void )
+void LONGITUDE::Empty( void ) noexcept
 {
    Longitude = 0.0;
-   Easting   = EW_Unknown;
+   Easting   = EASTWEST::EW_Unknown;
 }
 
-bool LONGITUDE::IsDataValid( void )
+bool LONGITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Easting != East && Easting != West )
+   if ( Easting != EASTWEST::East && Easting != EASTWEST::West )
    {
       return( false );
    }
@@ -63,7 +63,7 @@ bool LONGITUDE::IsDataValid( void )
    return( true );
 }
 
-void LONGITUDE::Parse( int position_field_number, int east_or_west_field_number, const SENTENCE& sentence )
+void LONGITUDE::Parse( int position_field_number, int east_or_west_field_number, SENTENCE const& sentence ) noexcept
 {
    // Thanks go to Eric Parsonage (ericpa@mpx.com.au) for finding a nasty
    // little bug that used to live here.
@@ -72,42 +72,42 @@ void LONGITUDE::Parse( int position_field_number, int east_or_west_field_number,
 
    position = sentence.Double( position_field_number );
 
-   std::string east_or_west = sentence.Field( east_or_west_field_number );
+   std::string const east_or_west = sentence.Field( east_or_west_field_number );
 
    Set( position, east_or_west.c_str() );
 }
 
-void LONGITUDE::Set( double position, const char *east_or_west )
+void LONGITUDE::Set( double position, char const * east_or_west ) noexcept
 {
    Longitude  = position;
    Coordinate = position;
 
    if ( east_or_west[ 0 ] == 'E' )
    {
-      Easting = East;
+      Easting = EASTWEST::East;
    }
    else if ( east_or_west[ 0 ] == 'W' )
    {
-      Easting = West;
+      Easting = EASTWEST::West;
    }
    else
    {
-      Easting = EW_Unknown;
+      Easting = EASTWEST::EW_Unknown;
    }
 }
 
-void LONGITUDE::Write( SENTENCE& sentence )
+void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
    ::sprintf( temp_string, "%08.2f", Longitude );
    sentence += temp_string;
    
-   if ( Easting == East )
+   if ( Easting == EASTWEST::East )
    {
       sentence += "E";
    }
-   else if ( Easting == West )
+   else if ( Easting == EASTWEST::West )
    {
       sentence += "W";
    }
@@ -122,7 +122,7 @@ void LONGITUDE::Write( SENTENCE& sentence )
    }
 }
 
-const LONGITUDE& LONGITUDE::operator = ( const LONGITUDE& source )
+LONGITUDE const& LONGITUDE::operator = ( LONGITUDE const& source ) noexcept
 {
    Longitude = source.Longitude;
    Easting   = source.Easting;

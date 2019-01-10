@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-typedef enum
+enum class TARGET_STATUS
 {
    TargetUnknown = 0,
    TargetLost,
    TargetQuery,
    TargetTracking
-}
-TARGET_STATUS;
+};
 
 class TTM : public RESPONSE
 {
@@ -52,33 +51,33 @@ class TTM : public RESPONSE
       ** Data
       */
 
-      int           TargetNumber;
-      double        TargetDistance;
-      double        BearingFromOwnShip;
+      int           TargetNumber{ 0 };
+      double        TargetDistance{ 0.0 };
+      double        BearingFromOwnShip{ 0.0 };
       std::string   BearingUnits;
-      double        TargetSpeed;
-      double        TargetCourse;
+      double        TargetSpeed{ 0.0 };
+      double        TargetCourse{ 0.0 };
       std::string   TargetCourseUnits;
-      double        DistanceOfClosestPointOfApproach;
-      double        NumberOfMinutesToClosestPointOfApproach;
+      double        DistanceOfClosestPointOfApproach{ 0.0 };
+      double        NumberOfMinutesToClosestPointOfApproach{ 0.0 };
       std::string   Increasing;
       std::string   TargetName;
-      TARGET_STATUS TargetStatus;
+      TARGET_STATUS TargetStatus{ TARGET_STATUS::TargetUnknown };
       std::string   ReferenceTarget;
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const TTM& operator = ( const TTM& source );
+      virtual TTM const& operator = ( TTM const& source ) noexcept;
 };
 
 #endif // TTM_CLASS_HEADER

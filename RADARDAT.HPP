@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,24 +43,24 @@ class RADAR_DATA
       ** Data
       */
 
-      double OriginRangeFromOwnShip;
-      double OriginBearingDegreesFromZero;
-      double VariableRangeMarkerRange;
-      double BearingLineDegreesFromZero;
+      double OriginRangeFromOwnShip{ 0.0 };
+      double OriginBearingDegreesFromZero{ 0.0 };
+      double VariableRangeMarkerRange{ 0.0 };
+      double BearingLineDegreesFromZero{ 0.0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const RADAR_DATA& operator = ( const RADAR_DATA& source );
+      virtual RADAR_DATA const& operator = ( RADAR_DATA const& source ) noexcept;
 };
 
 #endif // RADAR_DATA_CLASS_HEADER

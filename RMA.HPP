@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,28 +43,28 @@ class RMA : public RESPONSE
       ** Data
       */
 
-      NMEA0183_BOOLEAN IsDataValid;
+      NMEA0183_BOOLEAN IsDataValid{ NMEA0183_BOOLEAN::NMEA_Unknown };
       LATLONG          Position;
-      double           TimeDifferenceA;
-      double           TimeDifferenceB;
-      double           SpeedOverGroundKnots;
-      double           TrackMadeGoodDegreesTrue;
-      double           MagneticVariation;
-      EASTWEST         MagneticVariationDirection;
+      double           TimeDifferenceA{ 0.0 };
+      double           TimeDifferenceB{ 0.0 };
+      double           SpeedOverGroundKnots{ 0.0 };
+      double           TrackMadeGoodDegreesTrue{ 0.0 };
+      double           MagneticVariation{ 0.0 };
+      EASTWEST         MagneticVariationDirection{ EASTWEST::EW_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const RMA& operator = ( const RMA& source );
+      virtual RMA const& operator = ( RMA const& source ) noexcept;
 };
 
 #endif // RMA_CLASS_HEADER

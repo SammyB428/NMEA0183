@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,17 +49,17 @@ VBW::~VBW()
    Empty();
 }
 
-void VBW::Empty( void )
+void VBW::Empty( void ) noexcept
 {
    LongitudinalWaterSpeed  = 0.0;
    TransverseWaterSpeed    = 0.0;
-   IsWaterSpeedValid       = NMEA_Unknown;
+   IsWaterSpeedValid       = NMEA0183_BOOLEAN::NMEA_Unknown;
    LongitudinalGroundSpeed = 0.0;
    TransverseGroundSpeed   = 0.0;
-   IsGroundSpeedValid      = NMEA_Unknown;
+   IsGroundSpeedValid      = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool VBW::Parse( const SENTENCE& sentence )
+bool VBW::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** VBW - Dual Ground/Water Speed
@@ -82,7 +82,7 @@ bool VBW::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -98,7 +98,7 @@ bool VBW::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool VBW::Write( SENTENCE& sentence )
+bool VBW::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -118,7 +118,7 @@ bool VBW::Write( SENTENCE& sentence )
    return( true );
 }
 
-const VBW& VBW::operator = ( const VBW& source )
+VBW const& VBW::operator = ( VBW const& source ) noexcept
 {
    LongitudinalWaterSpeed  = source.LongitudinalWaterSpeed;
    TransverseWaterSpeed    = source.TransverseWaterSpeed;

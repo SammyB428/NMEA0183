@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,13 +54,15 @@ WAYPOINT_LOCATION::~WAYPOINT_LOCATION()
    Empty();
 }
 
-void WAYPOINT_LOCATION::Empty( void )
+void WAYPOINT_LOCATION::Empty( void ) noexcept
 {
-   Position.Empty();
    UTCTime.clear();
+   Time = 0;
+   Position.Empty();
+   Waypoint.clear();
 }
 
-bool WAYPOINT_LOCATION::Parse( const SENTENCE& sentence )
+bool WAYPOINT_LOCATION::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** xxx - Waypoint location
@@ -83,7 +85,7 @@ bool WAYPOINT_LOCATION::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 7 ) == True )
+   if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -97,7 +99,7 @@ bool WAYPOINT_LOCATION::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string WAYPOINT_LOCATION::PlainEnglish( void ) const
+std::string WAYPOINT_LOCATION::PlainEnglish( void ) const noexcept
 {
    std::string return_string( "At " );
    std::string time_string = ctime(&Time);
@@ -111,7 +113,7 @@ std::string WAYPOINT_LOCATION::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool WAYPOINT_LOCATION::Write( SENTENCE& sentence )
+bool WAYPOINT_LOCATION::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -128,7 +130,7 @@ bool WAYPOINT_LOCATION::Write( SENTENCE& sentence )
    return( true );
 }
 
-const WAYPOINT_LOCATION& WAYPOINT_LOCATION::operator = ( const WAYPOINT_LOCATION& source )
+WAYPOINT_LOCATION const& WAYPOINT_LOCATION::operator = ( WAYPOINT_LOCATION const& source ) noexcept
 {
    UTCTime  = source.UTCTime;
    Time     = source.Time;

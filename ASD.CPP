@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ ASD::~ASD()
 
 #pragma warning( disable : 4100 )
 
-bool ASD::Parse( const SENTENCE& sentence )
+bool ASD::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ASD - Autopilot System Data
@@ -62,13 +62,13 @@ bool ASD::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-void ASD::Empty(void)
+void ASD::Empty(void) noexcept
 {
 }
 
 #pragma warning( default : 4100 )
 
-bool ASD::Write( SENTENCE& sentence )
+bool ASD::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing

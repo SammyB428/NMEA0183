@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,25 +47,25 @@ RATIO_AND_PULSE::~RATIO_AND_PULSE()
    Empty();
 }
 
-void RATIO_AND_PULSE::Empty( void )
+void RATIO_AND_PULSE::Empty( void ) noexcept
 {
    SignalToNoiseRatio = 0;
    PulseShapeECD      = 0;
 }
 
-void RATIO_AND_PULSE::Parse( int first_field_number, const SENTENCE& sentence )
+void RATIO_AND_PULSE::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    SignalToNoiseRatio = sentence.Integer( first_field_number );
    PulseShapeECD      = sentence.Integer( first_field_number + 1 );
 }
 
-void RATIO_AND_PULSE::Write( SENTENCE& sentence )
+void RATIO_AND_PULSE::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += SignalToNoiseRatio;
    sentence += PulseShapeECD;
 }
 
-const RATIO_AND_PULSE& RATIO_AND_PULSE::operator = ( const RATIO_AND_PULSE& source )
+RATIO_AND_PULSE const& RATIO_AND_PULSE::operator = ( RATIO_AND_PULSE const& source ) noexcept
 {
    SignalToNoiseRatio = source.SignalToNoiseRatio;
    PulseShapeECD      = source.PulseShapeECD;

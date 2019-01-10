@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ WPL::~WPL()
    Empty();
 }
 
-void WPL::Empty( void )
+void WPL::Empty( void ) noexcept
 {
    Position.Empty();
    To.clear();
 }
 
-bool WPL::Parse( const SENTENCE& sentence )
+bool WPL::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** WPL - Waypoint Location
@@ -74,7 +74,7 @@ bool WPL::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 6 ) == True )
+   if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -86,7 +86,7 @@ bool WPL::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool WPL::Write( SENTENCE& sentence )
+bool WPL::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -102,7 +102,7 @@ bool WPL::Write( SENTENCE& sentence )
    return( true );
 }
 
-const WPL& WPL::operator = ( const WPL& source )
+WPL const& WPL::operator = ( WPL const& source ) noexcept
 {
    Position = source.Position;
    To       = source.To;

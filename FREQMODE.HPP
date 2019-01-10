@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,22 +43,22 @@ class FREQUENCY_AND_MODE
       ** Data
       */
 
-      double              Frequency;
-      COMMUNICATIONS_MODE Mode;
+      double              Frequency{ 0.0 };
+      COMMUNICATIONS_MODE Mode{ COMMUNICATIONS_MODE::CommunicationsModeUnknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const FREQUENCY_AND_MODE& FREQUENCY_AND_MODE::operator = ( const FREQUENCY_AND_MODE& source );
+      virtual FREQUENCY_AND_MODE const& operator = ( FREQUENCY_AND_MODE const& source ) noexcept;
 };
 
 #endif // FREQUENCY_AND_MODE_CLASS_HEADER

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,14 +49,15 @@ ZTG::~ZTG()
    Empty();
 }
 
-void ZTG::Empty( void )
+void ZTG::Empty( void ) noexcept
 {
    UTCTime.clear();
+   Time = 0;
    TimeRemaining.clear();
    To.clear();
 }
 
-bool ZTG::Parse( const SENTENCE& sentence )
+bool ZTG::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ZTG - UTC & Time to Destination Waypoint
@@ -76,7 +77,7 @@ bool ZTG::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -90,7 +91,7 @@ bool ZTG::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool ZTG::Write( SENTENCE& sentence )
+bool ZTG::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -107,7 +108,7 @@ bool ZTG::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ZTG& ZTG::operator = ( const ZTG& source )
+ZTG const& ZTG::operator = ( ZTG const& source ) noexcept
 {
    UTCTime       = source.UTCTime;
    Time          = source.Time;

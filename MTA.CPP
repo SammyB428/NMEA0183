@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,13 +54,13 @@ MTA::~MTA()
     Empty();
 }
 
-void MTA::Empty(void)
+void MTA::Empty(void) noexcept
 {
     Temperature = 0.0;
     UnitOfMeasurement.clear();
 }
 
-bool MTA::Parse(const SENTENCE& sentence)
+bool MTA::Parse(SENTENCE const& sentence) noexcept
 {
     /*
     ** MTA - Air Temperature
@@ -79,7 +79,7 @@ bool MTA::Parse(const SENTENCE& sentence)
     ** First we check the checksum...
     */
 
-    if (sentence.IsChecksumBad(3) == True)
+    if (sentence.IsChecksumBad(3) == NMEA0183_BOOLEAN::True)
     {
         SetErrorMessage("Invalid Checksum");
         return(false);
@@ -91,7 +91,7 @@ bool MTA::Parse(const SENTENCE& sentence)
     return(true);
 }
 
-std::string MTA::PlainEnglish(void) const
+std::string MTA::PlainEnglish(void) const noexcept
 {
     std::string return_string("The air temperature is ");
 
@@ -106,7 +106,7 @@ std::string MTA::PlainEnglish(void) const
     return(return_string);
 }
 
-bool MTA::Write(SENTENCE& sentence)
+bool MTA::Write(SENTENCE& sentence) const noexcept
 {
     /*
     ** Let the parent do its thing
@@ -122,7 +122,7 @@ bool MTA::Write(SENTENCE& sentence)
     return(true);
 }
 
-const MTA& MTA::operator = (const MTA& source)
+MTA const& MTA::operator = (MTA const& source) noexcept
 {
     Temperature = source.Temperature;
     UnitOfMeasurement = source.UnitOfMeasurement;

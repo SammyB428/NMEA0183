@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ ROT::~ROT()
    Empty();
 }
 
-void ROT::Empty( void )
+void ROT::Empty( void ) noexcept
 {
    RateOfTurn  = 0.0;
-   IsDataValid = NMEA_Unknown;
+   IsDataValid = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool ROT::Parse( const SENTENCE& sentence )
+bool ROT::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ROT - Rate Of Turn
@@ -74,7 +74,7 @@ bool ROT::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 3 ) == True )
+   if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -86,7 +86,7 @@ bool ROT::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string ROT::PlainEnglish( void ) const
+std::string ROT::PlainEnglish( void ) const noexcept
 {
    std::string return_string;
 
@@ -105,9 +105,9 @@ std::string ROT::PlainEnglish( void ) const
 
    return_string += temp_string;
 
-   if ( IsDataValid != True )
+   if ( IsDataValid != NMEA0183_BOOLEAN::True )
    {
-      if ( IsDataValid == False )
+      if ( IsDataValid == NMEA0183_BOOLEAN::False )
       {
          return_string += " However, this data is not valid.";
       }
@@ -120,7 +120,7 @@ std::string ROT::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool ROT::Write( SENTENCE& sentence )
+bool ROT::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -136,7 +136,7 @@ bool ROT::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ROT& ROT::operator = ( const ROT& source )
+ROT const& ROT::operator = ( ROT const& source ) noexcept
 {
    RateOfTurn  = source.RateOfTurn;
    IsDataValid = source.IsDataValid;

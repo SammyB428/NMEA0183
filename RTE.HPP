@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,32 +36,31 @@ class RTE : public RESPONSE
 {
    private:
 
-      double m_TotalNumberOfMessages;
-      double m_LastMessageNumberReceived;
-      double m_MessageNumber;
+       double m_TotalNumberOfMessages{ 0.0 };
+       double m_LastMessageNumberReceived{ 0.0 };
+       double m_MessageNumber{ 0.0 };
 
-      int m_LastWaypointNumberWritten;
+       int m_LastWaypointNumberWritten{ 0 };
 
    public:
 
       RTE();
       virtual ~RTE();
 
-      typedef enum
+      enum class ROUTE_TYPE
       {
-         RouteUnknown = 0,
-         CompleteRoute,
-         WorkingRoute
-      }
-      ROUTE_TYPE;
+          RouteUnknown = 0,
+          CompleteRoute,
+          WorkingRoute
+      };
 
-      ROUTE_TYPE  TypeOfRoute;
+      ROUTE_TYPE  TypeOfRoute{ RTE::ROUTE_TYPE::RouteUnknown };
       std::string RouteName;
       std::vector<std::string> Waypoints;
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 };
 
 #endif // RTE_CLASS_HEADER

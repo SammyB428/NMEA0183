@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,43 +43,41 @@ class GSA : public RESPONSE
       ** Data
       */
 
-      typedef enum
+      enum class OPERATING_MODE
       {
          UnknownOperatingMode = 0,
          Manual,
          Automatic
-      }
-      OPERATING_MODE;
+      };
 
-      typedef enum
+      enum class FIX_MODE
       {
          FixUnknown = 0,
          FixUnavailable,
          TwoDimensional,
          ThreeDimensional
-      }
-      FIX_MODE;
+      };
 
-      OPERATING_MODE OperatingMode;
-      FIX_MODE       FixMode;
-      int            SatelliteNumber[ 12 ];
-      double         PDOP;
-      double         HDOP;
-      double         VDOP;
+      OPERATING_MODE OperatingMode{ OPERATING_MODE::UnknownOperatingMode };
+      FIX_MODE       FixMode{ FIX_MODE::FixUnknown };
+      int            SatelliteNumber[12]{ 0 };
+      double         PDOP{ 0.0 };
+      double         HDOP{ 0.0 };
+      double         VDOP{ 0.0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const GSA& operator = ( const GSA& source );
+      virtual GSA const& operator = ( GSA const& source ) noexcept;
 };
 
 #endif // GSA_CLASS_HEADER

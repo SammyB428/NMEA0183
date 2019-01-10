@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,17 +47,17 @@ MANUFACTURER_LIST::~MANUFACTURER_LIST()
    Empty();
 }
 
-void MANUFACTURER_LIST::Empty( void )
+void MANUFACTURER_LIST::Empty( void ) noexcept
 {
     ManufacturerTable.clear();
 }
 
-static bool is_less_than(__in const MANUFACTURER& left, __in const MANUFACTURER& right)
+static bool is_less_than(MANUFACTURER const& left, MANUFACTURER const& right) noexcept
 {
     return(left.Mnemonic < right.Mnemonic);
 }
 
-void MANUFACTURER_LIST::Fill( void )
+void MANUFACTURER_LIST::Fill( void ) noexcept
 {
    ManufacturerTable.push_back( MANUFACTURER( "AAR", "Asian American Resources" ) );
    ManufacturerTable.push_back( MANUFACTURER( "ACE", "Auto-Comm Engineering Corporation" ) );
@@ -397,7 +397,7 @@ void MANUFACTURER_LIST::Fill( void )
    std::sort(ManufacturerTable.begin(), ManufacturerTable.end(), is_less_than);
 }
 
-const std::string& MANUFACTURER_LIST::Find( const std::string& mnemonic )
+std::string const& MANUFACTURER_LIST::Find( std::string const& mnemonic ) noexcept
 {
    static std::string return_value;
 
@@ -424,7 +424,7 @@ const std::string& MANUFACTURER_LIST::Find( const std::string& mnemonic )
    return( return_value );
 }
 
-const std::string& MANUFACTURER_LIST::operator [] ( const char *mnemonic )
+std::string const& MANUFACTURER_LIST::operator [] ( char const * mnemonic ) noexcept
 {
    return( Find( mnemonic ) );
 }

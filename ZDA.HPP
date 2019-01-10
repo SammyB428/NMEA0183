@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,26 +44,26 @@ class ZDA : public RESPONSE
       */
 
       std::string UTCTime;
-      time_t      Time;
-      int         Day;
-      int         Month;
-      int         Year;
-      int         LocalHourDeviation;
-      int         LocalMinutesDeviation;
+      time_t      Time{ 0 };
+      int         Day{ 0 };
+      int         Month{ 0 };
+      int         Year{ 0 };
+      int         LocalHourDeviation{ 0 };
+      int         LocalMinutesDeviation{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const ZDA& operator = ( const ZDA& source );
+      virtual ZDA const& operator = ( ZDA const& source ) noexcept;
 };
 
 #endif // ZDA_CLASS_HEADER

@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,15 +32,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-typedef enum
+enum class LORAN_SIGNAL_STATUS
 {
    LoranUnknown = 0,
    LoranValid,
    LoranBlinkWarning,
    LoranCycleWarning,
    LoranSignalToNoiseRatioWarning
-}
-LORAN_SIGNAL_STATUS;
+};
 
 class LORAN_TIME_DIFFERENCE
 {
@@ -53,22 +52,22 @@ class LORAN_TIME_DIFFERENCE
       ** Data
       */
 
-      double              Microseconds;
-      LORAN_SIGNAL_STATUS SignalStatus;
+      double              Microseconds{ 0.0 };
+      LORAN_SIGNAL_STATUS SignalStatus{ LORAN_SIGNAL_STATUS::LoranUnknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const LORAN_TIME_DIFFERENCE& LORAN_TIME_DIFFERENCE::operator = ( const LORAN_TIME_DIFFERENCE& source );
+      virtual LORAN_TIME_DIFFERENCE const& operator = ( LORAN_TIME_DIFFERENCE const& source ) noexcept;
 };
 
 #endif // LORAN_TIME_DIFFERENCE_CLASS_HEADER

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,12 +49,12 @@ HDT::~HDT()
    Empty();
 }
 
-void HDT::Empty( void )
+void HDT::Empty( void ) noexcept
 {
    DegreesTrue = 0.0;
 }
 
-bool HDT::Parse( const SENTENCE& sentence )
+bool HDT::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** HDT - Heading - True
@@ -73,7 +73,7 @@ bool HDT::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 3 ) == True )
+   if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -84,7 +84,7 @@ bool HDT::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-std::string HDT::PlainEnglish( void ) const
+std::string HDT::PlainEnglish( void ) const noexcept
 {
    std::string return_string("Your true heading is ");
    
@@ -97,7 +97,7 @@ std::string HDT::PlainEnglish( void ) const
    return( return_string );
 }
 
-bool HDT::Write( SENTENCE& sentence )
+bool HDT::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -113,7 +113,7 @@ bool HDT::Write( SENTENCE& sentence )
    return( true );
 }
 
-const HDT& HDT::operator = ( const HDT& source )
+HDT const& HDT::operator = ( HDT const& source ) noexcept
 {
    DegreesTrue = source.DegreesTrue;
 

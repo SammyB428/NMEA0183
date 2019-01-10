@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ SATELLITE_DATA::~SATELLITE_DATA()
    Empty();
 }
 
-void SATELLITE_DATA::Empty( void )
+void SATELLITE_DATA::Empty( void ) noexcept
 {
    SatelliteNumber    = 0;
    ElevationDegrees   = 0;
@@ -55,15 +55,15 @@ void SATELLITE_DATA::Empty( void )
    SignalToNoiseRatio = (-1);
 }
 
-void SATELLITE_DATA::Parse( int first_field_number, const SENTENCE& sentence )
+void SATELLITE_DATA::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    SatelliteNumber    = sentence.Integer( first_field_number );
    ElevationDegrees   = sentence.Integer( first_field_number + 1 );
    AzimuthDegreesTrue = sentence.Integer( first_field_number + 2 );
    
-   std::string field_data = sentence.Field( first_field_number + 3 );
+   std::string const field_data = sentence.Field( first_field_number + 3 );
 
-   if ( field_data == "" )
+   if ( field_data.empty() == true )
    {
       SignalToNoiseRatio = (-1);
    }
@@ -74,7 +74,7 @@ void SATELLITE_DATA::Parse( int first_field_number, const SENTENCE& sentence )
      
 }
 
-void SATELLITE_DATA::Write( SENTENCE& sentence )
+void SATELLITE_DATA::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += SatelliteNumber;
    sentence += ElevationDegrees;
@@ -90,7 +90,7 @@ void SATELLITE_DATA::Write( SENTENCE& sentence )
    }
 }
 
-const SATELLITE_DATA& SATELLITE_DATA::operator = ( const SATELLITE_DATA& source )
+SATELLITE_DATA const& SATELLITE_DATA::operator = ( SATELLITE_DATA const& source ) noexcept
 {
    SatelliteNumber    = source.SatelliteNumber;
    ElevationDegrees   = source.ElevationDegrees;

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ RADAR_DATA::~RADAR_DATA()
    Empty();
 }
 
-void RADAR_DATA::Empty( void )
+void RADAR_DATA::Empty( void ) noexcept
 {
    OriginRangeFromOwnShip       = 0.0;
    OriginBearingDegreesFromZero = 0.0;
@@ -55,7 +55,7 @@ void RADAR_DATA::Empty( void )
    BearingLineDegreesFromZero   = 0.0;
 }
 
-void RADAR_DATA::Parse( int first_field_number, const SENTENCE& sentence )
+void RADAR_DATA::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    OriginRangeFromOwnShip       = sentence.Double( first_field_number );
    OriginBearingDegreesFromZero = sentence.Double( first_field_number + 1 );
@@ -63,7 +63,7 @@ void RADAR_DATA::Parse( int first_field_number, const SENTENCE& sentence )
    BearingLineDegreesFromZero   = sentence.Double( first_field_number + 3 );
 }
 
-void RADAR_DATA::Write( SENTENCE& sentence )
+void RADAR_DATA::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += OriginRangeFromOwnShip;
    sentence += OriginBearingDegreesFromZero;
@@ -71,7 +71,7 @@ void RADAR_DATA::Write( SENTENCE& sentence )
    sentence += BearingLineDegreesFromZero;
 }
 
-const RADAR_DATA& RADAR_DATA::operator = ( const RADAR_DATA& source )
+RADAR_DATA const& RADAR_DATA::operator = ( RADAR_DATA const& source ) noexcept
 {
    OriginRangeFromOwnShip       = source.OriginRangeFromOwnShip;
    OriginBearingDegreesFromZero = source.OriginBearingDegreesFromZero;

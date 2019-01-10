@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ class ZTG : public RESPONSE
       */
 
       std::string UTCTime;
-      time_t      Time;
+      time_t      Time{ 0 };
       std::string TimeRemaining;
       std::string To;
 
@@ -52,15 +52,15 @@ class ZTG : public RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const ZTG& operator = ( const ZTG& source );
+      virtual ZTG const& operator = ( ZTG const& source ) noexcept;
 };
 
 #endif // ZTG_CLASS_HEADER

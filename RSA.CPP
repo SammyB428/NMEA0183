@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,15 +49,15 @@ RSA::~RSA()
    Empty();
 }
 
-void RSA::Empty( void )
+void RSA::Empty( void ) noexcept
 {
    Starboard            = 0.0;
-   IsStarboardDataValid = NMEA_Unknown;
+   IsStarboardDataValid = NMEA0183_BOOLEAN::NMEA_Unknown;
    Port                 = 0.0;
-   IsPortDataValid      = NMEA_Unknown;
+   IsPortDataValid      = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-bool RSA::Parse( const SENTENCE& sentence )
+bool RSA::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** RSA - Rudder Sensor Angle
@@ -78,7 +78,7 @@ bool RSA::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -92,7 +92,7 @@ bool RSA::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool RSA::Write( SENTENCE& sentence )
+bool RSA::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -110,7 +110,7 @@ bool RSA::Write( SENTENCE& sentence )
    return( true );
 }
 
-const RSA& RSA::operator = ( const RSA& source )
+RSA const& RSA::operator = ( RSA const& source ) noexcept
 {
    Starboard            = source.Starboard;
    IsStarboardDataValid = source.IsStarboardDataValid;

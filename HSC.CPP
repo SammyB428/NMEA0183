@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ HSC::~HSC()
    Empty();
 }
 
-void HSC::Empty( void )
+void HSC::Empty( void ) noexcept
 {
    DegreesTrue     = 0.0;
    DegreesMagnetic = 0.0;
 }
 
-bool HSC::Parse( const SENTENCE& sentence )
+bool HSC::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** HSC - Heading Steering Command
@@ -76,7 +76,7 @@ bool HSC::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 5 ) == True )
+   if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +88,7 @@ bool HSC::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool HSC::Write( SENTENCE& sentence )
+bool HSC::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -106,7 +106,7 @@ bool HSC::Write( SENTENCE& sentence )
    return( true );
 }
 
-const HSC& HSC::operator = ( const HSC& source )
+HSC const& HSC::operator = ( HSC const& source ) noexcept
 {
    DegreesTrue     = source.DegreesTrue;
    DegreesMagnetic = source.DegreesMagnetic;

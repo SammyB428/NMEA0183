@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,9 +37,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif // _DEBUG
 
-uint32_t HexValue( const char *hex_string )
+uint32_t HexValue( char const * hex_string ) noexcept
 {
-    uint32_t return_value = 0;
+   uint32_t return_value = 0;
 
    sscanf( hex_string, "%lx", (uint32_t *) &return_value );
 

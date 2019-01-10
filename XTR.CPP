@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,13 +49,13 @@ XTR::~XTR()
    Empty();
 }
 
-void XTR::Empty( void )
+void XTR::Empty( void ) noexcept
 {
    Magnitude        = 0.0;
-   DirectionToSteer = LR_Unknown;
+   DirectionToSteer = LEFTRIGHT::LR_Unknown;
 }
 
-bool XTR::Parse( const SENTENCE& sentence )
+bool XTR::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** XTR - Cross Track Error - Dead Reckoning
@@ -75,7 +75,7 @@ bool XTR::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -87,7 +87,7 @@ bool XTR::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool XTR::Write( SENTENCE& sentence )
+bool XTR::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -104,7 +104,7 @@ bool XTR::Write( SENTENCE& sentence )
    return( true );
 }
 
-const XTR& XTR::operator = ( const XTR& source )
+XTR const& XTR::operator = ( XTR const& source ) noexcept
 {
    Magnitude        = source.Magnitude;
    DirectionToSteer = source.DirectionToSteer;

@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ class GLC : public RESPONSE
       ** Data
       */
        
-      int                   GroupRepetitionInterval;
+      int                   GroupRepetitionInterval{ 0 };
       LORAN_TIME_DIFFERENCE MasterTOA;
       LORAN_TIME_DIFFERENCE TimeDifference1;
       LORAN_TIME_DIFFERENCE TimeDifference2;
@@ -55,15 +55,15 @@ class GLC : public RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const GLC& operator = ( const GLC& source );
+      virtual GLC const& operator = ( GLC const& source ) noexcept;
 };
 
 #endif // GLC_CLASS_HEADER

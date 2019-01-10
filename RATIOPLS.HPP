@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,22 +43,22 @@ class RATIO_AND_PULSE
       ** Data
       */
 
-      int SignalToNoiseRatio;
-      int PulseShapeECD;
+      int SignalToNoiseRatio{ 0 };
+      int PulseShapeECD{ 0 };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual void Parse( int field_number, const SENTENCE& sentence );
-      virtual void Write( SENTENCE& sentence );
+      void Empty( void ) noexcept;
+      void Parse( int field_number, SENTENCE const& sentence ) noexcept;
+      void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const RATIO_AND_PULSE& operator = ( const RATIO_AND_PULSE& source );
+      virtual RATIO_AND_PULSE const& operator = ( RATIO_AND_PULSE const& source ) noexcept;
 };
 
 #endif // RATIO_AND_PULSE_CLASS_HEADER

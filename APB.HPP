@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,34 +43,34 @@ class APB : public RESPONSE
       ** Data
       */
 
-      NMEA0183_BOOLEAN IsLoranBlinkOK;
-      NMEA0183_BOOLEAN IsLoranCCycleLockOK;
-      double           CrossTrackErrorMagnitude;
-      LEFTRIGHT        DirectionToSteer;
+      NMEA0183_BOOLEAN IsLoranBlinkOK{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      NMEA0183_BOOLEAN IsLoranCCycleLockOK{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      double           CrossTrackErrorMagnitude{ 0.0 };
+      LEFTRIGHT        DirectionToSteer{ LEFTRIGHT::LR_Unknown };
       std::string      CrossTrackUnits;
-      NMEA0183_BOOLEAN IsArrivalCircleEntered;
-      NMEA0183_BOOLEAN IsPerpendicular;
-      double           BearingOriginToDestination;
+      NMEA0183_BOOLEAN IsArrivalCircleEntered{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      NMEA0183_BOOLEAN IsPerpendicular{ NMEA0183_BOOLEAN::NMEA_Unknown };
+      double           BearingOriginToDestination{ 0.0 };
       std::string      BearingOriginToDestinationUnits;
       std::string      To;
-      double           BearingPresentPositionToDestination;
+      double           BearingPresentPositionToDestination{ 0.0 };
       std::string      BearingPresentPositionToDestinationUnits;
-      double           HeadingToSteer;
+      double           HeadingToSteer{ 0.0 };
       std::string      HeadingToSteerUnits;
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void ) override;
-      virtual bool Parse( const SENTENCE& sentence ) override;
-      virtual bool Write( SENTENCE& sentence ) override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators
       */
 
-      virtual const APB& operator = ( const APB& source );
+      virtual APB const& operator = ( APB const& source ) noexcept;
 };
 
 #endif // APB_CLASS_HEADER

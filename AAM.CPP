@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,15 +49,15 @@ AAM::~AAM()
    Empty();
 }
 
-void AAM::Empty( void )
+void AAM::Empty( void ) noexcept
 {
-   IsArrivalCircleEntered = NMEA_Unknown;
-   IsPerpendicular        = NMEA_Unknown;
+   IsArrivalCircleEntered = NMEA0183_BOOLEAN::NMEA_Unknown;
+   IsPerpendicular        = NMEA0183_BOOLEAN::NMEA_Unknown;
    CircleRadius           = 0.0;
    WaypointID.clear();
 }
 
-bool AAM::Parse( const SENTENCE& sentence )
+bool AAM::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** AAM - Waypoint Arrival Alarm
@@ -78,7 +78,7 @@ bool AAM::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 6 ) == True )
+   if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -96,7 +96,7 @@ bool AAM::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool AAM::Write( SENTENCE& sentence )
+bool AAM::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -115,7 +115,7 @@ bool AAM::Write( SENTENCE& sentence )
    return( true );
 }
 
-const AAM& AAM::operator = ( const AAM& source )
+AAM const& AAM::operator = ( AAM const& source ) noexcept
 {
    IsArrivalCircleEntered = source.IsArrivalCircleEntered;
    IsPerpendicular        = source.IsPerpendicular;

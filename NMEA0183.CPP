@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif // _DEBUG
 
-static bool is_less_than(__in const RESPONSE * left, __in const RESPONSE * right)
+static bool is_less_than(RESPONSE const * left, RESPONSE const * right) noexcept
 {
     return(left->Mnemonic < right->Mnemonic);
 }
@@ -138,21 +138,16 @@ NMEA0183::~NMEA0183()
    m_Initialize();
 }
 
-void NMEA0183::m_Initialize( void )
+void NMEA0183::m_Initialize( void ) noexcept
 {
    ErrorMessage.clear();
 }
 
-void NMEA0183::m_SetContainerPointers( void )
+void NMEA0183::m_SetContainerPointers( void ) noexcept
 {
-   size_t index = 0;
-   const size_t number_of_entries_in_table = m_ResponseTable.size();
-
-   while( index < number_of_entries_in_table )
+   for (auto& entry : m_ResponseTable)
    {
-      m_ResponseTable[ index ]->SetContainer( this );
-
-      index++;
+       entry->SetContainer(this);
    }
 }
 
@@ -160,7 +155,7 @@ void NMEA0183::m_SetContainerPointers( void )
 ** Public Interface
 */
 
-bool NMEA0183::IsGood( void ) const
+bool NMEA0183::IsGood( void ) const noexcept
 {
    /*
    ** NMEA 0183 sentences begin with $ and and with CR LF
@@ -188,7 +183,7 @@ bool NMEA0183::IsGood( void ) const
    return( true );
 }
 
-bool NMEA0183::Parse( void )
+bool NMEA0183::Parse( void ) noexcept
 {
    bool return_value = false;
 
@@ -262,29 +257,29 @@ bool NMEA0183::Parse( void )
    return( return_value );
 }
 
-void NMEA0183::SetSentence(const char *source)
+void NMEA0183::SetSentence(char const * source) noexcept
 {
     m_Sentence = source;
 }
 
-void NMEA0183::GetSentence(std::string& destination) const
+void NMEA0183::GetSentence(std::string& destination) const noexcept
 {
     destination = m_Sentence;
 }
 
-NMEA0183& NMEA0183::operator << ( const char *source )
+NMEA0183& NMEA0183::operator << ( char const * source ) noexcept
 {
    SetSentence(source);
    return( *this );
 }
 
-NMEA0183& NMEA0183::operator >> ( std::string& destination )
+NMEA0183& NMEA0183::operator >> ( std::string& destination ) noexcept
 {
    GetSentence(destination);
    return( *this );
 }
 
-time_t ctime(const int year, const int month, const int day, const int hour, const int minute, const int second)
+time_t ctime(int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept
 {
     struct tm gtime;
 
@@ -300,4 +295,3 @@ time_t ctime(const int year, const int month, const int day, const int hour, con
 
     return(_mkgmtime(&gtime));
 }
-

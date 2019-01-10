@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,39 +51,41 @@ class SENTENCE
       ** Methods
       */
 
-      virtual NMEA0183_BOOLEAN Boolean( int field_number ) const;
-      virtual uint8_t ComputeChecksum( void ) const;
-      virtual COMMUNICATIONS_MODE CommunicationsMode( int field_number ) const;
-      virtual double Double( int field_number ) const;
-      virtual EASTWEST EastOrWest( int field_number ) const;
-      virtual const std::string Field( int field_number ) const;
-      virtual void Finish( void );
-      virtual uint16_t GetNumberOfDataFields( void ) const;
-      virtual int Integer( int field_number ) const;
-      virtual NMEA0183_BOOLEAN IsChecksumBad( int checksum_field_number ) const;
-      virtual LEFTRIGHT LeftOrRight( int field_number ) const;
-      virtual NORTHSOUTH NorthOrSouth( int field_number ) const;
-      virtual REFERENCE Reference( int field_number ) const;
-      virtual const time_t Time( int field_number ) const;
-      virtual TRANSDUCER_TYPE TransducerType( int field_number ) const;
+      virtual NMEA0183_BOOLEAN Boolean( int field_number ) const noexcept;
+      virtual uint8_t ComputeChecksum( void ) const noexcept;
+      virtual COMMUNICATIONS_MODE CommunicationsMode( int field_number ) const noexcept;
+      virtual double Double( int field_number ) const noexcept;
+      virtual EASTWEST EastOrWest( int field_number ) const noexcept;
+      virtual const std::string Field( int field_number ) const noexcept;
+      virtual void Finish( void ) noexcept;
+      virtual uint16_t GetNumberOfDataFields( void ) const noexcept;
+      virtual int Integer( int field_number ) const noexcept;
+      virtual NMEA0183_BOOLEAN IsChecksumBad( int checksum_field_number ) const noexcept;
+      virtual LEFTRIGHT LeftOrRight( int field_number ) const noexcept;
+      virtual NORTHSOUTH NorthOrSouth( int field_number ) const noexcept;
+      virtual REFERENCE Reference( int field_number ) const noexcept;
+      virtual time_t Time( int field_number ) const noexcept;
+      virtual TRANSDUCER_TYPE TransducerType( int field_number ) const noexcept;
 
       /*
       ** Operators
       */
 
-      operator std::string() const;
-      virtual const SENTENCE& operator  = ( const SENTENCE& source );
-      virtual const SENTENCE& operator  = ( const std::string& source );
-      virtual const SENTENCE& operator += ( const std::string& source );
-      virtual const SENTENCE& operator += ( double value );
-      virtual const SENTENCE& operator += ( int value );
-      virtual const SENTENCE& operator += ( COMMUNICATIONS_MODE mode );
-      virtual const SENTENCE& operator += ( EASTWEST easting );
-      virtual const SENTENCE& operator += ( LATLONG& source );
-      virtual const SENTENCE& operator += ( NMEA0183_BOOLEAN boolean );
-      virtual const SENTENCE& operator += ( NORTHSOUTH northing );
-      virtual const SENTENCE& operator += ( const time_t time );
-      virtual const SENTENCE& operator += ( TRANSDUCER_TYPE transducer );
+      operator std::string() const noexcept;
+      virtual SENTENCE const& operator  = ( SENTENCE const& source ) noexcept;
+      virtual SENTENCE const& operator  = ( std::string const& source ) noexcept;
+      virtual SENTENCE const& operator += ( std::string const& source ) noexcept;
+      virtual SENTENCE const& operator += ( double value ) noexcept;
+      virtual SENTENCE const& operator += ( int value ) noexcept;
+      virtual SENTENCE const& operator += ( COMMUNICATIONS_MODE mode ) noexcept;
+      virtual SENTENCE const& operator += ( EASTWEST easting ) noexcept;
+      virtual SENTENCE const& operator += ( LATLONG const& source ) noexcept;
+      virtual SENTENCE const& operator += ( NMEA0183_BOOLEAN boolean ) noexcept;
+      virtual SENTENCE const& operator += ( NORTHSOUTH northing ) noexcept;
+      virtual SENTENCE const& operator += ( time_t const time ) noexcept;
+      virtual SENTENCE const& operator += ( TRANSDUCER_TYPE transducer ) noexcept;
+      virtual SENTENCE const& operator += ( LEFTRIGHT left_or_right ) noexcept;
+      virtual SENTENCE const& operator += ( REFERENCE a_reference ) noexcept;
 };
- 
+
 #endif // SENTENCE_CLASS_HEADER

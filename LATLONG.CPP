@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,13 +47,13 @@ LATLONG::~LATLONG()
    Empty();
 }
 
-void LATLONG::Empty( void )
+void LATLONG::Empty( void ) noexcept
 {
    Latitude.Empty();
    Longitude.Empty();
 }
 
-bool LATLONG::Parse( int LatitudePositionFieldNumber, int NorthingFieldNumber, int LongitudePositionFieldNumber, int EastingFieldNumber, const SENTENCE& LineToParse )
+bool LATLONG::Parse( int LatitudePositionFieldNumber, int NorthingFieldNumber, int LongitudePositionFieldNumber, int EastingFieldNumber, SENTENCE const& LineToParse ) noexcept
 {
    Latitude.Parse(  LatitudePositionFieldNumber, NorthingFieldNumber, LineToParse );
    Longitude.Parse( LongitudePositionFieldNumber, EastingFieldNumber, LineToParse );
@@ -68,7 +68,7 @@ bool LATLONG::Parse( int LatitudePositionFieldNumber, int NorthingFieldNumber, i
    }
 }
 
-std::string LATLONG::PlainEnglish( void ) const
+std::string LATLONG::PlainEnglish( void ) const noexcept
 {
    char temp_string[256];
 
@@ -76,7 +76,7 @@ std::string LATLONG::PlainEnglish( void ) const
 
    std::string return_string( temp_string );
 
-   if ( Latitude.Northing == North )
+   if ( Latitude.Northing == NORTHSOUTH::North )
    {
       return_string += " North, Longitude ";
    }
@@ -89,7 +89,7 @@ std::string LATLONG::PlainEnglish( void ) const
 
    return_string += temp_string;
 
-   if ( Longitude.Easting == East )
+   if ( Longitude.Easting == EASTWEST::East )
    {
       return_string += " East";
    }
@@ -101,13 +101,13 @@ std::string LATLONG::PlainEnglish( void ) const
    return( return_string );
 }
 
-void LATLONG::Write( SENTENCE& sentence )
+void LATLONG::Write( SENTENCE& sentence ) const noexcept
 {
    Latitude.Write( sentence );
    Longitude.Write( sentence );
 }
 
-const LATLONG& LATLONG::operator = ( const LATLONG& source )
+LATLONG const& LATLONG::operator = ( LATLONG const& source ) noexcept
 {
    Latitude  = source.Latitude;
    Longitude = source.Longitude;

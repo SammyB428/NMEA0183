@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,14 +54,16 @@ ZFI::~ZFI()
    Empty();
 }
 
-void ZFI::Empty( void )
+void ZFI::Empty( void ) noexcept
 {
    UTCTimeString.clear();
+   UTCTime = 0;
    ElapsedTimeString.clear();
+   ElapsedTime = 0;
    From.clear();
 }
 
-bool ZFI::Parse( const SENTENCE& sentence )
+bool ZFI::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** ZFI - Elapsed time from point of interest
@@ -80,7 +82,7 @@ bool ZFI::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 4 ) == True )
+   if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -88,7 +90,7 @@ bool ZFI::Parse( const SENTENCE& sentence )
 
    time_t temp_time = time(nullptr);
 
-   struct tm * tm_p = gmtime(&temp_time);
+   auto tm_p = gmtime(&temp_time);
 
    int year = tm_p->tm_year + 1900;
    int month = tm_p->tm_mon;
@@ -141,7 +143,7 @@ bool ZFI::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool ZFI::Write( SENTENCE& sentence )
+bool ZFI::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -158,7 +160,7 @@ bool ZFI::Write( SENTENCE& sentence )
    return( true );
 }
 
-const ZFI& ZFI::operator = ( const ZFI& source )
+ZFI const& ZFI::operator = ( ZFI const& source ) noexcept
 {
    UTCTimeString     = source.UTCTimeString;
    UTCTime           = source.UTCTime;

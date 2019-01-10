@@ -11,7 +11,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,14 +41,14 @@ class COORDINATE
       COORDINATE() { Coordinate = 0.0; }
      ~COORDINATE() { Coordinate = 0.0; }
 
-      double Coordinate;
+     double Coordinate{ 0.0 };
 
-      double GetDecimalDegrees( void ) const;
-      double GetDecimalMinutes( void ) const;
-      double GetDecimalSeconds( void ) const;
-      int    GetWholeDegrees( void ) const;
-      int    GetWholeMinutes( void ) const;
-      int    GetWholeSeconds( void ) const;
+      double GetDecimalDegrees( void ) const noexcept;
+      double GetDecimalMinutes( void ) const noexcept;
+      double GetDecimalSeconds( void ) const noexcept;
+      int    GetWholeDegrees( void ) const noexcept;
+      int    GetWholeMinutes( void ) const noexcept;
+      int    GetWholeSeconds( void ) const noexcept;
 };
 
 class LATITUDE : public COORDINATE
@@ -62,25 +62,24 @@ class LATITUDE : public COORDINATE
       ** Data
       */
 
-      double Latitude;
-
-      NORTHSOUTH Northing;
+      double Latitude{ 0.0 };
+      NORTHSOUTH Northing{ NORTHSOUTH::NS_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual bool IsDataValid( void );
-      virtual void Parse( int PositionFieldNumber, int NorthingFieldNumber, const SENTENCE& LineToParse );
-      virtual void Set( double Position, const char *Northing );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual bool IsDataValid( void ) const noexcept;
+      virtual void Parse( int PositionFieldNumber, int NorthingFieldNumber, SENTENCE const& LineToParse ) noexcept;
+      virtual void Set( double Position, char const * Northing ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const LATITUDE& operator = ( const LATITUDE& source );
+      virtual LATITUDE const& operator = (LATITUDE const& source) noexcept;
 };
 
 class LONGITUDE : public COORDINATE
@@ -94,25 +93,25 @@ class LONGITUDE : public COORDINATE
       ** Data
       */
 
-      double Longitude;
+      double Longitude{ 0.0 };
 
-      EASTWEST Easting;
+      EASTWEST Easting{ EASTWEST::EW_Unknown };
 
       /*
       ** Methods
       */
 
-      virtual void Empty( void );
-      virtual bool IsDataValid( void );
-      virtual void Parse( int PositionFieldNumber, int EastingFieldNumber, const SENTENCE& LineToParse );
-      virtual void Set( double Position, const char *Easting );
-      virtual void Write( SENTENCE& sentence );
+      virtual void Empty( void ) noexcept;
+      virtual bool IsDataValid( void ) const noexcept;
+      virtual void Parse( int PositionFieldNumber, int EastingFieldNumber, SENTENCE const& LineToParse ) noexcept;
+      virtual void Set( double Position, char const *Easting ) noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const LONGITUDE& operator = ( const LONGITUDE& source );
+      virtual LONGITUDE const& operator = ( LONGITUDE const& source ) noexcept;
 };
 
 class LATLONG
@@ -132,17 +131,17 @@ class LATLONG
       /*
       ** Methods
       */
-       
-      virtual void Empty( void );
-      virtual bool Parse( int LatitudePostionFieldNumber, int NorthingFieldNumber, int LongitudePositionFieldNumber, int EastingFieldNumber, const SENTENCE& LineToParse );
-      virtual std::string PlainEnglish( void ) const;
-      virtual void Write( SENTENCE& sentence );
+
+      virtual void Empty( void ) noexcept;
+      virtual bool Parse( int LatitudePostionFieldNumber, int NorthingFieldNumber, int LongitudePositionFieldNumber, int EastingFieldNumber, SENTENCE const& LineToParse ) noexcept;
+      virtual std::string PlainEnglish( void ) const noexcept;
+      virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
       ** Operators
       */
 
-      virtual const LATLONG& operator = ( const LATLONG& source );
+      virtual LATLONG const& operator = ( LATLONG const& source ) noexcept;
 };
 
 #endif // LATLONG_CLASS_HEADER

@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ VTG::~VTG()
    Empty();
 }
 
-void VTG::Empty( void )
+void VTG::Empty( void ) noexcept
 {
    TrackDegreesTrue       = 0.0;
    TrackDegreesMagnetic   = 0.0;
@@ -57,7 +57,7 @@ void VTG::Empty( void )
    SpeedKilometersPerHour = 0.0;
 }
 
-bool VTG::Parse( const SENTENCE& sentence )
+bool VTG::Parse( SENTENCE const& sentence ) noexcept
 {
    /*
    ** VTG - Track made good and Ground speed
@@ -82,7 +82,7 @@ bool VTG::Parse( const SENTENCE& sentence )
    ** First we check the checksum...
    */
 
-   if ( sentence.IsChecksumBad( 9 ) == True )
+   if ( sentence.IsChecksumBad( 9 ) == NMEA0183_BOOLEAN::True )
    {
       SetErrorMessage( "Invalid Checksum" );
       return( false );
@@ -96,7 +96,7 @@ bool VTG::Parse( const SENTENCE& sentence )
    return( true );
 }
 
-bool VTG::Write( SENTENCE& sentence )
+bool VTG::Write( SENTENCE& sentence ) const noexcept
 {
    /*
    ** Let the parent do its thing
@@ -118,7 +118,7 @@ bool VTG::Write( SENTENCE& sentence )
    return( true );
 }
 
-const VTG& VTG::operator = ( const VTG& source )
+VTG const& VTG::operator = ( VTG const& source ) noexcept
 {
    TrackDegreesTrue       = source.TrackDegreesTrue;
    TrackDegreesMagnetic   = source.TrackDegreesMagnetic;

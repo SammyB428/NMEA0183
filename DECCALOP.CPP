@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2015 Sam Blackburn
+Copyright (c) 1996-2019 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,28 +47,28 @@ LINE_OF_POSITION::~LINE_OF_POSITION()
    Empty();
 }
 
-void LINE_OF_POSITION::Empty( void )
+void LINE_OF_POSITION::Empty( void ) noexcept
 {
    ZoneID.clear();
    LineOfPosition = 0.0;
-   MasterLine     = NMEA_Unknown;
+   MasterLine     = NMEA0183_BOOLEAN::NMEA_Unknown;
 }
 
-void LINE_OF_POSITION::Parse( int first_field_number, const SENTENCE& sentence )
+void LINE_OF_POSITION::Parse( int first_field_number, SENTENCE const& sentence ) noexcept
 {
    ZoneID         = sentence.Field(   first_field_number );
    LineOfPosition = sentence.Double(  first_field_number + 1 );
    MasterLine     = sentence.Boolean( first_field_number + 2 );
 }
 
-void LINE_OF_POSITION::Write( SENTENCE& sentence )
+void LINE_OF_POSITION::Write( SENTENCE& sentence ) const noexcept
 {
    sentence += ZoneID;
    sentence += LineOfPosition;
    sentence += MasterLine;
 }
 
-const LINE_OF_POSITION& LINE_OF_POSITION::operator = ( const LINE_OF_POSITION& source )
+LINE_OF_POSITION const& LINE_OF_POSITION::operator = ( LINE_OF_POSITION const& source ) noexcept
 {
    ZoneID         = source.ZoneID;
    LineOfPosition = source.LineOfPosition;
