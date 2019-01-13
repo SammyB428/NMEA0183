@@ -41,7 +41,7 @@ uint32_t HexValue( char const * hex_string ) noexcept
 {
    uint32_t return_value = 0;
 
-   sscanf( hex_string, "%lx", (uint32_t *) &return_value );
+   sscanf( hex_string, "%lx", &return_value );
 
    return( return_value );
 }

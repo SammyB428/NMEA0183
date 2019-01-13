@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif // _DEBUG
 
-static bool is_less_than(RESPONSE const * left, RESPONSE const * right) noexcept
+static inline bool is_less_than(RESPONSE const * left, RESPONSE const * right) noexcept
 {
     return(left->Mnemonic < right->Mnemonic);
 }
@@ -46,87 +46,87 @@ NMEA0183::NMEA0183()
 {
    m_Initialize();
 
-   m_ResponseTable.push_back( (RESPONSE *) &Aam );
-   m_ResponseTable.push_back( (RESPONSE *) &Alm );
-   m_ResponseTable.push_back( (RESPONSE *) &Apb );
-   m_ResponseTable.push_back( (RESPONSE *) &Asd );
-   m_ResponseTable.push_back( (RESPONSE *) &Bec );
-   m_ResponseTable.push_back( (RESPONSE *) &Bod );
-   m_ResponseTable.push_back( (RESPONSE *) &Bwc );
-   m_ResponseTable.push_back( (RESPONSE *) &Bwr );
-   m_ResponseTable.push_back( (RESPONSE *) &Bww );
-   m_ResponseTable.push_back( (RESPONSE *) &Dbt );
-   m_ResponseTable.push_back( (RESPONSE *) &Dcn );
-   m_ResponseTable.push_back( (RESPONSE *) &Dpt );
-   m_ResponseTable.push_back( (RESPONSE *) &Fsi );
-   m_ResponseTable.push_back( (RESPONSE *) &Gda ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gdf ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gdp ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gga );
-   m_ResponseTable.push_back( (RESPONSE *) &Gla ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Glc );
-   m_ResponseTable.push_back( (RESPONSE *) &Glf ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gll );
-   m_ResponseTable.push_back( (RESPONSE *) &Glp ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gsa );
-   m_ResponseTable.push_back( (RESPONSE *) &Gsv );
-   m_ResponseTable.push_back( (RESPONSE *) &Gtd ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gxa );
-   m_ResponseTable.push_back( (RESPONSE *) &Gxf ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Gxp ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Hcc ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Hdg );
-   m_ResponseTable.push_back( (RESPONSE *) &Hdm ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Hdt );
-   m_ResponseTable.push_back( (RESPONSE *) &Hsc );
-   m_ResponseTable.push_back( (RESPONSE *) &Ima ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Lcd );
-   m_ResponseTable.push_back( (RESPONSE *) &Mhu ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Mta ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Mtw );
-   m_ResponseTable.push_back( (RESPONSE *) &Mwv );
-   m_ResponseTable.push_back( (RESPONSE *) &Oln );
-   m_ResponseTable.push_back( (RESPONSE *) &Osd );
-   m_ResponseTable.push_back( (RESPONSE *) &Proprietary );
-   m_ResponseTable.push_back( (RESPONSE *) &Rma );
-   m_ResponseTable.push_back( (RESPONSE *) &Rmb );
-   m_ResponseTable.push_back( (RESPONSE *) &Rmc );
-   m_ResponseTable.push_back( (RESPONSE *) &Rot );
-   m_ResponseTable.push_back( (RESPONSE *) &Rpm );
-   m_ResponseTable.push_back( (RESPONSE *) &Rsa );
-   m_ResponseTable.push_back( (RESPONSE *) &Rsd );
-   m_ResponseTable.push_back( (RESPONSE *) &Rte );
-   m_ResponseTable.push_back( (RESPONSE *) &Sfi );
-   m_ResponseTable.push_back( (RESPONSE *) &Stn );
-   m_ResponseTable.push_back( (RESPONSE *) &Tep ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Trf );
-   m_ResponseTable.push_back( (RESPONSE *) &Ttm );
-   m_ResponseTable.push_back( (RESPONSE *) &Vbw );
-   m_ResponseTable.push_back( (RESPONSE *) &Vhw );
-   m_ResponseTable.push_back( (RESPONSE *) &Vdr );
-   m_ResponseTable.push_back( (RESPONSE *) &Vlw );
-   m_ResponseTable.push_back( (RESPONSE *) &Vpw );
-   m_ResponseTable.push_back( (RESPONSE *) &Vtg );
-   m_ResponseTable.push_back( (RESPONSE *) &Vwe );
-   m_ResponseTable.push_back( (RESPONSE *) &Wcv ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Wdc ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Wdr ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Wnc );
-   m_ResponseTable.push_back( (RESPONSE *) &Wpl );
-   m_ResponseTable.push_back( (RESPONSE *) &Xdr );
-   m_ResponseTable.push_back( (RESPONSE *) &Xte );
-   m_ResponseTable.push_back( (RESPONSE *) &Xtr );
-   m_ResponseTable.push_back( (RESPONSE *) &Zda );
-   m_ResponseTable.push_back( (RESPONSE *) &Zfi ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zfo );
-   m_ResponseTable.push_back( (RESPONSE *) &Zlz ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zpi ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zta ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zte ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Ztg );
-   m_ResponseTable.push_back( (RESPONSE *) &Zti ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zwp ); // Sentence Not Recommended For New Designs
-   m_ResponseTable.push_back( (RESPONSE *) &Zzu ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Aam) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Alm) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Apb) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Asd) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Bec) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Bod) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Bwc) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Bwr) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Bww) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Dbt) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Dcn) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Dpt) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Fsi) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gda) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gdf) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gdp) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gga) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gla) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Glc) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Glf) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gll) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Glp) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gsa) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gsv) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gtd) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gxa) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gxf) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Gxp) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Hcc) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Hdg) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Hdm) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Hdt) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Hsc) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Ima) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Lcd) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Mhu) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Mta) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Mtw) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Mwv) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Oln) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Osd) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Proprietary) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rma) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rmb) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rmc) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rot) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rpm) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rsa) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rsd) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Rte) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Sfi) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Stn) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Tep) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Trf) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Ttm) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vbw) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vhw) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vdr) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vlw) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vpw) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vtg) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Vwe) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Wcv) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Wdc) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Wdr) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Wnc) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Wpl) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Xdr) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Xte) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Xtr) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zda) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zfi) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zfo) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zlz) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zpi) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zta) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zte) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Ztg) );
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zti) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zwp) ); // Sentence Not Recommended For New Designs
+   m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zzu) ); // Sentence Not Recommended For New Designs
 
    std::sort(m_ResponseTable.begin(), m_ResponseTable.end(), is_less_than);
 
@@ -208,8 +208,7 @@ bool NMEA0183::Parse( void ) noexcept
        ** Set up our default error message
        */
 
-       ErrorMessage = mnemonic;
-       ErrorMessage += " is an unknown type of sentence";
+       ErrorMessage.clear();
 
        LastSentenceIDReceived = mnemonic;
 
@@ -217,11 +216,9 @@ bool NMEA0183::Parse( void ) noexcept
        ** Do a Binary Search to call the appropriate function
        */
 
-       GLA needle;
+       m_Needle.Mnemonic = mnemonic;
 
-       needle.Mnemonic = mnemonic;
-
-       std::vector<RESPONSE *>::iterator iterator = std::lower_bound(m_ResponseTable.begin(), m_ResponseTable.end(), &needle, is_less_than);
+       auto iterator = std::lower_bound(m_ResponseTable.begin(), m_ResponseTable.end(), &m_Needle, is_less_than);
 
        if (iterator != m_ResponseTable.end() && (*iterator)->Mnemonic.compare(mnemonic) == 0)
        {
@@ -250,6 +247,8 @@ bool NMEA0183::Parse( void ) noexcept
        }
        else
        {
+           ErrorMessage = mnemonic;
+           ErrorMessage.append( " is an unknown type of sentence" );
            return_value = false;
        }
    }
@@ -265,18 +264,6 @@ void NMEA0183::SetSentence(char const * source) noexcept
 void NMEA0183::GetSentence(std::string& destination) const noexcept
 {
     destination = m_Sentence;
-}
-
-NMEA0183& NMEA0183::operator << ( char const * source ) noexcept
-{
-   SetSentence(source);
-   return( *this );
-}
-
-NMEA0183& NMEA0183::operator >> ( std::string& destination ) noexcept
-{
-   GetSentence(destination);
-   return( *this );
 }
 
 time_t ctime(int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept

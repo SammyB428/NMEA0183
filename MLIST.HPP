@@ -51,7 +51,7 @@ class MANUFACTURER_LIST
 
       virtual void Empty( void ) noexcept;
       virtual void Fill( void ) noexcept;
-      virtual const std::string& Find( std::string const& mnemonic ) noexcept;
+      virtual std::string const& Find( std::string const& mnemonic ) noexcept;
 
       /*
       ** Operators

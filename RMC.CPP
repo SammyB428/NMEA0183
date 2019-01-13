@@ -128,12 +128,12 @@ std::string RMC::PlainEnglish( void ) const noexcept
 
    char temp_string[ 128 ];
 
-   sprintf( temp_string, "%lf", SpeedOverGroundKnots );
+   sprintf( temp_string, "%lg", SpeedOverGroundKnots );
 
    return_string += temp_string;
    return_string += " knots, track made good ";
 
-   sprintf(temp_string, "%lf", TrackMadeGoodDegreesTrue );
+   sprintf(temp_string, "%lg", TrackMadeGoodDegreesTrue );
    return_string += temp_string;
    return_string += " degrees true.";
 

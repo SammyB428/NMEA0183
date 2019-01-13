@@ -72,7 +72,7 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
 {
    char temp_string[256];
 
-   sprintf( temp_string, "Latitude %d %8.5lf", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
+   sprintf( temp_string, "Latitude %d %.5lg", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
 
    std::string return_string( temp_string );
 
@@ -85,7 +85,7 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
       return_string += " South, Longitude ";
    }
 
-   ::sprintf( temp_string, "%d %8.5lf", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
+   ::sprintf( temp_string, "%d %.5lg", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
 
    return_string += temp_string;
 

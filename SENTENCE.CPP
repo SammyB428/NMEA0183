@@ -49,7 +49,7 @@ SENTENCE::~SENTENCE()
 
 NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "A" )
    {
@@ -67,7 +67,7 @@ NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 
 COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "d" )
    {
@@ -136,14 +136,14 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 
 double SENTENCE::Double( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    return( ::atof( field_data.c_str() ) );
 }
 
 EASTWEST SENTENCE::EastOrWest( int field_number ) const noexcept
 {
-   std::string field_data = Field( field_number );
+   std::string const field_data = Field( field_number );
 
    if ( field_data == "E" )
    {
@@ -227,14 +227,14 @@ void SENTENCE::Finish( void ) noexcept
 
    char temp_string[ 10 ];
 
-   ::sprintf( temp_string, "*%02X%c%c", (int) checksum, CARRIAGE_RETURN, LINE_FEED );
+   ::sprintf( temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED );
 
    Sentence += temp_string;
 }
 
 int SENTENCE::Integer( int field_number ) const noexcept
 {
-   std::string integer_string = Field( field_number );
+   std::string const integer_string = Field( field_number );
 
    return( ::atoi( integer_string.c_str() ) );
 }
@@ -255,7 +255,7 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
    if ( ComputeChecksum() != HexValue( checksum_in_sentence ) )
    {
       return(NMEA0183_BOOLEAN::True);
-   } 
+   }
 
    return(NMEA0183_BOOLEAN::False);
 }

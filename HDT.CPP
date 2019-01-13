@@ -90,7 +90,7 @@ std::string HDT::PlainEnglish( void ) const noexcept
    
    char temp_string[65];
 
-   sprintf( temp_string, "%6.2lf degrees.", DegreesTrue );
+   sprintf( temp_string, "%.2lg degrees.", DegreesTrue );
 
    return_string += temp_string;
 

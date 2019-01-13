@@ -96,7 +96,7 @@ std::string HCC::PlainEnglish( void ) const noexcept
 
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%6.2lf degrees.", HeadingDegrees );
+   ::sprintf( temp_string, "%.2lg degrees.", HeadingDegrees );
 
    return_string += temp_string;
 

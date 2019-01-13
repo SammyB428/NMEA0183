@@ -55,9 +55,9 @@ class BEC : public RESPONSE
       ** Methods
       */
 
-      virtual void Empty( void ) noexcept override;
-      virtual bool Parse( SENTENCE const& sentence ) noexcept override;
-      virtual bool Write( SENTENCE& sentence ) const noexcept override;
+      void Empty( void ) noexcept override;
+      bool Parse( SENTENCE const& sentence ) noexcept override;
+      bool Write( SENTENCE& sentence ) const noexcept override;
 
       /*
       ** Operators

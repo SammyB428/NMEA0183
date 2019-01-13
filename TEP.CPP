@@ -92,10 +92,10 @@ bool TEP::Parse( SENTENCE const& sentence ) noexcept
 std::string TEP::PlainEnglish( void ) const noexcept
 {
    std::string return_string("TRANSIT satellite predicted elevation is ");
-    
+
    char temp_string[65];
 
-   sprintf( temp_string, "%6.2lf degrees.", ElevationDegrees );
+   sprintf( temp_string, "%.3lg degrees.", ElevationDegrees );
 
    return_string += temp_string;
 
@@ -107,7 +107,7 @@ bool TEP::Write( SENTENCE& sentence ) const noexcept
    /*
    ** Let the parent do its thing
    */
-   
+
    RESPONSE::Write( sentence );
 
    sentence += ElevationDegrees;

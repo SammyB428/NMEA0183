@@ -96,11 +96,11 @@ std::string ROT::PlainEnglish( void ) const noexcept
 
    if ( RateOfTurn < 0 )
    {
-      ::sprintf( temp_string, "Port at a rate of %4.1lf degrees per minute.", (double) (RateOfTurn * -1.0) );
+      ::sprintf( temp_string, "Port at a rate of %.1lg degrees per minute.", static_cast<double>(RateOfTurn * -1.0) );
    }
    else
    {
-      ::sprintf( temp_string, "Starboard at a rate of %4.1lf degrees per minute.", RateOfTurn );
+      ::sprintf( temp_string, "Starboard at a rate of %.1lg degrees per minute.", RateOfTurn );
    }
 
    return_string += temp_string;

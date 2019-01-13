@@ -92,7 +92,7 @@ std::string MTW::PlainEnglish( void ) const noexcept
     
    char temp_string[65];
 
-   sprintf( temp_string, "%3.1lf ", Temperature );
+   sprintf( temp_string, "%.1lg ", Temperature );
 
    return_string += temp_string;
    return_string += UnitOfMeasurement;

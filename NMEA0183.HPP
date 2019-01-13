@@ -145,6 +145,13 @@ class NMEA0183
 
       SENTENCE m_Sentence;
 
+      /*
+        ASD is chosen as the RESPONSE class to be the needle (what we're searching for) because it is the
+        most light weight concrete class. It has no data members...
+        This needle is used to binary search the haystack of possible responses.
+      */
+      ASD m_Needle;
+
       void m_Initialize( void ) noexcept;
 
    protected:
@@ -157,6 +164,15 @@ class NMEA0183
 
       NMEA0183();
       virtual ~NMEA0183();
+
+      /*
+      HOW TO USE THIS CLASS
+      Normally, you don't care about most sentences.
+      Modify the declaration of this class (or copy this class to your own
+      class) and get rid of the sentences you don't care about. For example,
+      if you're interfacing with a device that will NEVER produce an AAM sentence,
+      get rid of the Aam member. Don't have code that will never be called.
+      */
 
       /*
       ** NMEA 0183 Sentences we understand
@@ -260,8 +276,17 @@ class NMEA0183
       virtual void SetSentence(char const * source) noexcept;
       virtual void GetSentence(std::string& destination) const noexcept;
 
-      NMEA0183& operator << ( char const * source ) noexcept;
-      NMEA0183& operator >> ( std::string& destination ) noexcept;
+      inline NMEA0183& operator << (char const * source) noexcept
+      {
+          SetSentence(source);
+          return(*this);
+      }
+
+      inline NMEA0183& operator >> (std::string& destination) noexcept
+      {
+          GetSentence(destination);
+          return(*this);
+      }
 };
 
 #endif // NMEA_0183_CLASS_HEADER
