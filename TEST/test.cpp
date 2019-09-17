@@ -113,7 +113,6 @@ int main()
    test_sentences.push_back( "$GPRMC,225446,A,4916.45,N,12311.12,W,000.5,054.7,191194,020.3,E*68\r\n" ); // Peter Bennett, bennett@triumf.ca
    test_sentences.push_back( "$GPRMC,220516,A,5133.82,N,00042.24,W,173.8,231.8,130694,004.2,W*70\r\n" ); // pwyld@cix.compulink.co.uk ("Peter Wyld")
    test_sentences.push_back( "$GPVTG,0.0,T,347.6,M,0.0,N,0.0,K\r\n" ); // I can't remember
-   test_sentences.push_back( "$GPVTG,0.0,T,347.6,M,0.0,N,0.0,K\r\n" ); // I can't remember
    test_sentences.push_back( "$GPVTG,054.7,T,034.4,M,000.5,N,000.9,K*47\r\n" ); // Peter Bennett, bennett@triumf.ca
    test_sentences.push_back( "$GPWPL,4917.16,N,12310.64,W,003*65\r\n" ); // Peter Bennett, bennett@triumf.ca
    test_sentences.push_back( "$GPWPL,5128.62,N,00027.58,W,EGLL*59\r\n" ); // pwyld@cix.compulink.co.uk ("Peter Wyld")

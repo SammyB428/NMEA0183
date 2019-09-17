@@ -98,19 +98,26 @@ bool RTE::Parse( SENTENCE const& sentence ) noexcept
        Waypoints.clear();
    }
 
-   std::string const field_data = sentence.Field( 3 );
+   auto field_data = sentence.Field( 3 );
 
-   if ( field_data == "c" )
+   if (field_data.length() == 1)
    {
-      TypeOfRoute = RTE::ROUTE_TYPE::CompleteRoute;
-   }
-   else if ( field_data == "w" )
-   {
-      TypeOfRoute = RTE::ROUTE_TYPE::WorkingRoute;
+       if (field_data[0] == 'c')
+       {
+           TypeOfRoute = RTE::ROUTE_TYPE::CompleteRoute;
+       }
+       else if (field_data[0] == 'w')
+       {
+           TypeOfRoute = RTE::ROUTE_TYPE::WorkingRoute;
+       }
+       else
+       {
+           TypeOfRoute = RTE::ROUTE_TYPE::RouteUnknown;
+       }
    }
    else
    {
-      TypeOfRoute = RTE::ROUTE_TYPE::RouteUnknown;
+       TypeOfRoute = RTE::ROUTE_TYPE::RouteUnknown;
    }
 
    RouteName = sentence.Field( 4 );
@@ -122,7 +129,7 @@ bool RTE::Parse( SENTENCE const& sentence ) noexcept
 
    while( field_number < number_of_data_fields )
    {
-      Waypoints.push_back(sentence.Field(field_number));
+      Waypoints.push_back(std::string(sentence.Field(field_number)));
       field_number++;
    }
 

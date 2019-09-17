@@ -397,7 +397,7 @@ void MANUFACTURER_LIST::Fill( void ) noexcept
    std::sort(ManufacturerTable.begin(), ManufacturerTable.end(), is_less_than);
 }
 
-std::string const& MANUFACTURER_LIST::Find( std::string const& mnemonic ) noexcept
+std::string const& MANUFACTURER_LIST::Find( std::string_view mnemonic ) noexcept
 {
    static std::string return_value;
 
@@ -412,7 +412,7 @@ std::string const& MANUFACTURER_LIST::Find( std::string const& mnemonic ) noexce
       Fill();
    }
 
-   MANUFACTURER needle(mnemonic.c_str(), "");
+   MANUFACTURER needle(mnemonic, "");
 
    std::vector<MANUFACTURER>::iterator iterator = std::lower_bound(ManufacturerTable.begin(), ManufacturerTable.end(), needle, is_less_than);
 
@@ -424,7 +424,7 @@ std::string const& MANUFACTURER_LIST::Find( std::string const& mnemonic ) noexce
    return( return_value );
 }
 
-std::string const& MANUFACTURER_LIST::operator [] ( char const * mnemonic ) noexcept
+std::string const& MANUFACTURER_LIST::operator [] ( std::string_view mnemonic ) noexcept
 {
    return( Find( mnemonic ) );
 }

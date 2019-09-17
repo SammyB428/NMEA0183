@@ -72,16 +72,22 @@ void LATITUDE::Parse( int position_field_number, int north_or_south_field_number
 
    position = sentence.Double( position_field_number );
 
-   std::string const north_or_south = sentence.Field( north_or_south_field_number );
+   auto north_or_south = sentence.Field( north_or_south_field_number );
 
-   Set( position, north_or_south.c_str() );
+   Set( position, north_or_south );
 }
 
-void LATITUDE::Set( double position, char const *north_or_south ) noexcept
+void LATITUDE::Set( double position, std::string_view north_or_south ) noexcept
 {
    Latitude   = position;
    Coordinate = position;
-   
+
+   if (north_or_south.empty() == true)
+   {
+       Northing = NORTHSOUTH::NS_Unknown;
+       return;
+   }
+
    if ( north_or_south[ 0 ] == 'N' )
    {
       Northing = NORTHSOUTH::North;
@@ -180,19 +186,4 @@ double COORDINATE::GetDecimalSeconds( void ) const noexcept
    double return_value = static_cast<double>( static_cast<double>(fractional_minutes) * static_cast<double>(60.0) );
 
    return( return_value );
-}
-
-int COORDINATE::GetWholeDegrees( void ) const noexcept
-{
-   return( static_cast<int>(::floor( GetDecimalDegrees() ) ) );
-}
-
-int COORDINATE::GetWholeMinutes( void ) const noexcept
-{
-   return( static_cast<int>(::floor( GetDecimalMinutes() ) ));
-}
-
-int COORDINATE::GetWholeSeconds( void ) const noexcept
-{
-   return( static_cast<int>(::floor( GetDecimalSeconds() ) ));
 }

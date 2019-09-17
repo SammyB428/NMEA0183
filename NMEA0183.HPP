@@ -273,10 +273,10 @@ class NMEA0183
 
       virtual bool IsGood( void ) const noexcept;
       virtual bool Parse( void ) noexcept;
-      virtual void SetSentence(char const * source) noexcept;
+      virtual void SetSentence(std::string_view source) noexcept;
       virtual void GetSentence(std::string& destination) const noexcept;
 
-      inline NMEA0183& operator << (char const * source) noexcept
+      inline NMEA0183& operator << (std::string_view source) noexcept
       {
           SetSentence(source);
           return(*this);

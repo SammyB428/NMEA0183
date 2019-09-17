@@ -41,14 +41,26 @@ class COORDINATE
       COORDINATE() { Coordinate = 0.0; }
      ~COORDINATE() { Coordinate = 0.0; }
 
-     double Coordinate{ 0.0 };
+      double Coordinate{ 0.0 };
 
       double GetDecimalDegrees( void ) const noexcept;
       double GetDecimalMinutes( void ) const noexcept;
       double GetDecimalSeconds( void ) const noexcept;
-      int    GetWholeDegrees( void ) const noexcept;
-      int    GetWholeMinutes( void ) const noexcept;
-      int    GetWholeSeconds( void ) const noexcept;
+
+      inline int GetWholeDegrees(void) const noexcept
+      {
+          return(static_cast<int>(::floor(GetDecimalDegrees())));
+      }
+
+      inline int GetWholeMinutes(void) const noexcept
+      {
+          return(static_cast<int>(::floor(GetDecimalMinutes())));
+      }
+
+      int GetWholeSeconds(void) const noexcept
+      {
+          return(static_cast<int>(::floor(GetDecimalSeconds())));
+      }
 };
 
 class LATITUDE : public COORDINATE
@@ -72,7 +84,7 @@ class LATITUDE : public COORDINATE
       virtual void Empty( void ) noexcept;
       virtual bool IsDataValid( void ) const noexcept;
       virtual void Parse( int PositionFieldNumber, int NorthingFieldNumber, SENTENCE const& LineToParse ) noexcept;
-      virtual void Set( double Position, char const * Northing ) noexcept;
+      virtual void Set( double Position, std::string_view Northing ) noexcept;
       virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*
@@ -104,7 +116,7 @@ class LONGITUDE : public COORDINATE
       virtual void Empty( void ) noexcept;
       virtual bool IsDataValid( void ) const noexcept;
       virtual void Parse( int PositionFieldNumber, int EastingFieldNumber, SENTENCE const& LineToParse ) noexcept;
-      virtual void Set( double Position, char const *Easting ) noexcept;
+      virtual void Set( double Position, std::string_view Easting ) noexcept;
       virtual void Write( SENTENCE& sentence ) const noexcept;
 
       /*

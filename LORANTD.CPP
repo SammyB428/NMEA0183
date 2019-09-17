@@ -57,27 +57,34 @@ void LORAN_TIME_DIFFERENCE::Parse( int first_field_number, SENTENCE const& sente
 {
    Microseconds = sentence.Double( first_field_number );
 
-   std::string const field_data = sentence.Field( first_field_number + 1 );
+   auto field_data = sentence.Field( first_field_number + 1 );
 
-   if ( field_data == "B" )
+   if (field_data.length() == 1)
    {
-      SignalStatus = LORAN_SIGNAL_STATUS::LoranBlinkWarning;
-   }
-   else if ( field_data == "C" )
-   {
-      SignalStatus = LORAN_SIGNAL_STATUS::LoranCycleWarning;
-   }
-   else if ( field_data == "S" )
-   {
-      SignalStatus = LORAN_SIGNAL_STATUS::LoranSignalToNoiseRatioWarning;
-   }
-   else if ( field_data == "A" )
-   {
-      SignalStatus = LORAN_SIGNAL_STATUS::LoranValid;
+       if (field_data[0] == 'B')
+       {
+           SignalStatus = LORAN_SIGNAL_STATUS::LoranBlinkWarning;
+       }
+       else if (field_data[0] == 'C')
+       {
+           SignalStatus = LORAN_SIGNAL_STATUS::LoranCycleWarning;
+       }
+       else if (field_data[0] == 'S')
+       {
+           SignalStatus = LORAN_SIGNAL_STATUS::LoranSignalToNoiseRatioWarning;
+       }
+       else if (field_data[0] == 'A')
+       {
+           SignalStatus = LORAN_SIGNAL_STATUS::LoranValid;
+       }
+       else
+       {
+           SignalStatus = LORAN_SIGNAL_STATUS::LoranUnknown;
+       }
    }
    else
    {
-      SignalStatus = LORAN_SIGNAL_STATUS::LoranUnknown;
+       SignalStatus = LORAN_SIGNAL_STATUS::LoranUnknown;
    }
 }
 

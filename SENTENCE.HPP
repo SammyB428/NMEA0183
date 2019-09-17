@@ -56,7 +56,7 @@ class SENTENCE
       virtual COMMUNICATIONS_MODE CommunicationsMode( int field_number ) const noexcept;
       virtual double Double( int field_number ) const noexcept;
       virtual EASTWEST EastOrWest( int field_number ) const noexcept;
-      virtual const std::string Field( int field_number ) const noexcept;
+      virtual std::string_view Field( int field_number ) const noexcept;
       virtual void Finish( void ) noexcept;
       virtual uint16_t GetNumberOfDataFields( void ) const noexcept;
       virtual int Integer( int field_number ) const noexcept;
@@ -72,9 +72,10 @@ class SENTENCE
       */
 
       operator std::string() const noexcept;
+      operator std::string_view() const noexcept;
       virtual SENTENCE const& operator  = ( SENTENCE const& source ) noexcept;
-      virtual SENTENCE const& operator  = ( std::string const& source ) noexcept;
-      virtual SENTENCE const& operator += ( std::string const& source ) noexcept;
+      virtual SENTENCE const& operator  = ( std::string_view source ) noexcept;
+      virtual SENTENCE const& operator += ( std::string_view source ) noexcept;
       virtual SENTENCE const& operator += ( double value ) noexcept;
       virtual SENTENCE const& operator += ( int value ) noexcept;
       virtual SENTENCE const& operator += ( COMMUNICATIONS_MODE mode ) noexcept;

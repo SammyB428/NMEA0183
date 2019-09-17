@@ -107,19 +107,26 @@ bool GSA::Parse( SENTENCE const& sentence ) noexcept
       return( false );
    } 
 
-   std::string const field_data = sentence.Field( 1 );
+   auto field_data = sentence.Field( 1 );
 
-   if ( field_data == "A" )
+   if (field_data.length() == 1)
    {
-      OperatingMode = GSA::OPERATING_MODE::Automatic;
-   }
-   else if ( field_data == "M" )
-   {
-      OperatingMode = GSA::OPERATING_MODE::Manual;
+       if (field_data[0] == 'A')
+       {
+           OperatingMode = GSA::OPERATING_MODE::Automatic;
+       }
+       else if (field_data[0] == 'M')
+       {
+           OperatingMode = GSA::OPERATING_MODE::Manual;
+       }
+       else
+       {
+           OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
+       }
    }
    else
    {
-      OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
+       OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
    }
 
    int index = sentence.Integer( 2 );

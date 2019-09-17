@@ -61,7 +61,7 @@ void RESPONSE::SetContainer( NMEA0183 *container ) noexcept
    container_p = container;
 }
 
-void RESPONSE::SetErrorMessage(std::string const& error_message) noexcept
+void RESPONSE::SetErrorMessage(std::string_view error_message) noexcept
 {
    ErrorMessage  = Mnemonic;
    ErrorMessage += ", ";

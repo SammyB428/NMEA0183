@@ -112,24 +112,31 @@ bool TTM::Parse( SENTENCE const& sentence ) noexcept
    NumberOfMinutesToClosestPointOfApproach = sentence.Double( 9 );
    Increasing                              = sentence.Field( 10 );
    TargetName                              = sentence.Field( 11 );
-   
-   std::string const field_data = sentence.Field( 12 );
 
-   if ( field_data == "L" )
+   auto field_data = sentence.Field( 12 );
+
+   if (field_data.length() == 1)
    {
-      TargetStatus = TARGET_STATUS::TargetLost;
-   }
-   else if ( field_data == "Q" )
-   {
-      TargetStatus = TARGET_STATUS::TargetQuery;
-   }
-   else if ( field_data == "T" )
-   {
-      TargetStatus = TARGET_STATUS::TargetTracking;
+       if (field_data[0] == 'L')
+       {
+           TargetStatus = TARGET_STATUS::TargetLost;
+       }
+       else if (field_data[0] == 'Q')
+       {
+           TargetStatus = TARGET_STATUS::TargetQuery;
+       }
+       else if (field_data[0] == 'T')
+       {
+           TargetStatus = TARGET_STATUS::TargetTracking;
+       }
+       else
+       {
+           TargetStatus = TARGET_STATUS::TargetUnknown;
+       }
    }
    else
    {
-      TargetStatus = TARGET_STATUS::TargetUnknown;
+       TargetStatus = TARGET_STATUS::TargetUnknown;
    }
 
    ReferenceTarget = sentence.Field( 13 );

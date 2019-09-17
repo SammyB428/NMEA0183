@@ -72,15 +72,21 @@ void LONGITUDE::Parse( int position_field_number, int east_or_west_field_number,
 
    position = sentence.Double( position_field_number );
 
-   std::string const east_or_west = sentence.Field( east_or_west_field_number );
+   auto east_or_west = sentence.Field( east_or_west_field_number );
 
-   Set( position, east_or_west.c_str() );
+   Set( position, east_or_west );
 }
 
-void LONGITUDE::Set( double position, char const * east_or_west ) noexcept
+void LONGITUDE::Set( double position, std::string_view east_or_west ) noexcept
 {
    Longitude  = position;
    Coordinate = position;
+
+   if (east_or_west.empty() == true)
+   {
+       Easting = EASTWEST::EW_Unknown;
+       return;
+   }
 
    if ( east_or_west[ 0 ] == 'E' )
    {

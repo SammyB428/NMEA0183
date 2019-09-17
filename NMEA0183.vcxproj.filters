@@ -431,9 +431,6 @@
     <ClCompile Include="HEX.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HEXVALUE.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HSC.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>

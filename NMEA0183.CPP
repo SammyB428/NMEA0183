@@ -189,7 +189,7 @@ bool NMEA0183::Parse( void ) noexcept
 
    if (IsGood())
    {
-       std::string mnemonic = m_Sentence.Field(0);
+       auto mnemonic = m_Sentence.Field(0);
 
        /*
        ** See if this is a proprietary field
@@ -256,7 +256,7 @@ bool NMEA0183::Parse( void ) noexcept
    return( return_value );
 }
 
-void NMEA0183::SetSentence(char const * source) noexcept
+void NMEA0183::SetSentence(std::string_view source) noexcept
 {
     m_Sentence = source;
 }

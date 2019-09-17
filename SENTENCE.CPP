@@ -49,69 +49,83 @@ SENTENCE::~SENTENCE()
 
 NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "A" )
+   if (field_data.length() == 1)
    {
-      return(NMEA0183_BOOLEAN::True );
-   }
-   else if ( field_data == "V" )
-   {
-      return(NMEA0183_BOOLEAN::False );
+       if (field_data[0] == 'A')
+       {
+           return(NMEA0183_BOOLEAN::True);
+       }
+       else if (field_data[0] == 'V')
+       {
+           return(NMEA0183_BOOLEAN::False);
+       }
+       else
+       {
+           return(NMEA0183_BOOLEAN::NMEA_Unknown);
+       }
    }
    else
    {
-      return(NMEA0183_BOOLEAN::NMEA_Unknown );
+       return(NMEA0183_BOOLEAN::NMEA_Unknown);
    }
 }
 
 COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "d" )
+   if (field_data.length() == 1)
    {
-      return(COMMUNICATIONS_MODE::F3E_G3E_SimplexTelephone );
-   }
-   else if ( field_data == "e" )
-   {
-      return(COMMUNICATIONS_MODE::F3E_G3E_DuplexTelephone );
-   }
-   else if ( field_data == "m" )
-   {
-      return(COMMUNICATIONS_MODE::J3E_Telephone );
-   }
-   else if ( field_data == "o" )
-   {
-      return(COMMUNICATIONS_MODE::H3E_Telephone );
-   }
-   else if ( field_data == "q" )
-   {
-      return(COMMUNICATIONS_MODE::F1B_J2B_FEC_NBDP_TelexTeleprinter );
-   }
-   else if ( field_data == "s" )
-   {
-      return(COMMUNICATIONS_MODE::F1B_J2B_ARQ_NBDP_TelexTeleprinter );
-   }
-   else if ( field_data == "w" )
-   {
-      return(COMMUNICATIONS_MODE::F1B_J2B_ReceiveOnlyTeleprinterDSC );
-   }
-   else if ( field_data == "x" )
-   {
-      return(COMMUNICATIONS_MODE::A1A_MorseTapeRecorder );
-   }
-   else if ( field_data == "{" )
-   {
-      return(COMMUNICATIONS_MODE::A1A_MorseKeyHeadset );
-   }
-   else if ( field_data == "|" )
-   {
-      return(COMMUNICATIONS_MODE::F1C_F2C_F3C_FaxMachine );
+       if (field_data[0] == 'd')
+       {
+           return(COMMUNICATIONS_MODE::F3E_G3E_SimplexTelephone);
+       }
+       else if (field_data[0] == 'e')
+       {
+           return(COMMUNICATIONS_MODE::F3E_G3E_DuplexTelephone);
+       }
+       else if (field_data[0] == 'm')
+       {
+           return(COMMUNICATIONS_MODE::J3E_Telephone);
+       }
+       else if (field_data[0] == 'o')
+       {
+           return(COMMUNICATIONS_MODE::H3E_Telephone);
+       }
+       else if (field_data[0] == 'q')
+       {
+           return(COMMUNICATIONS_MODE::F1B_J2B_FEC_NBDP_TelexTeleprinter);
+       }
+       else if (field_data[0] == 's')
+       {
+           return(COMMUNICATIONS_MODE::F1B_J2B_ARQ_NBDP_TelexTeleprinter);
+       }
+       else if (field_data[0] == 'w')
+       {
+           return(COMMUNICATIONS_MODE::F1B_J2B_ReceiveOnlyTeleprinterDSC);
+       }
+       else if (field_data[0] == 'x')
+       {
+           return(COMMUNICATIONS_MODE::A1A_MorseTapeRecorder);
+       }
+       else if (field_data[0] == '{')
+       {
+           return(COMMUNICATIONS_MODE::A1A_MorseKeyHeadset);
+       }
+       else if (field_data[0] == '|')
+       {
+           return(COMMUNICATIONS_MODE::F1C_F2C_F3C_FaxMachine);
+       }
+       else
+       {
+           return(COMMUNICATIONS_MODE::CommunicationsModeUnknown);
+       }
    }
    else
    {
-      return(COMMUNICATIONS_MODE::CommunicationsModeUnknown );
+       return(COMMUNICATIONS_MODE::CommunicationsModeUnknown);
    }
 }
 
@@ -136,35 +150,49 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 
 double SENTENCE::Double( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   return( ::atof( field_data.c_str() ) );
+   if (field_data.length() < 1)
+   {
+       return(0.0);
+   }
+
+   double return_value = 0.0;
+
+   (void)std::from_chars(&field_data[0], &field_data[0] + field_data.length(), return_value);
+
+   return(return_value);
 }
 
 EASTWEST SENTENCE::EastOrWest( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "E" )
+   if (field_data.length() == 1)
    {
-      return(EASTWEST::East);
-   }
-   else if ( field_data == "W" )
-   {
-      return(EASTWEST::West);
+       if (field_data[0] == 'E')
+       {
+           return(EASTWEST::East);
+       }
+       else if (field_data[0] == 'W')
+       {
+           return(EASTWEST::West);
+       }
+       else
+       {
+           return(EASTWEST::EW_Unknown);
+       }
    }
    else
    {
-      return(EASTWEST::EW_Unknown);
+       return(EASTWEST::EW_Unknown);
    }
 }
 
-const std::string SENTENCE::Field( int desired_field_number ) const noexcept
+std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 {
    // Thanks to Vilhelm Persson (vilhelm.persson@st.se) for finding a 
    // bug that lived here.
-
-   std::string return_string;
 
    std::size_t index        = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
@@ -183,17 +211,21 @@ const std::string SENTENCE::Field( int desired_field_number ) const noexcept
 
    if ( current_field_number == desired_field_number )
    {
+       auto address_of_first_character = &Sentence[index];
+
       while( index < string_length    &&
              Sentence[ index ] != ',' &&
              Sentence[ index ] != '*' &&
              Sentence[ index ] != 0x00 )
       {
-         return_string += Sentence[ index ];
+         //return_string += Sentence[ index ];
          index++;
       }
+
+      return(std::string_view(address_of_first_character, std::distance(address_of_first_character, &Sentence[index])));
    }
 
-   return( return_string );
+   return( std::string_view() );
 }
 
 uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
@@ -234,9 +266,18 @@ void SENTENCE::Finish( void ) noexcept
 
 int SENTENCE::Integer( int field_number ) const noexcept
 {
-   std::string const integer_string = Field( field_number );
+   auto integer_string = Field( field_number );
 
-   return( ::atoi( integer_string.c_str() ) );
+   if (integer_string.length() < 1)
+   {
+       return(0);
+   }
+
+   int return_value = 0;
+
+   (void)std::from_chars(&integer_string[0], &integer_string[0] + integer_string.length(), return_value, 10);
+
+   return(return_value);
 }
 
 NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noexcept
@@ -245,7 +286,7 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
    ** Checksums are optional, return TRUE if an existing checksum is known to be bad
    */
 
-   std::string const checksum_in_sentence = Field( checksum_field_number );
+   auto checksum_in_sentence = Field( checksum_field_number );
 
    if ( checksum_in_sentence.empty() == true )
    {
@@ -262,67 +303,88 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
 
 LEFTRIGHT SENTENCE::LeftOrRight( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "L" )
+   if (field_data.length() == 1)
    {
-      return(LEFTRIGHT::Left );
-   }
-   else if ( field_data == "R" )
-   {
-      return(LEFTRIGHT::Right );
+       if (field_data[0] == 'L')
+       {
+           return(LEFTRIGHT::Left);
+       }
+       else if (field_data[0] == 'R')
+       {
+           return(LEFTRIGHT::Right);
+       }
+       else
+       {
+           return(LEFTRIGHT::LR_Unknown);
+       }
    }
    else
    {
-      return(LEFTRIGHT::LR_Unknown );
+       return(LEFTRIGHT::LR_Unknown);
    }
 }
 
 NORTHSOUTH SENTENCE::NorthOrSouth( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "N" )
+   if (field_data.length() == 1)
    {
-      return(NORTHSOUTH::North );
-   }
-   else if ( field_data == "S" )
-   {
-      return(NORTHSOUTH::South );
+       if (field_data[0] == 'N')
+       {
+           return(NORTHSOUTH::North);
+       }
+       else if (field_data[0] == 'S')
+       {
+           return(NORTHSOUTH::South);
+       }
+       else
+       {
+           return(NORTHSOUTH::NS_Unknown);
+       }
    }
    else
    {
-      return(NORTHSOUTH::NS_Unknown );
+       return(NORTHSOUTH::NS_Unknown);
    }
 }
 
 REFERENCE SENTENCE::Reference( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "B" )
+   if (field_data.length() == 1)
    {
-      return(REFERENCE::BottomTrackingLog );
-   }
-   else if ( field_data == "M" )
-   {
-      return(REFERENCE::ManuallyEntered );
-   }
-   else if ( field_data == "W" )
-   {
-      return(REFERENCE::WaterReferenced );
-   }
-   else if ( field_data == "R" )
-   {
-      return(REFERENCE::RadarTrackingOfFixedTarget );
-   }
-   else if ( field_data == "P" )
-   {
-      return(REFERENCE::PositioningSystemGroundReference );
+       if (field_data[0] == 'B')
+       {
+           return(REFERENCE::BottomTrackingLog);
+       }
+       else if (field_data[0] == 'M')
+       {
+           return(REFERENCE::ManuallyEntered);
+       }
+       else if (field_data[0] == 'W')
+       {
+           return(REFERENCE::WaterReferenced);
+       }
+       else if (field_data[0] == 'R')
+       {
+           return(REFERENCE::RadarTrackingOfFixedTarget);
+       }
+       else if (field_data[0] == 'P')
+       {
+           return(REFERENCE::PositioningSystemGroundReference);
+       }
+       else
+       {
+           return(REFERENCE::ReferenceUnknown);
+       }
    }
    else
    {
-      return(REFERENCE::ReferenceUnknown );
+       return(REFERENCE::ReferenceUnknown);
    }
 }
 
@@ -330,28 +392,22 @@ time_t SENTENCE::Time( int field_number ) const noexcept
 {
    time_t return_value = time(nullptr);
 
-   std::string const temp_string = Field( field_number );
+   auto temp_string = Field( field_number );
 
    if ( temp_string.length() >= 6 )
    {
-      char temp_number[ 3 ];
+      int hours = 0;
+      std::from_chars(&temp_string[0], &temp_string[2], hours);
 
-      temp_number[ 2 ] = 0x00;
+      int minutes = 0;
+      std::from_chars(&temp_string[2], &temp_string[4], minutes);
 
-      temp_number[ 0 ] = temp_string[ 0 ];
-      temp_number[ 1 ] = temp_string[ 1 ];
-
-      int hours = ::atoi( temp_number );
-
-      temp_number[ 0 ] = temp_string[ 2 ];
-      temp_number[ 1 ] = temp_string[ 3 ];
-
-      int minutes = ::atoi( temp_number );
-
-      temp_number[ 0 ] = temp_string[ 4 ];
-      temp_number[ 1 ] = temp_string[ 5 ];
-
-      int seconds = ::atoi( temp_number );
+      int seconds = 0;
+      // You have to code from_chars() with:
+      // &temp_string[0] + 6 instead of:
+      // &temp_string[6]
+      // Because string_view will throw an exception that [6] is out of bounds.
+      std::from_chars(&temp_string[4], &temp_string[0] + 6, seconds);
 
       auto tm_p = gmtime(&return_value);
 
@@ -367,51 +423,58 @@ time_t SENTENCE::Time( int field_number ) const noexcept
 
 TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const noexcept
 {
-   std::string const field_data = Field( field_number );
+   auto field_data = Field( field_number );
 
-   if ( field_data == "A" )
+   if (field_data.length() == 1)
    {
-      return(TRANSDUCER_TYPE::AngularDisplacementTransducer );
-   }
-   else if ( field_data == "D" )
-   {
-      return(TRANSDUCER_TYPE::LinearDisplacementTransducer );
-   }
-   else if ( field_data == "C" )
-   {
-      return(TRANSDUCER_TYPE::TemperatureTransducer );
-   }
-   else if ( field_data == "F" )
-   {
-      return(TRANSDUCER_TYPE::FrequencyTransducer );
-   }
-   else if ( field_data == "N" )
-   {
-      return(TRANSDUCER_TYPE::ForceTransducer );
-   }
-   else if ( field_data == "P" )
-   {
-      return(TRANSDUCER_TYPE::PressureTransducer );
-   }
-   else if (field_data == "R" )
-   {
-      return(TRANSDUCER_TYPE::FlowRateTransducer );
-   }
-   else if ( field_data == "T" )
-   {
-      return(TRANSDUCER_TYPE::TachometerTransducer );
-   }
-   else if ( field_data == "H" )
-   {
-      return(TRANSDUCER_TYPE::HumidityTransducer );
-   }
-   else if ( field_data == "V" )
-   {
-      return(TRANSDUCER_TYPE::VolumeTransducer );
+       if (field_data[0] == 'A')
+       {
+           return(TRANSDUCER_TYPE::AngularDisplacementTransducer);
+       }
+       else if (field_data[0] == 'D')
+       {
+           return(TRANSDUCER_TYPE::LinearDisplacementTransducer);
+       }
+       else if (field_data[0] == 'C')
+       {
+           return(TRANSDUCER_TYPE::TemperatureTransducer);
+       }
+       else if (field_data[0] == 'F')
+       {
+           return(TRANSDUCER_TYPE::FrequencyTransducer);
+       }
+       else if (field_data[0] == 'N')
+       {
+           return(TRANSDUCER_TYPE::ForceTransducer);
+       }
+       else if (field_data[0] == 'P')
+       {
+           return(TRANSDUCER_TYPE::PressureTransducer);
+       }
+       else if (field_data[0] == 'R')
+       {
+           return(TRANSDUCER_TYPE::FlowRateTransducer);
+       }
+       else if (field_data[0] == 'T')
+       {
+           return(TRANSDUCER_TYPE::TachometerTransducer);
+       }
+       else if (field_data[0] == 'H')
+       {
+           return(TRANSDUCER_TYPE::HumidityTransducer);
+       }
+       else if (field_data[0] == 'V')
+       {
+           return(TRANSDUCER_TYPE::VolumeTransducer);
+       }
+       else
+       {
+           return(TRANSDUCER_TYPE::TransducerUnknown);
+       }
    }
    else
    {
-      return(TRANSDUCER_TYPE::TransducerUnknown );
+       return(TRANSDUCER_TYPE::TransducerUnknown);
    }
 }
 
@@ -424,6 +487,11 @@ SENTENCE::operator std::string() const noexcept
    return( Sentence );
 }
 
+SENTENCE::operator std::string_view() const noexcept
+{
+    return(Sentence);
+}
+
 SENTENCE const& SENTENCE::operator = ( SENTENCE const& source ) noexcept
 {
    Sentence = source.Sentence;
@@ -431,14 +499,14 @@ SENTENCE const& SENTENCE::operator = ( SENTENCE const& source ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator = ( std::string const& source ) noexcept
+SENTENCE const& SENTENCE::operator = ( std::string_view source ) noexcept
 {
    Sentence = source;
 
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( std::string const& source ) noexcept
+SENTENCE const& SENTENCE::operator += ( std::string_view source ) noexcept
 {
     Sentence.push_back(',');
     Sentence += source;

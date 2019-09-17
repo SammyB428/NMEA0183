@@ -37,7 +37,7 @@ class MANUFACTURER
    public:
 
       MANUFACTURER();
-      MANUFACTURER( char const * mnemonic, char const * company_name );
+      MANUFACTURER( std::string_view mnemonic, std::string_view company_name );
       virtual ~MANUFACTURER();
 
       std::string Mnemonic;

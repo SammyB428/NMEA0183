@@ -60,8 +60,8 @@ void SATELLITE_DATA::Parse( int first_field_number, SENTENCE const& sentence ) n
    SatelliteNumber    = sentence.Integer( first_field_number );
    ElevationDegrees   = sentence.Integer( first_field_number + 1 );
    AzimuthDegreesTrue = sentence.Integer( first_field_number + 2 );
-   
-   std::string const field_data = sentence.Field( first_field_number + 3 );
+
+   auto field_data = sentence.Field( first_field_number + 3 );
 
    if ( field_data.empty() == true )
    {

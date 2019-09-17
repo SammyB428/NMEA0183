@@ -43,7 +43,7 @@ MANUFACTURER::MANUFACTURER()
    CompanyName.clear();
 }
 
-MANUFACTURER::MANUFACTURER( char const * mnemonic, char const * company_name )
+MANUFACTURER::MANUFACTURER( std::string_view mnemonic, std::string_view company_name )
 {
    Mnemonic    = mnemonic;
    CompanyName = company_name;

@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif // _DEBUG
 
-std::string talker_id( std::string const& sentence ) noexcept
+std::string talker_id( std::string_view sentence ) noexcept
 {
    std::string return_string;
 

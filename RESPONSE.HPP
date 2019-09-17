@@ -61,7 +61,7 @@ class RESPONSE
       virtual void Empty( void ) noexcept = 0;
       virtual bool Parse( SENTENCE const& sentence ) noexcept = 0;
       virtual std::string PlainEnglish( void ) const noexcept;
-      virtual void SetErrorMessage( std::string const& message ) noexcept;
+      virtual void SetErrorMessage( std::string_view message ) noexcept;
       virtual void SetContainer( NMEA0183 * container ) noexcept;
       virtual bool Write( SENTENCE& sentence ) const noexcept;
 };

@@ -38,8 +38,10 @@ SOFTWARE.
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <string>
+#include <string_view>
 #include <vector>
 #include <algorithm>
+#include <charconv>
 #include <math.h>
 #include <time.h>
 
@@ -129,15 +131,18 @@ enum class TRANSDUCER_TYPE
 ** Misc Function Prototypes
 */
 
-uint32_t HexValue( char const * hex_string ) noexcept;
-inline uint32_t HexValue(std::string const& hex_string) noexcept
+inline uint32_t HexValue(std::string_view hex_string) noexcept
 {
-    return(HexValue(hex_string.c_str()));
+    uint32_t return_value = 0;
+
+    (void)std::from_chars(&hex_string[0], &hex_string[0] + hex_string.length(), return_value, 16);
+
+    return(return_value);
 }
 
-std::string expand_talker_id( std::string const& ) noexcept;
+std::string expand_talker_id( std::string_view talker ) noexcept;
 std::string Hex( uint32_t const value ) noexcept;
-std::string talker_id( std::string const& sentence ) noexcept;
+std::string talker_id( std::string_view sentence ) noexcept;
 time_t ctime( int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept;
 
 #include "nmea0183.hpp"
