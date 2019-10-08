@@ -98,43 +98,22 @@ bool ZTA::Parse( SENTENCE const& sentence ) noexcept
 
    UTCTimeString = sentence.Field( 1 );
 
-   char temp_number[ 3 ];
+   int hours = 0;
+   (void)std::from_chars(UTCTimeString.data(), UTCTimeString.data() + 2, hours, 10);
 
-   temp_number[ 2 ] = 0x00;
+   int minutes = 0;
+   (void)std::from_chars(UTCTimeString.data() + 2, UTCTimeString.data() + 4, minutes, 10);
 
-   temp_number[ 0 ] = UTCTimeString[ 0 ];
-   temp_number[ 1 ] = UTCTimeString[ 1 ];
-
-   int hours = ::atoi( temp_number );
-
-   temp_number[ 0 ] = UTCTimeString[ 2 ];
-   temp_number[ 1 ] = UTCTimeString[ 3 ];
-
-   int minutes = ::atoi( temp_number );
-
-   temp_number[ 0 ] = UTCTimeString[ 4 ];
-   temp_number[ 1 ] = UTCTimeString[ 5 ];
-
-   int seconds = ::atoi( temp_number );
+   int seconds = 0;
+   (void)std::from_chars(UTCTimeString.data() + 4, UTCTimeString.data() + 6, seconds, 10);
 
    UTCTime = ctime( year, month, day, hours, minutes, seconds );
 
    ArrivalTimeString = sentence.Field( 2 );
 
-   temp_number[ 0 ] = ArrivalTimeString[ 0 ];
-   temp_number[ 1 ] = ArrivalTimeString[ 1 ];
-
-   hours = ::atoi( temp_number );
-
-   temp_number[ 0 ] = ArrivalTimeString[ 2 ];
-   temp_number[ 1 ] = ArrivalTimeString[ 3 ];
-
-   minutes = ::atoi( temp_number );
-
-   temp_number[ 0 ] = ArrivalTimeString[ 4 ];
-   temp_number[ 1 ] = ArrivalTimeString[ 5 ];
-
-   seconds = ::atoi( temp_number );
+   (void)std::from_chars(ArrivalTimeString.data(), ArrivalTimeString.data() + 2, hours, 10);
+   (void)std::from_chars(ArrivalTimeString.data() + 2, ArrivalTimeString.data() + 4, minutes, 10);
+   (void)std::from_chars(ArrivalTimeString.data() + 4, ArrivalTimeString.data() + 6, seconds, 10);
 
    ArrivalTime = ctime( year, month, day, hours, minutes, seconds );
 

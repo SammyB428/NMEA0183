@@ -88,24 +88,14 @@ bool ZDA::Parse( SENTENCE const& sentence ) noexcept
 
    UTCTime = sentence.Field( 1 );
 
-   char temp_number[ 3 ];
+   int hours = 0;
+   (void)std::from_chars(UTCTime.data(), UTCTime.data() + 2, hours, 10);
 
-   temp_number[ 2 ] = 0x00;
+   int minutes = 0;
+   (void)std::from_chars(UTCTime.data() + 2, UTCTime.data() + 4, minutes, 10);
 
-   temp_number[ 0 ] = UTCTime[ 0 ];
-   temp_number[ 1 ] = UTCTime[ 1 ];
-
-   int hours = ::atoi( temp_number );
-
-   temp_number[ 0 ] = UTCTime[ 2 ];
-   temp_number[ 1 ] = UTCTime[ 3 ];
-
-   int minutes = ::atoi( temp_number );
-
-   temp_number[ 0 ] = UTCTime[ 4 ];
-   temp_number[ 1 ] = UTCTime[ 5 ];
-
-   int seconds = ::atoi( temp_number );
+   int seconds = 0;
+   (void)std::from_chars(UTCTime.data() + 4, UTCTime.data() + 6, seconds, 10);
 
    Day                   = sentence.Integer( 2 );
    Month                 = sentence.Integer( 3 );
