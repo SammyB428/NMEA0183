@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 BOD::BOD()
 {
-   Mnemonic = "BOD";
+   Mnemonic.assign(STRING_VIEW("BOD"));
    Empty();
 }
 
@@ -82,8 +82,8 @@ bool BOD::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    BearingTrue     = sentence.Double( 1 );
@@ -96,19 +96,19 @@ bool BOD::Parse( SENTENCE const& sentence ) noexcept
 
 std::string BOD::PlainEnglish(void) const noexcept
 {
-    std::string return_string( "You are bearing " );
+    std::string return_string(STRING_VIEW("You are bearing "));
 
    char temp_string [ 22 ];
 
-   ::sprintf( temp_string, "%5.2f", BearingTrue );
+   std::size_t number_of_characters = ::sprintf( temp_string, "%5.2f", BearingTrue );
 
-   return_string += temp_string;
-   return_string += " degrees true (";
+   return_string.append(temp_string, number_of_characters);
+   return_string.append(STRING_VIEW(" degrees true ("));
 
-   ::sprintf( temp_string, "%5.2f", BearingMagnetic );
+   number_of_characters = ::sprintf( temp_string, "%5.2f", BearingMagnetic );
 
-   return_string += temp_string;
-   return_string += " degrees magnetic).";
+   return_string.append(temp_string, number_of_characters);
+   return_string.append(STRING_VIEW(" degrees magnetic)."));
 
    return( return_string );
 }

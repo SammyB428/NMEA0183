@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GDA::GDA()
 {
-   Mnemonic = "GDA";
+   Mnemonic.assign(STRING_VIEW("GDA"));
 }
 
 GDA::~GDA()

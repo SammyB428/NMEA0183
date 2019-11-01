@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 MHU::MHU()
 {
-   Mnemonic = "MHU";
+   Mnemonic.assign(STRING_VIEW("MHU"));
    Empty();
 }
 
@@ -84,8 +84,8 @@ bool MHU::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    RelativeHumidityPercent = sentence.Double( 1 );

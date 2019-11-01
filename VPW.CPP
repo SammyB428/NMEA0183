@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 VPW::VPW()
 {
-   Mnemonic = "VPW";
+   Mnemonic.assign(STRING_VIEW("VPW"));
    Empty();
 }
 
@@ -78,8 +78,8 @@ bool VPW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Knots           = sentence.Double( 1 );

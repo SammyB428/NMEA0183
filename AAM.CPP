@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 AAM::AAM()
 {
-   Mnemonic = "AAM";
+   Mnemonic.assign(STRING_VIEW("AAM"));
    Empty();
 }
 
@@ -80,8 +80,8 @@ bool AAM::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    /*

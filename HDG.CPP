@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 HDG::HDG()
 {
-   Mnemonic = "HDG";
+   Mnemonic.assign(STRING_VIEW("HDG"));
    Empty();
 }
 
@@ -82,8 +82,8 @@ bool HDG::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    MagneticSensorHeadingDegrees = sentence.Double( 1 );

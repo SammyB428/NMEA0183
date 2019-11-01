@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 TEP::TEP()
 {
-   Mnemonic = "TEP";
+   Mnemonic.assign(STRING_VIEW("TEP"));
    Empty();
 }
 
@@ -80,8 +80,8 @@ bool TEP::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    ElevationDegrees = sentence.Double( 1 );
@@ -91,13 +91,13 @@ bool TEP::Parse( SENTENCE const& sentence ) noexcept
 
 std::string TEP::PlainEnglish( void ) const noexcept
 {
-   std::string return_string("TRANSIT satellite predicted elevation is ");
+   std::string return_string(STRING_VIEW("TRANSIT satellite predicted elevation is "));
 
    char temp_string[65];
 
-   sprintf( temp_string, "%.3lg degrees.", ElevationDegrees );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.3lg degrees.", ElevationDegrees );
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    return( return_string );
 }

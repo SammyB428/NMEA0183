@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RSD::RSD()
 {
-   Mnemonic = "RSD";
+   Mnemonic.assign(STRING_VIEW("RSD"));
    Empty();
 }
 
@@ -78,8 +78,8 @@ bool RSD::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Data1.Parse( 1, sentence );

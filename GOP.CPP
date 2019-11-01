@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GOP::GOP()
 {
-   Mnemonic = "GOP";
+   Mnemonic.assign(STRING_VIEW("GOP"));
 }
 
 GOP::~GOP()

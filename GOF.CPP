@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GOF::GOF()
 {
-   Mnemonic = "GOF";
+   Mnemonic.assign(STRING_VIEW("GOF"));
 }
 
 GOF::~GOF()

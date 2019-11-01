@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GXA::GXA()
 {
-   Mnemonic = "GXA";
+   Mnemonic.assign(STRING_VIEW("GXA"));
    Empty();
 }
 
@@ -84,8 +84,8 @@ bool GXA::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 8 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime         = sentence.Field( 1 );

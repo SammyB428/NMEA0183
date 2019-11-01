@@ -55,7 +55,7 @@ void LATITUDE::Empty( void ) noexcept
 
 bool LATITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Northing != NORTHSOUTH::North && Northing != NORTHSOUTH::South )
+   if ( Northing != NORTHSOUTH::North and Northing != NORTHSOUTH::South )
    {
       return( false );
    }
@@ -106,9 +106,9 @@ void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%07.2f", Latitude );
+   (void) ::sprintf( temp_string, "%07.2f", Latitude );
    sentence += temp_string;
-   
+
    if ( Northing == NORTHSOUTH::North )
    {
       sentence += "N";

@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 SFI::SFI()
 {
-   Mnemonic = "SFI";
+   Mnemonic.assign(STRING_VIEW("SFI"));
    Empty();
 }
 
@@ -88,8 +88,8 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( number_of_data_fields + 1 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    TotalMessages = sentence.Double( 1 );

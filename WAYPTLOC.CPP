@@ -87,8 +87,8 @@ bool WAYPOINT_LOCATION::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime  = sentence.Field( 1 );
@@ -101,14 +101,14 @@ bool WAYPOINT_LOCATION::Parse( SENTENCE const& sentence ) noexcept
 
 std::string WAYPOINT_LOCATION::PlainEnglish( void ) const noexcept
 {
-   std::string return_string( "At " );
-   std::string time_string = ctime(&Time);
-   return_string += time_string.substr(0, time_string.length() - 1);
-   return_string += ", you were at waypoint ";
-   return_string += Waypoint;
-   return_string += " located at ";
-   return_string += Position.PlainEnglish();
-   return_string += ".";
+   std::string return_string(STRING_VIEW("At "));
+   std::string const time_string = ctime(&Time);
+   return_string.append(time_string.substr(0, time_string.length() - 1));
+   return_string.append(STRING_VIEW(", you were at waypoint "));
+   return_string.append(Waypoint);
+   return_string.append(STRING_VIEW(" located at "));
+   return_string.append(Position.PlainEnglish());
+   return_string.push_back('.');
 
    return( return_string );
 }

@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 WNC::WNC()
 {
-   Mnemonic = "WNC";
+   Mnemonic.assign(STRING_VIEW("WNC"));
    Empty();
 }
 
@@ -82,8 +82,8 @@ bool WNC::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    MilesDistance      = sentence.Double( 1 );

@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RESPONSE::RESPONSE()
 {
-   DataSource = "--"; // Default to an unknown source
+   DataSource.assign(STRING_VIEW("--")); // Default to an unknown source
    Mnemonic.clear();
    Talker.clear();
 
@@ -64,8 +64,8 @@ void RESPONSE::SetContainer( NMEA0183 *container ) noexcept
 void RESPONSE::SetErrorMessage(std::string_view error_message) noexcept
 {
    ErrorMessage  = Mnemonic;
-   ErrorMessage += ", ";
-   ErrorMessage += error_message;
+   ErrorMessage.append(STRING_VIEW(", "));
+   ErrorMessage.append(error_message);
 }
 
 bool RESPONSE::Write( SENTENCE& sentence ) const noexcept
@@ -77,7 +77,7 @@ bool RESPONSE::Write( SENTENCE& sentence ) const noexcept
    ** finding and fixing a bug here
    */
 
-   sentence  = "$" + DataSource + Mnemonic;
+   sentence = "$" + DataSource + Mnemonic;
 
    return( true );
 }

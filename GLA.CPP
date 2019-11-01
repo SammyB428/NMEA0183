@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GLA::GLA()
 {
-   Mnemonic = "GLA";
+   Mnemonic.assign(STRING_VIEW("GLA"));
 }
 
 GLA::~GLA()

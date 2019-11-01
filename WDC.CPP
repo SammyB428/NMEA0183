@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 WDC::WDC()
 {
-   Mnemonic = "WDC";
+   Mnemonic.assign(STRING_VIEW("WDC"));
    Empty();
 }
 
@@ -81,8 +81,8 @@ bool WDC::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    NauticalMiles = sentence.Double( 1 );

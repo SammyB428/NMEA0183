@@ -51,8 +51,8 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
    ** Set up our default return value
    */
 
-   expanded_identifier = "Unknown - ";
-   expanded_identifier += identifier;
+   expanded_identifier.assign(STRING_VIEW("Unknown - "));
+   expanded_identifier.append(identifier);
 
    switch( first_character )
    {
@@ -62,12 +62,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'G': // AG
 
-               expanded_identifier = "Autopilot - General";
+               expanded_identifier.assign(STRING_VIEW("Autopilot - General"));
                break;
 
             case 'P': // AP
 
-               expanded_identifier = "Autopilot - Magnetic";
+               expanded_identifier.assign(STRING_VIEW("Autopilot - Magnetic"));
                break;
          }
 
@@ -79,37 +79,37 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'C': // CC
 
-               expanded_identifier = "Commputer - Programmed Calculator (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Commputer - Programmed Calculator (outdated)"));
                break;
 
             case 'D': // CD
 
-               expanded_identifier = "Communications - Digital Selective Calling (DSC)";
+               expanded_identifier.assign(STRING_VIEW("Communications - Digital Selective Calling (DSC)"));
                break;
 
             case 'M': // CM
 
-               expanded_identifier = "Computer - Memory Data (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Computer - Memory Data (outdated)"));
                break;
 
             case 'S': // CS
 
-               expanded_identifier = "Communications - Satellite";
+               expanded_identifier.assign(STRING_VIEW("Communications - Satellite"));
                break;
 
             case 'T': // CT
 
-               expanded_identifier = "Communications - Radio-Telephone (MF/HF)";
+               expanded_identifier.assign(STRING_VIEW("Communications - Radio-Telephone (MF/HF)"));
                break;
 
             case 'V': // CV
 
-               expanded_identifier = "Communications - Radio-Telephone (VHF)";
+               expanded_identifier.assign(STRING_VIEW("Communications - Radio-Telephone (VHF)"));
                break;
 
             case 'X': // CX
 
-               expanded_identifier = "Communications - Scanning Receiver";
+               expanded_identifier.assign(STRING_VIEW("Communications - Scanning Receiver"));
                break;
          }
 
@@ -121,12 +121,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'E': // DE
 
-               expanded_identifier = "DECCA Navigation";
+               expanded_identifier.assign(STRING_VIEW("DECCA Navigation"));
                break;
 
             case 'F': // DF
 
-               expanded_identifier = "Direction Finder";
+               expanded_identifier.assign(STRING_VIEW("Direction Finder"));
                break;
          }
 
@@ -138,17 +138,17 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'C': // EC
 
-               expanded_identifier = "Electronic Chart Display & Information System (ECDIS)";
+                expanded_identifier.assign(STRING_VIEW("Electronic Chart Display & Information System (ECDIS)"));
                break;
 
             case 'P': // EP
 
-               expanded_identifier = "Emergency Position Indicating Beacon (EPIRB)";
+               expanded_identifier.assign(STRING_VIEW("Emergency Position Indicating Beacon (EPIRB)"));
                break;
 
             case 'R': // ER
 
-               expanded_identifier = "Engine Room Monitoring Systems";
+               expanded_identifier.assign(STRING_VIEW("Engine Room Monitoring Systems"));
                break;
          }
 
@@ -160,7 +160,7 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'P': // GP
 
-               expanded_identifier = "Global Positioning System (GPS)";
+               expanded_identifier.assign(STRING_VIEW("Global Positioning System (GPS)"));
                break;
          }
 
@@ -172,17 +172,17 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'C': // HC
 
-               expanded_identifier = "Heading - Magnetic Compass";
+               expanded_identifier.assign(STRING_VIEW("Heading - Magnetic Compass"));
                break;
 
             case 'E': // HE
 
-               expanded_identifier = "Heading - North Seeking Gyro";
+               expanded_identifier.assign(STRING_VIEW("Heading - North Seeking Gyro"));
                break;
 
             case 'N': // HN
 
-               expanded_identifier = "Heading - Non North Seeking Gyro";
+               expanded_identifier.assign(STRING_VIEW("Heading - Non North Seeking Gyro"));
                break;
          }
 
@@ -194,12 +194,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'I': // II
 
-               expanded_identifier = "Integrated Instrumentation";
+               expanded_identifier.assign(STRING_VIEW("Integrated Instrumentation"));
                break;
 
             case 'N': // IN
 
-               expanded_identifier = "Integrated Navigation";
+               expanded_identifier.assign(STRING_VIEW("Integrated Navigation"));
                break;
          }
 
@@ -211,12 +211,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'A': // LA
 
-               expanded_identifier = "Loran A";
+               expanded_identifier.assign(STRING_VIEW("Loran A"));
                break;
 
             case 'C': // LC
 
-               expanded_identifier = "Loran C";
+               expanded_identifier.assign(STRING_VIEW("Loran C"));
                break;
          }
 
@@ -228,7 +228,7 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'P': // MP
 
-               expanded_identifier = "Microwave Positioning System (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Microwave Positioning System (outdated)"));
                break;
          }
 
@@ -240,12 +240,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'M': // OM
 
-               expanded_identifier = "OMEGA Navigation System";
+               expanded_identifier.assign(STRING_VIEW("OMEGA Navigation System"));
                break;
 
             case 'S': // OS
 
-               expanded_identifier = "Distress Alarm System (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Distress Alarm System (outdated)"));
                break;
          }
 
@@ -261,7 +261,7 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'A': // RA
 
-               expanded_identifier = "RADAR and/or ARPA";
+               expanded_identifier.assign(STRING_VIEW("RADAR and/or ARPA"));
                break;
          }
 
@@ -273,17 +273,17 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'D': // SD
 
-               expanded_identifier = "Sounder, Depth";
+               expanded_identifier.assign(STRING_VIEW("Sounder, Depth"));
                break;
 
             case 'N': // SN
 
-               expanded_identifier = "Electronic Positioning System, other/general";
+               expanded_identifier.assign(STRING_VIEW("Electronic Positioning System, other/general"));
                break;
 
             case 'S': // SS
-            
-               expanded_identifier = "Sounder, Scanning";
+
+               expanded_identifier.assign(STRING_VIEW("Sounder, Scanning"));
                break;
          }
 
@@ -295,12 +295,12 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'I': // TI
 
-               expanded_identifier = "Turn Rate Indicator";
+               expanded_identifier.assign(STRING_VIEW("Turn Rate Indicator"));
                break;
 
             case 'R': // TR
 
-               expanded_identifier = "TRANSIT Navigation System";
+               expanded_identifier.assign(STRING_VIEW("TRANSIT Navigation System"));
                break;
          }
 
@@ -312,17 +312,17 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'D': // VD
 
-               expanded_identifier = "Velocity Sensor, Doppler, other/general";
+               expanded_identifier.assign(STRING_VIEW("Velocity Sensor, Doppler, other/general"));
                break;
 
             case 'M': // VM
 
-               expanded_identifier = "Velocity Sensor, Speed Log, Water, Magnetic";
+               expanded_identifier.assign(STRING_VIEW("Velocity Sensor, Speed Log, Water, Magnetic"));
                break;
 
             case 'W': // VW
 
-               expanded_identifier = "Velocity Sensor, Speed Log, Water, Mechanical";
+               expanded_identifier.assign(STRING_VIEW("Velocity Sensor, Speed Log, Water, Mechanical"));
                break;
          }
 
@@ -335,7 +335,7 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'I': // WI
 
-               expanded_identifier = "Weather Instruments";
+               expanded_identifier.assign(STRING_VIEW("Weather Instruments"));
                break;
          }
 
@@ -347,47 +347,47 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'C': // YC
 
-               expanded_identifier = "Transducer - Temperature (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Temperature (outdated)"));
                break;
 
             case 'D': // YD
 
-               expanded_identifier = "Transducer - Displacement, Angular or Linear (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Displacement, Angular or Linear (outdated)"));
                break;
 
             case 'F': // YF
 
-               expanded_identifier = "Transducer - Frequency (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Frequency (outdated)"));
                break;
 
             case 'L': // YL
 
-               expanded_identifier = "Transducer - Level (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Level (outdated)"));
                break;
 
             case 'P': // YP
 
-               expanded_identifier = "Transducer - Pressure (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Pressure (outdated)"));
                break;
 
             case 'R': // YR
 
-               expanded_identifier = "Transducer - Flow Rate (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Flow Rate (outdated)"));
                break;
 
             case 'T': // YT
 
-               expanded_identifier = "Transducer - Tachometer (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Tachometer (outdated)"));
                break;
 
             case 'V': // YV
 
-               expanded_identifier = "Transducer - Volume (outdated)";
+               expanded_identifier.assign(STRING_VIEW("Transducer - Volume (outdated)"));
                break;
 
             case 'X': // YX
 
-               expanded_identifier = "Transducer";
+               expanded_identifier.assign(STRING_VIEW("Transducer"));
                break;
 
          }
@@ -400,22 +400,22 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
          {
             case 'A': // ZA
 
-               expanded_identifier = "Timekeeper - Atomic Clock";
+               expanded_identifier.assign(STRING_VIEW("Timekeeper - Atomic Clock"));
                break;
 
             case 'C': // ZC
 
-               expanded_identifier = "Timekeeper - Chronometer";
+               expanded_identifier.assign(STRING_VIEW("Timekeeper - Chronometer"));
                break;
 
             case 'Q': // ZQ
-            
-               expanded_identifier = "Timekeeper - Quartz";
+
+               expanded_identifier.assign(STRING_VIEW("Timekeeper - Quartz"));
                break;
 
             case 'V': // ZV
-            
-               expanded_identifier = "Timekeeper - Radio Update, WWV or WWVH";
+
+               expanded_identifier.assign(STRING_VIEW("Timekeeper - Radio Update, WWV or WWVH"));
                break;
          }
 

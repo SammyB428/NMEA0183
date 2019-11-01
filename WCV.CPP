@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 WCV::WCV()
 {
-   Mnemonic = "WCV";
+   Mnemonic.assign(STRING_VIEW("WCV"));
    Empty();
 }
 
@@ -77,8 +77,8 @@ bool WCV::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Velocity = sentence.Double( 1 );

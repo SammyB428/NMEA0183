@@ -197,7 +197,7 @@ bool NMEA0183::Parse( void ) noexcept
 
        if (mnemonic[0] == 'P')
        {
-           mnemonic = "P";
+           mnemonic = std::string_view("P",1);
        }
        else
        {
@@ -220,7 +220,7 @@ bool NMEA0183::Parse( void ) noexcept
 
        auto iterator = std::lower_bound(m_ResponseTable.begin(), m_ResponseTable.end(), &m_Needle, is_less_than);
 
-       if (iterator != m_ResponseTable.end() && (*iterator)->Mnemonic.compare(mnemonic) == 0)
+       if (iterator != m_ResponseTable.end() and (*iterator)->Mnemonic.compare(mnemonic) == 0)
        {
            return_value = (*iterator)->Parse(m_Sentence);
 
@@ -234,7 +234,7 @@ bool NMEA0183::Parse( void ) noexcept
                ** Now that we sucessfully parsed a sentence, record stuff *about* the transaction
                */
 
-               ErrorMessage = "No Error";
+               ErrorMessage.assign(STRING_VIEW("No Error"));
                LastSentenceIDParsed = (*iterator)->Mnemonic;
                TalkerID = talker_id(m_Sentence);
                ExpandedTalkerID = expand_talker_id(TalkerID);
@@ -248,7 +248,7 @@ bool NMEA0183::Parse( void ) noexcept
        else
        {
            ErrorMessage = mnemonic;
-           ErrorMessage.append( " is an unknown type of sentence" );
+           ErrorMessage.append(STRING_VIEW(" is an unknown type of sentence"));
            return_value = false;
        }
    }

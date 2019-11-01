@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 BWR::BWR()
 {
-   Mnemonic = "BWR";
+   Mnemonic.assign(STRING_VIEW("BWR"));
    Empty();
 }
 
@@ -91,8 +91,8 @@ bool BWR::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime         = sentence.Field( 1 );

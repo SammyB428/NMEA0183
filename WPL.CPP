@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 WPL::WPL()
 {
-   Mnemonic = "WPL";
+   Mnemonic.assign(STRING_VIEW("WPL"));
    Empty();
 }
 
@@ -76,8 +76,8 @@ bool WPL::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Position.Parse( 1, 2, 3, 4, sentence );

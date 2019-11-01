@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GXP::GXP()
 {
-   Mnemonic = "GXP";
+   Mnemonic.assign(STRING_VIEW("GXP"));
 }
 
 GXP::~GXP()

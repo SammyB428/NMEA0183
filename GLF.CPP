@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GLF::GLF()
 {
-   Mnemonic = "GLF";
+   Mnemonic.assign(STRING_VIEW("GLF"));
 }
 
 GLF::~GLF()

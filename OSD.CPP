@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 OSD::OSD()
 {
-   Mnemonic = "OSD";
+   Mnemonic.assign(STRING_VIEW("OSD"));
    Empty();
 }
 
@@ -89,8 +89,8 @@ bool OSD::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 10 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    HeadingDegreesTrue       = sentence.Double( 1 );

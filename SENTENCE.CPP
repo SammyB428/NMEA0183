@@ -133,15 +133,15 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 {
    uint8_t checksum_value = 0;
 
-   std::size_t string_length = Sentence.length();
+   std::size_t const string_length = Sentence.length();
    std::size_t index = 1; // Skip over the $ at the begining of the sentence
 
-   while( index < string_length    && 
-          Sentence[ index ] != '*' && 
-          Sentence[ index ] != CARRIAGE_RETURN && 
+   while( index < string_length    and
+          Sentence[ index ] != '*' and
+          Sentence[ index ] != CARRIAGE_RETURN and
           Sentence[ index ] != LINE_FEED )
    {
-      checksum_value ^= Sentence[ index ];
+      checksum_value xor_eq Sentence[ index ];
       index++;
    }
 
@@ -201,7 +201,7 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 
    while( current_field_number < desired_field_number && index < string_length )
    {
-      if ( Sentence[ index ] == ',' || Sentence[ index ] == '*' )
+      if ( Sentence[ index ] == ',' or Sentence[ index ] == '*' )
       {
          current_field_number++;
       }
@@ -213,9 +213,9 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
    {
        auto address_of_first_character = &Sentence[index];
 
-      while( index < string_length    &&
-             Sentence[ index ] != ',' &&
-             Sentence[ index ] != '*' &&
+      while( index < string_length    and
+             Sentence[ index ] != ',' and
+             Sentence[ index ] != '*' and
              Sentence[ index ] != 0x00 )
       {
          //return_string += Sentence[ index ];
@@ -259,9 +259,9 @@ void SENTENCE::Finish( void ) noexcept
 
    char temp_string[ 10 ];
 
-   ::sprintf( temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED );
 
-   Sentence += temp_string;
+   Sentence.append(temp_string, number_of_characters);
 }
 
 int SENTENCE::Integer( int field_number ) const noexcept
@@ -514,19 +514,19 @@ SENTENCE const& SENTENCE::operator += ( std::string_view source ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( double value ) noexcept
+SENTENCE const& SENTENCE::operator += ( double const value ) noexcept
 {
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%.3f", value );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.3f", value );
 
    Sentence.push_back(',');
-   Sentence += temp_string;
+   Sentence.append(temp_string, number_of_characters);
 
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( COMMUNICATIONS_MODE mode ) noexcept
+SENTENCE const& SENTENCE::operator += ( COMMUNICATIONS_MODE const mode ) noexcept
 {
    Sentence.push_back(',');
 
@@ -586,7 +586,7 @@ SENTENCE const& SENTENCE::operator += ( COMMUNICATIONS_MODE mode ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( TRANSDUCER_TYPE transducer ) noexcept
+SENTENCE const& SENTENCE::operator += ( TRANSDUCER_TYPE const transducer ) noexcept
 {
     Sentence.push_back(',');
 
@@ -646,7 +646,7 @@ SENTENCE const& SENTENCE::operator += ( TRANSDUCER_TYPE transducer ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( NORTHSOUTH northing ) noexcept
+SENTENCE const& SENTENCE::operator += ( NORTHSOUTH const northing ) noexcept
 {
     Sentence.push_back(',');
 
@@ -662,19 +662,19 @@ SENTENCE const& SENTENCE::operator += ( NORTHSOUTH northing ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( int value ) noexcept
+SENTENCE const& SENTENCE::operator += ( int const value ) noexcept
 {
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%d", value );
+   auto conversion = std::to_chars(temp_string, temp_string + std::size(temp_string), value);
 
    Sentence.push_back(',');
-   Sentence += temp_string;
+   Sentence.append(temp_string, std::distance(temp_string, conversion.ptr));
 
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( EASTWEST easting ) noexcept
+SENTENCE const& SENTENCE::operator += ( EASTWEST const easting ) noexcept
 {
     Sentence.push_back(',');
 
@@ -690,7 +690,7 @@ SENTENCE const& SENTENCE::operator += ( EASTWEST easting ) noexcept
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += ( NMEA0183_BOOLEAN boolean ) noexcept
+SENTENCE const& SENTENCE::operator += ( NMEA0183_BOOLEAN const boolean ) noexcept
 {
     Sentence.push_back(',');
 
@@ -719,15 +719,15 @@ SENTENCE const& SENTENCE::operator += ( time_t const time_value ) noexcept
 
    char temp_string[65];
 
-   sprintf( temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec );
 
    Sentence.push_back(',');
-   Sentence += temp_string;
+   Sentence.append(temp_string, number_of_characters);
 
    return( *this );
 }
 
-SENTENCE const& SENTENCE::operator += (LEFTRIGHT left_or_right) noexcept
+SENTENCE const& SENTENCE::operator += (LEFTRIGHT const left_or_right) noexcept
 {
     Sentence.push_back(',');
 
@@ -743,7 +743,7 @@ SENTENCE const& SENTENCE::operator += (LEFTRIGHT left_or_right) noexcept
     return(*this);
 }
 
-SENTENCE const& SENTENCE::operator += (REFERENCE a_reference) noexcept
+SENTENCE const& SENTENCE::operator += (REFERENCE const a_reference) noexcept
 {
     Sentence.push_back(',');
 

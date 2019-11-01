@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 TTM::TTM()
 {
-   Mnemonic = "TTM";
+   Mnemonic.assign(STRING_VIEW("TTM"));
    Empty();
 }
 
@@ -97,8 +97,8 @@ bool TTM::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    TargetNumber                            = sentence.Integer( 1 );

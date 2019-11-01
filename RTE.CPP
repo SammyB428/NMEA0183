@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RTE::RTE()
 {
-   Mnemonic = "RTE";
+   Mnemonic.assign(STRING_VIEW("RTE"));
    Empty();
 }
 

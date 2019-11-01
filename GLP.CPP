@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GLP::GLP()
 {
-   Mnemonic = "GLP";
+   Mnemonic.assign(STRING_VIEW("GLP"));
 }
 
 GLP::~GLP()

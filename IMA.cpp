@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 IMA::IMA()
 {
-   Mnemonic = "IMA";
+   Mnemonic.assign(STRING_VIEW("IMA"));
    Empty();
 }
 
@@ -93,8 +93,8 @@ bool IMA::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    VesselName             = sentence.Field( 1 );

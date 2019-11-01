@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 ROT::ROT()
 {
-   Mnemonic = "ROT";
+   Mnemonic.assign(STRING_VIEW("ROT"));
    Empty();
 }
 
@@ -76,8 +76,8 @@ bool ROT::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    RateOfTurn  = sentence.Double( 1 );
@@ -88,32 +88,32 @@ bool ROT::Parse( SENTENCE const& sentence ) noexcept
 
 std::string ROT::PlainEnglish( void ) const noexcept
 {
-   std::string return_string;
-
-   return_string = "The bow is turning to ";
+   std::string return_string(STRING_VIEW("The bow is turning to "));
 
    char temp_string[ 80 ];
 
+   std::size_t number_of_characters = 0;
+
    if ( RateOfTurn < 0 )
    {
-      ::sprintf( temp_string, "Port at a rate of %.1lg degrees per minute.", static_cast<double>(RateOfTurn * -1.0) );
+      number_of_characters = ::sprintf( temp_string, "Port at a rate of %.1lg degrees per minute.", static_cast<double>(RateOfTurn * -1.0) );
    }
    else
    {
-      ::sprintf( temp_string, "Starboard at a rate of %.1lg degrees per minute.", RateOfTurn );
+      number_of_characters = ::sprintf( temp_string, "Starboard at a rate of %.1lg degrees per minute.", RateOfTurn );
    }
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    if ( IsDataValid != NMEA0183_BOOLEAN::True )
    {
       if ( IsDataValid == NMEA0183_BOOLEAN::False )
       {
-         return_string += " However, this data is not valid.";
+         return_string.append(STRING_VIEW(" However, this data is not valid."));
       }
       else
       {
-         return_string += " However, this data cannot be confirmed.";
+         return_string.append(STRING_VIEW(" However, this data cannot be confirmed."));
       }
    }
 
@@ -125,12 +125,12 @@ bool ROT::Write( SENTENCE& sentence ) const noexcept
    /*
    ** Let the parent do its thing
    */
-   
+
    RESPONSE::Write( sentence );
 
    sentence += RateOfTurn;
    sentence += IsDataValid;
-   
+
    sentence.Finish();
 
    return( true );

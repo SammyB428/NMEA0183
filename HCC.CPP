@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 HCC::HCC()
 {
-   Mnemonic = "HCC";
+   Mnemonic.assign(STRING_VIEW("HCC"));
    Empty();
 }
 
@@ -81,8 +81,8 @@ bool HCC::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 2 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    HeadingDegrees = sentence.Double( 1 );
@@ -92,13 +92,13 @@ bool HCC::Parse( SENTENCE const& sentence ) noexcept
 
 std::string HCC::PlainEnglish( void ) const noexcept
 {
-   std::string return_string("The compass heading is ");
+   std::string return_string(STRING_VIEW("The compass heading is "));
 
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%.2lg degrees.", HeadingDegrees );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.2lg degrees.", HeadingDegrees );
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    return( return_string );
 }

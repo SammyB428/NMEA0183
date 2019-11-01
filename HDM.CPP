@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 HDM::HDM()
 {
-   Mnemonic = "HDM";
+   Mnemonic.assign(STRING_VIEW("HDM"));
    Empty();
 }
 
@@ -80,8 +80,8 @@ bool HDM::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    HeadingDegrees = sentence.Double( 1 );
@@ -91,13 +91,13 @@ bool HDM::Parse( SENTENCE const& sentence ) noexcept
 
 std::string HDM::PlainEnglish( void ) const noexcept
 {
-   std::string return_string = "The Magnetic heading is ";
+   std::string return_string(STRING_VIEW("The Magnetic heading is "));
 
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%.2lg degrees.", HeadingDegrees );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.2lg degrees.", HeadingDegrees );
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    return( return_string );
 }

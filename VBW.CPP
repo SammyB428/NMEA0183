@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 VBW::VBW()
 {
-   Mnemonic = "VBW";
+   Mnemonic.assign(STRING_VIEW("VBW"));
    Empty();
 }
 
@@ -84,8 +84,8 @@ bool VBW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    LongitudinalWaterSpeed  = sentence.Double( 1 );

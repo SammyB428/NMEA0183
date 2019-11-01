@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 VWE::VWE()
 {
-   Mnemonic = "VWE";
+   Mnemonic.assign(STRING_VIEW("VWE"));
    Empty();
 }
 
@@ -79,8 +79,8 @@ bool VWE::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 2 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    EfficiencyPercent = sentence.Integer( 1 );

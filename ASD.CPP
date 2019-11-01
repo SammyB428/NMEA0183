@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 ASD::ASD()
 {
-   Mnemonic = "ASD";
+   Mnemonic.assign(STRING_VIEW("ASD"));
 }
 
 ASD::~ASD()

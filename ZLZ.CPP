@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 ZLZ::ZLZ()
 {
-   Mnemonic = "ZLZ";
+   Mnemonic.assign(STRING_VIEW("ZLZ"));
    Empty();
 }
 
@@ -85,8 +85,8 @@ bool ZLZ::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    time_t temp_time = time(nullptr);

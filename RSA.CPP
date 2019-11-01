@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RSA::RSA()
 {
-   Mnemonic = "RSA";
+   Mnemonic.assign(STRING_VIEW("RSA"));
    Empty();
 }
 
@@ -80,8 +80,8 @@ bool RSA::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Starboard            = sentence.Double(  1 );

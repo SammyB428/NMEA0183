@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 XTE::XTE()
 {
-   Mnemonic = "XTE";
+   Mnemonic.assign(STRING_VIEW("XTE"));
    Empty();
 }
 
@@ -86,8 +86,8 @@ bool XTE::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    /*

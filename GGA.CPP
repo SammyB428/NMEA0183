@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GGA::GGA()
 {
-   Mnemonic = "GGA";
+   Mnemonic.assign(STRING_VIEW("GGA"));
    Empty();
 }
 
@@ -104,8 +104,8 @@ bool GGA::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 15 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime                         = sentence.Field( 1 );
@@ -124,35 +124,35 @@ bool GGA::Parse( SENTENCE const& sentence ) noexcept
 
 std::string GGA::PlainEnglish( void ) const noexcept
 {
-   std::string return_string( "At " );
-   std::string time_string = ctime( &Time );
-   return_string += time_string.substr(0, time_string.length() - 1);
-   return_string += " UTC, you were at ";
-   return_string += Position.PlainEnglish();
-   return_string += ", ";
+   std::string return_string(STRING_VIEW("At "));
+   std::string const time_string = ctime( &Time );
+   return_string.append(time_string.substr(0, time_string.length() - 1));
+   return_string.append(STRING_VIEW(" UTC, you were at "));
+   return_string.append(Position.PlainEnglish());
+   return_string.append(STRING_VIEW(", "));
 
    switch( GPSQuality )
    {
       case 1:
 
-         return_string += "based upon a GPS fix";
+         return_string.append(STRING_VIEW("based upon a GPS fix"));
          break;
 
       case 2:
 
-         return_string += "based upon a differential GPS fix";
+         return_string.append(STRING_VIEW("based upon a differential GPS fix"));
          break;
 
       default:
 
-         return_string += "a GPS fix was not available";
+         return_string.append(STRING_VIEW("a GPS fix was not available"));
          break;
    }
 
    char temp_string[ 128 ];
 
-   ::sprintf( temp_string, ", %d satellites are in use.", NumberOfSatellitesInUse );
-   return_string += temp_string;
+   std::size_t const number_of_characters = ::sprintf( temp_string, ", %d satellites are in use.", NumberOfSatellitesInUse );
+   return_string.append(temp_string, number_of_characters);
 
    return( return_string );
 }

@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 ZTE::ZTE()
 {
-   Mnemonic = "ZTE";
+   Mnemonic.assign(STRING_VIEW("ZTE"));
    Empty();
 }
 
@@ -84,7 +84,7 @@ bool ZTE::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
+      SetErrorMessage( STRING_VIEW("Invalid Checksum") );
       return( false );
    }
 

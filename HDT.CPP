@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 HDT::HDT()
 {
-   Mnemonic = "HDT";
+   Mnemonic.assign(STRING_VIEW("HDT"));
    Empty();
 }
 
@@ -75,8 +75,8 @@ bool HDT::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    DegreesTrue = sentence.Double( 1 );
@@ -86,13 +86,13 @@ bool HDT::Parse( SENTENCE const& sentence ) noexcept
 
 std::string HDT::PlainEnglish( void ) const noexcept
 {
-   std::string return_string("Your true heading is ");
+   std::string return_string(STRING_VIEW("Your true heading is "));
    
    char temp_string[65];
 
-   sprintf( temp_string, "%.2lg degrees.", DegreesTrue );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.2lg degrees.", DegreesTrue );
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    return( return_string );
 }

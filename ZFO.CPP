@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 ZFO::ZFO()
 {
-   Mnemonic = "ZFO";
+   Mnemonic.assign(STRING_VIEW("ZFO"));
    Empty();
 }
 
@@ -79,8 +79,8 @@ bool ZFO::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime     = sentence.Field( 1 );

@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 WDR::WDR()
 {
-   Mnemonic = "WDR";
+   Mnemonic.assign(STRING_VIEW("WDR"));
    Empty();
 }
 
@@ -81,8 +81,8 @@ bool WDR::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    NauticalMiles = sentence.Double( 1 );

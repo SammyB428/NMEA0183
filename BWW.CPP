@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 BWW::BWW()
 {
-   Mnemonic = "BWW";
+   Mnemonic.assign(STRING_VIEW("BWW"));
    Empty();
 }
 
@@ -82,8 +82,8 @@ bool BWW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    BearingTrue     = sentence.Double( 1 );

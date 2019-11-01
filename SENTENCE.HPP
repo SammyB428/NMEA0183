@@ -76,17 +76,17 @@ class SENTENCE
       virtual SENTENCE const& operator  = ( SENTENCE const& source ) noexcept;
       virtual SENTENCE const& operator  = ( std::string_view source ) noexcept;
       virtual SENTENCE const& operator += ( std::string_view source ) noexcept;
-      virtual SENTENCE const& operator += ( double value ) noexcept;
-      virtual SENTENCE const& operator += ( int value ) noexcept;
-      virtual SENTENCE const& operator += ( COMMUNICATIONS_MODE mode ) noexcept;
-      virtual SENTENCE const& operator += ( EASTWEST easting ) noexcept;
+      virtual SENTENCE const& operator += ( double const value ) noexcept;
+      virtual SENTENCE const& operator += ( int const value ) noexcept;
+      virtual SENTENCE const& operator += ( COMMUNICATIONS_MODE const mode ) noexcept;
+      virtual SENTENCE const& operator += ( EASTWEST const easting ) noexcept;
       virtual SENTENCE const& operator += ( LATLONG const& source ) noexcept;
-      virtual SENTENCE const& operator += ( NMEA0183_BOOLEAN boolean ) noexcept;
-      virtual SENTENCE const& operator += ( NORTHSOUTH northing ) noexcept;
+      virtual SENTENCE const& operator += ( NMEA0183_BOOLEAN const boolean ) noexcept;
+      virtual SENTENCE const& operator += ( NORTHSOUTH const northing ) noexcept;
       virtual SENTENCE const& operator += ( time_t const time ) noexcept;
-      virtual SENTENCE const& operator += ( TRANSDUCER_TYPE transducer ) noexcept;
-      virtual SENTENCE const& operator += ( LEFTRIGHT left_or_right ) noexcept;
-      virtual SENTENCE const& operator += ( REFERENCE a_reference ) noexcept;
+      virtual SENTENCE const& operator += ( TRANSDUCER_TYPE const transducer ) noexcept;
+      virtual SENTENCE const& operator += ( LEFTRIGHT const left_or_right ) noexcept;
+      virtual SENTENCE const& operator += ( REFERENCE const a_reference ) noexcept;
 };
 
 #endif // SENTENCE_CLASS_HEADER

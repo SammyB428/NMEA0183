@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 TRF::TRF()
 {
-   Mnemonic = "TRF";
+   Mnemonic.assign(STRING_VIEW("TRF"));
    Empty();
 }
 
@@ -94,8 +94,8 @@ bool TRF::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 13 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    UTCTime                     = sentence.Field( 1 );

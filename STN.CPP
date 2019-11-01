@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 STN::STN()
 {
-   Mnemonic = "STN";
+   Mnemonic.assign(STRING_VIEW("STN"));
    Empty();
 }
 
@@ -74,8 +74,8 @@ bool STN::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 2 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    TalkerIDNumber = sentence.Integer( 1 );

@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GDF::GDF()
 {
-   Mnemonic = "GDF";
+   Mnemonic.assign(STRING_VIEW("GDF"));
 }
 
 GDF::~GDF()

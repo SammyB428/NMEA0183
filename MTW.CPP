@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 MTW::MTW()
 {
-   Mnemonic = "MTW";
+   Mnemonic.assign(STRING_VIEW("MTW"));
    Empty();
 }
 
@@ -76,8 +76,8 @@ bool MTW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 3 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Temperature       = sentence.Double( 1 );
@@ -88,15 +88,15 @@ bool MTW::Parse( SENTENCE const& sentence ) noexcept
 
 std::string MTW::PlainEnglish( void ) const noexcept
 {
-   std::string return_string("The water temperature is ");
+   std::string return_string(STRING_VIEW("The water temperature is "));
     
    char temp_string[65];
 
-   sprintf( temp_string, "%.1lg ", Temperature );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%.1lg ", Temperature );
 
-   return_string += temp_string;
-   return_string += UnitOfMeasurement;
-   return_string += ".";
+   return_string.append(temp_string, number_of_characters);
+   return_string.append(UnitOfMeasurement);
+   return_string.push_back('.');
 
    return( return_string );
 }

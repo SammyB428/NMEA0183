@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GSV::GSV()
 {
-   Mnemonic = "GSV";
+   Mnemonic.assign(STRING_VIEW("GSV"));
    Empty();
 }
 
@@ -101,8 +101,8 @@ bool GSV::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 20 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    int const message_number = sentence.Integer( 2 );

@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 P::P()
 {
-   Mnemonic = "P";
+   Mnemonic.assign(STRING_VIEW("P"));
    Empty();
 }
 

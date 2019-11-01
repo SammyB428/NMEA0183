@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 XDR::XDR()
 {
-   Mnemonic = "XDR";
+   Mnemonic.assign(STRING_VIEW("XDR"));
    Empty();
 }
 
@@ -78,7 +78,7 @@ bool XDR::Parse( SENTENCE const& sentence ) noexcept
 
    TRANSDUCER_DATA transducer_data;
 
-   while( sentence.Field( field_number + 1 ) != "" )
+   while( sentence.Field( field_number + 1 ).empty() == false )
    {
        transducer_data.Empty();
 

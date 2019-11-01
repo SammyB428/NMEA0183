@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 LCD::LCD()
 {
-   Mnemonic = "LCD";
+   Mnemonic.assign(STRING_VIEW("LCD"));
    Empty();
 }
 
@@ -91,8 +91,8 @@ bool LCD::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 14 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    GroupRepetitionInterval = sentence.Integer( 1 );

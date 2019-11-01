@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 VLW::VLW()
 {
-   Mnemonic = "VLW";
+   Mnemonic.assign(STRING_VIEW("VLW"));
    Empty();
 }
 
@@ -78,8 +78,8 @@ bool VLW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    TotalDistanceNauticalMiles      = sentence.Double( 1 );

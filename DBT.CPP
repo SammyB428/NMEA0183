@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 DBT::DBT()
 {
-   Mnemonic = "DBT";
+   Mnemonic.assign(STRING_VIEW("DBT"));
    Empty();
 }
 
@@ -81,8 +81,8 @@ bool DBT::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    DepthFeet    = sentence.Double( 1 );

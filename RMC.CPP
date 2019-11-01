@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RMC::RMC()
 {
-   Mnemonic = "RMC";
+   Mnemonic.assign(STRING_VIEW("RMC"));
    Empty();
 }
 
@@ -94,14 +94,14 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
 
    if ( check == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
    
    if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
    {
-      SetErrorMessage( "Missing Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Missing Checksum"));
+       return( false );
    } 
 
    UTCTime                    = sentence.Field( 1 );
@@ -119,23 +119,23 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
 
 std::string RMC::PlainEnglish( void ) const noexcept
 {
-   std::string return_string( "At " );
-   std::string time_string = ctime(&Time);
-   return_string += time_string.substr(0, time_string.length() - 1);
-   return_string += " you were at ";
-   return_string += Position.PlainEnglish();
-   return_string += ", making ";
+   std::string return_string(STRING_VIEW("At "));
+   std::string const time_string = ctime(&Time);
+   return_string.append(time_string.substr(0, time_string.length() - 1));
+   return_string.append(STRING_VIEW(" you were at "));
+   return_string.append(Position.PlainEnglish());
+   return_string.append(STRING_VIEW(", making "));
 
    char temp_string[ 128 ];
 
-   sprintf( temp_string, "%lg", SpeedOverGroundKnots );
+   std::size_t number_of_characters = ::sprintf( temp_string, "%lg", SpeedOverGroundKnots );
 
-   return_string += temp_string;
-   return_string += " knots, track made good ";
+   return_string.append(temp_string, number_of_characters);
+   return_string.append(STRING_VIEW(" knots, track made good "));
 
-   sprintf(temp_string, "%lg", TrackMadeGoodDegreesTrue );
-   return_string += temp_string;
-   return_string += " degrees true.";
+   number_of_characters = ::sprintf(temp_string, "%lg", TrackMadeGoodDegreesTrue );
+   return_string.append(temp_string, number_of_characters);
+   return_string.append(STRING_VIEW(" degrees true."));
 
    return( return_string );
 }

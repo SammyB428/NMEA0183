@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 OLN::OLN()
 {
-   Mnemonic = "OLN";
+   Mnemonic.assign(STRING_VIEW("OLN"));
    Empty();
 }
 
@@ -77,8 +77,8 @@ bool OLN::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 10 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Pair1.Parse( 1, sentence );

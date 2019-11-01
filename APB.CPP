@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 APB::APB()
 {
-   Mnemonic = "APB";
+   Mnemonic.assign(STRING_VIEW("APB"));
    Empty();
 }
 
@@ -98,8 +98,8 @@ bool APB::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 15 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    /*

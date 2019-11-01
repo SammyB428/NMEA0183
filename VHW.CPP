@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 VHW::VHW()
 {
-   Mnemonic = "VHW";
+   Mnemonic.assign(STRING_VIEW("VHW"));
    Empty();
 }
 
@@ -84,8 +84,8 @@ bool VHW::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 9 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    DegreesTrue       = sentence.Double( 1 );

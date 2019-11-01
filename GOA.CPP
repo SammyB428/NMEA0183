@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GOA::GOA()
 {
-   Mnemonic = "GOA";
+   Mnemonic.assign(STRING_VIEW("GOA"));
 }
 
 GOA::~GOA()

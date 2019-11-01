@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 ZFI::ZFI()
 {
-   Mnemonic = "ZFI";
+   Mnemonic.assign(STRING_VIEW("ZFI"));
    Empty();
 }
 
@@ -84,8 +84,8 @@ bool ZFI::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
 
    time_t temp_time = time(nullptr);

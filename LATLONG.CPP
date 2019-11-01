@@ -58,7 +58,7 @@ bool LATLONG::Parse( int LatitudePositionFieldNumber, int NorthingFieldNumber, i
    Latitude.Parse(  LatitudePositionFieldNumber, NorthingFieldNumber, LineToParse );
    Longitude.Parse( LongitudePositionFieldNumber, EastingFieldNumber, LineToParse );
 
-   if ( Latitude.IsDataValid() && Longitude.IsDataValid() )
+   if ( Latitude.IsDataValid() == true and Longitude.IsDataValid() == true )
    {
       return( true );
    }
@@ -72,30 +72,30 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
 {
    char temp_string[256];
 
-   sprintf( temp_string, "Latitude %d %.5lg", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
+   std::size_t number_of_characters = ::sprintf( temp_string, "Latitude %d %.5lg", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
 
-   std::string return_string( temp_string );
+   std::string return_string(temp_string, number_of_characters);
 
    if ( Latitude.Northing == NORTHSOUTH::North )
    {
-      return_string += " North, Longitude ";
+      return_string.append(STRING_VIEW(" North, Longitude "));
    }
    else
    {
-      return_string += " South, Longitude ";
+      return_string.append(STRING_VIEW(" South, Longitude "));
    }
 
-   ::sprintf( temp_string, "%d %.5lg", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
+   number_of_characters = ::sprintf( temp_string, "%d %.5lg", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
 
-   return_string += temp_string;
+   return_string.append(temp_string, number_of_characters);
 
    if ( Longitude.Easting == EASTWEST::East )
    {
-      return_string += " East";
+      return_string.append(STRING_VIEW(" East"));
    }
    else
    {
-      return_string += " West";
+      return_string.append(STRING_VIEW(" West"));
    }
 
    return( return_string );

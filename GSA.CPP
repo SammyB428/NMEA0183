@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GSA::GSA()
 {
-   Mnemonic = "GSA";
+   Mnemonic.assign(STRING_VIEW("GSA"));
    Empty();
 }
 
@@ -103,8 +103,8 @@ bool GSA::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 18 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    auto field_data = sentence.Field( 1 );

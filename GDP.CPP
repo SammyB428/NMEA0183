@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GDP::GDP()
 {
-   Mnemonic = "GDP";
+   Mnemonic.assign(STRING_VIEW("GDP"));
 }
 
 GDP::~GDP()

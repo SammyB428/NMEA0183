@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 MTA::MTA()
 {
-    Mnemonic = "MTA";
+    Mnemonic.assign(STRING_VIEW("MTA"));
     Empty();
 }
 
@@ -93,15 +93,15 @@ bool MTA::Parse(SENTENCE const& sentence) noexcept
 
 std::string MTA::PlainEnglish(void) const noexcept
 {
-    std::string return_string("The air temperature is ");
+    std::string return_string(STRING_VIEW("The air temperature is "));
 
     char temp_string[65];
 
-    sprintf(temp_string, "%.1lg ", Temperature);
+    std::size_t const number_of_characters = ::sprintf(temp_string, "%.1lg ", Temperature);
 
-    return_string += temp_string;
-    return_string += UnitOfMeasurement;
-    return_string += ".";
+    return_string.append(temp_string, number_of_characters);
+    return_string.append(UnitOfMeasurement);
+    return_string.push_back('.');
 
     return(return_string);
 }

@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 
 GXF::GXF()
 {
-   Mnemonic = "GXF";
+   Mnemonic.assign(STRING_VIEW("GXF"));
 }
 
 GXF::~GXF()

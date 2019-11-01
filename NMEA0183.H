@@ -45,6 +45,8 @@ SOFTWARE.
 #include <math.h>
 #include <time.h>
 
+#define STRING_VIEW(_x)  std::string_view(  _x, std::size(_x) - 1)
+
 /*
 ** Turn off the warning about precompiled headers, it is rather annoying
 */

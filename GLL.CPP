@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GLL::GLL()
 {
-   Mnemonic = "GLL";
+   Mnemonic.assign(STRING_VIEW("GLL"));
    Empty();
 }
 
@@ -83,8 +83,8 @@ bool GLL::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 7 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Position.Parse( 1, 2, 3, 4, sentence );
@@ -97,12 +97,12 @@ bool GLL::Parse( SENTENCE const& sentence ) noexcept
 
 std::string GLL::PlainEnglish( void ) const noexcept
 {
-   std::string return_string( "At " );
-   std::string time_string = ctime(&Time);
-   return_string += time_string.substr(0, time_string.length() - 1);
-   return_string += " you were at ";
-   return_string += Position.PlainEnglish();
-   return_string += ".";
+   std::string return_string(STRING_VIEW("At "));
+   std::string const time_string = ctime(&Time);
+   return_string.append(time_string.substr(0, time_string.length() - 1));
+   return_string.append(STRING_VIEW(" you were at "));
+   return_string.append(Position.PlainEnglish());
+   return_string.push_back( '.' );
 
    return( return_string );
 }

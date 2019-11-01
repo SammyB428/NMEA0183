@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 RMB::RMB()
 {
-   Mnemonic = "RMB";
+   Mnemonic.assign(STRING_VIEW("RMB"));
    Empty();
 }
 
@@ -97,14 +97,14 @@ bool RMB::Parse( SENTENCE const& sentence ) noexcept
 
    if ( check == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    }
    
    if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
    {
-      SetErrorMessage( "Missing Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Missing Checksum"));
+       return( false );
    } 
 
    IsDataValid                     = sentence.Boolean( 1 );

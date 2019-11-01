@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 HSC::HSC()
 {
-   Mnemonic = "HSC";
+   Mnemonic.assign(STRING_VIEW("HSC"));
    Empty();
 }
 
@@ -78,8 +78,8 @@ bool HSC::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 5 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    DegreesTrue     = sentence.Double( 1 );

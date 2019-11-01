@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 XTR::XTR()
 {
-   Mnemonic = "XTR";
+   Mnemonic.assign(STRING_VIEW("XTR"));
    Empty();
 }
 
@@ -77,8 +77,8 @@ bool XTR::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 4 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    Magnitude        = sentence.Double( 1 );

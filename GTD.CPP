@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 GTD::GTD()
 {
-   Mnemonic = "GTD";
+   Mnemonic.assign(STRING_VIEW("GTD"));
    Empty();
 }
 
@@ -81,8 +81,8 @@ bool GTD::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 6 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    TimeDifference1 = sentence.Field( 1 );

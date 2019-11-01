@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 ALM::ALM()
 {
-   Mnemonic = "ALM";
+   Mnemonic.assign(STRING_VIEW("ALM"));
    Empty();
 }
 
@@ -101,8 +101,8 @@ bool ALM::Parse( SENTENCE const& sentence ) noexcept
 
    if ( sentence.IsChecksumBad( 16 ) == NMEA0183_BOOLEAN::True )
    {
-      SetErrorMessage( "Invalid Checksum" );
-      return( false );
+       SetErrorMessage(STRING_VIEW("Invalid Checksum"));
+       return( false );
    } 
 
    NumberOfMessages         = (uint16_t) sentence.Integer( 1 );

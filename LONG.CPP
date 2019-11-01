@@ -55,7 +55,7 @@ void LONGITUDE::Empty( void ) noexcept
 
 bool LONGITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Easting != EASTWEST::East && Easting != EASTWEST::West )
+   if ( Easting != EASTWEST::East and Easting != EASTWEST::West )
    {
       return( false );
    }
