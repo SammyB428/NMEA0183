@@ -199,7 +199,7 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 
    std::size_t const string_length = Sentence.length();
 
-   while( current_field_number < desired_field_number && index < string_length )
+   while( current_field_number < desired_field_number and index < string_length )
    {
       if ( Sentence[ index ] == ',' or Sentence[ index ] == '*' )
       {
