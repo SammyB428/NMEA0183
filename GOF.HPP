@@ -41,8 +41,7 @@ class GOF : public WAYPOINT_LOCATION
 {
    public:
 
-      GOF();
-      virtual ~GOF();
+      inline GOF() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GOF")) {}
 };
 
 #endif // GOF_CLASS_HEADER

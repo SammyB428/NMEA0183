@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-RMB::RMB()
-{
-   Mnemonic.assign(STRING_VIEW("RMB"));
-   Empty();
-}
-
-RMB::~RMB()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void RMB::Empty( void ) noexcept
 {
    IsDataValid                     = NMEA0183_BOOLEAN::NMEA_Unknown;
@@ -56,7 +38,7 @@ void RMB::Empty( void ) noexcept
    DirectionToSteer                = LEFTRIGHT::LR_Unknown;
    To.clear();
    From.clear();
-   DestinationPosition;
+   DestinationPosition.Empty();
    RangeToDestinationNauticalMiles = 0.0;
    BearingToDestinationDegreesTrue = 0.0;
    DestinationClosingVelocityKnots = 0.0;

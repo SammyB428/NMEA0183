@@ -36,8 +36,7 @@ class LCD : public RESPONSE
 {
    public:
 
-      LCD();
-      virtual ~LCD();
+      inline LCD() noexcept : RESPONSE(STRING_VIEW("LCD")) {}
 
       /*
       ** Data

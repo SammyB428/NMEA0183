@@ -42,8 +42,9 @@ class RESPONSE
 
    public:
 
-      RESPONSE();
-      virtual ~RESPONSE();
+      inline RESPONSE(std::string_view id) noexcept : Mnemonic(id), DataSource(STRING_VIEW("--")) {}
+
+      std::string const Mnemonic;
 
       /*
       ** Data
@@ -51,7 +52,6 @@ class RESPONSE
 
       std::string DataSource;
       std::string ErrorMessage;
-      std::string Mnemonic;
       std::string Talker;
 
       /*
@@ -65,5 +65,16 @@ class RESPONSE
       virtual void SetContainer( NMEA0183 * container ) noexcept;
       virtual bool Write( SENTENCE& sentence ) const noexcept;
 };
- 
+
+class GENERIC_RESPONSE : public RESPONSE
+{
+public:
+
+    inline GENERIC_RESPONSE(std::string_view id) noexcept : RESPONSE(id) {}
+    void Empty(void) noexcept override {}
+    bool Parse(SENTENCE const& ) noexcept override { return(true); }
+    bool Write(SENTENCE& ) const noexcept override { return(true); }
+
+};
+
 #endif // RESPONSE_CLASS_HEADER

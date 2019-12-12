@@ -41,8 +41,7 @@ class GDA : public WAYPOINT_LOCATION
 {
    public:
 
-      GDA();
-      virtual ~GDA();
+       inline GDA() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GDA")) {}
 };
 
 #endif // GDA_CLASS_HEADER

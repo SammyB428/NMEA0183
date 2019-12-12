@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-GXA::GXA()
-{
-   Mnemonic.assign(STRING_VIEW("GXA"));
-   Empty();
-}
-
-GXA::~GXA()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void GXA::Empty( void ) noexcept
 {
    UTCTime.clear();

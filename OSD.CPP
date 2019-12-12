@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-OSD::OSD()
-{
-   Mnemonic.assign(STRING_VIEW("OSD"));
-   Empty();
-}
-
-OSD::~OSD()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void OSD::Empty( void ) noexcept
 {
    HeadingDegreesTrue       = 0.0;

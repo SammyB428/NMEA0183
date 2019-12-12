@@ -36,8 +36,7 @@ class OLN : public RESPONSE
 {
    public:
 
-      OLN();
-      virtual ~OLN();
+      inline OLN() noexcept : RESPONSE(STRING_VIEW("OLN")) {}
 
       /*
       ** Data

@@ -36,8 +36,7 @@ class ASD : public RESPONSE
 {
    public:
 
-      ASD();
-      virtual ~ASD();
+      inline ASD() noexcept : RESPONSE(STRING_VIEW("ASD")) {}
 
       void Empty(void) noexcept override;
       bool Parse( SENTENCE const& sentence ) noexcept override;

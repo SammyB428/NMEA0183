@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-AAM::AAM()
-{
-   Mnemonic.assign(STRING_VIEW("AAM"));
-   Empty();
-}
-
-AAM::~AAM()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void AAM::Empty( void ) noexcept
 {
    IsArrivalCircleEntered = NMEA0183_BOOLEAN::NMEA_Unknown;
@@ -107,7 +89,7 @@ bool AAM::Write( SENTENCE& sentence ) const noexcept
    sentence += IsArrivalCircleEntered;
    sentence += IsPerpendicular;
    sentence += CircleRadius;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += WaypointID;
 
    sentence.Finish();

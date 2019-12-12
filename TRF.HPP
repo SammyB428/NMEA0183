@@ -36,8 +36,7 @@ class TRF : public RESPONSE
 {
    public:
 
-      TRF();
-      virtual ~TRF();
+      inline TRF() noexcept : RESPONSE(STRING_VIEW("TRF")) {}
 
       /*
       ** Data

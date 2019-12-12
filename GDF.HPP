@@ -41,8 +41,7 @@ class GDF : public WAYPOINT_LOCATION
 {
    public:
 
-      GDF();
-      virtual ~GDF();
+      inline GDF() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GDF")) {};
 };
 
 #endif // GDF_CLASS_HEADER

@@ -42,8 +42,7 @@ class WDR : public RESPONSE
 {
    public:
 
-      WDR();
-      virtual ~WDR();
+      inline WDR() noexcept : RESPONSE(STRING_VIEW("WDR")) {}
 
       /*
       ** Data

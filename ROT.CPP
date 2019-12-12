@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ROT::ROT()
-{
-   Mnemonic.assign(STRING_VIEW("ROT"));
-   Empty();
-}
-
-ROT::~ROT()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void ROT::Empty( void ) noexcept
 {
    RateOfTurn  = 0.0;

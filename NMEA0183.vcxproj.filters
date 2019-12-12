@@ -362,40 +362,13 @@
     <ClCompile Include="FSI.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GDA.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDF.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDP.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GGA.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLA.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GLC.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GLF.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GLL.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLP.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GOA.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GOF.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GOP.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GSA.CPP">
@@ -408,12 +381,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GXA.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GXF.CPP">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GXP.CPP">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HCC.CPP">

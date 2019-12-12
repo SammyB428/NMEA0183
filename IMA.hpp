@@ -41,8 +41,7 @@ class IMA : public RESPONSE
 {
    public:
 
-      IMA();
-      virtual ~IMA();
+      inline IMA() noexcept : RESPONSE(STRING_VIEW("IMA")) {}
 
       /*
       ** Data

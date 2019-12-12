@@ -36,8 +36,7 @@ class VBW : public RESPONSE
 {
    public:
 
-      VBW();
-      virtual ~VBW();
+      inline VBW() noexcept : RESPONSE(STRING_VIEW("VBW")) {};
 
       /*
       ** Data

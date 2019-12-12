@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-TEP::TEP()
-{
-   Mnemonic.assign(STRING_VIEW("TEP"));
-   Empty();
-}
-
-TEP::~TEP()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void TEP::Empty( void ) noexcept
 {
    ElevationDegrees = 0.0;
@@ -111,7 +93,7 @@ bool TEP::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += ElevationDegrees;
-   sentence += "D";
+   sentence += STRING_VIEW("D");
 
    sentence.Finish();
 

@@ -31,25 +31,9 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ASD::ASD()
-{
-   Mnemonic.assign(STRING_VIEW("ASD"));
-}
-
-ASD::~ASD()
-{
-   Mnemonic.clear();
-}
-
 #pragma warning( disable : 4100 )
 
-bool ASD::Parse( SENTENCE const& sentence ) noexcept
+bool ASD::Parse( SENTENCE const& ) noexcept
 {
    /*
    ** ASD - Autopilot System Data

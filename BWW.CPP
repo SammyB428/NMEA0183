@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-BWW::BWW()
-{
-   Mnemonic.assign(STRING_VIEW("BWW"));
-   Empty();
-}
-
-BWW::~BWW()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void BWW::Empty( void ) noexcept
 {
    BearingTrue     = 0.0;
@@ -103,9 +85,9 @@ bool BWW::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += BearingTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += BearingMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += To;
    sentence += From;
 

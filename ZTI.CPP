@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ZTI::ZTI()
-{
-   Mnemonic.assign(STRING_VIEW("ZTI"));
-   Empty();
-}
-
-ZTI::~ZTI()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void ZTI::Empty( void ) noexcept
 {
    UTCTimeString.clear();

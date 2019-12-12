@@ -41,8 +41,7 @@ class ZTI : public RESPONSE
 {
    public:
 
-      ZTI();
-      virtual ~ZTI();
+      inline ZTI() noexcept : RESPONSE(STRING_VIEW("ZTI")) {}
 
       /*
       ** Data

@@ -31,12 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
 static inline bool is_less_than(RESPONSE const * left, RESPONSE const * right) noexcept
 {
     return(left->Mnemonic < right->Mnemonic);
@@ -128,14 +122,9 @@ NMEA0183::NMEA0183()
    m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zwp) ); // Sentence Not Recommended For New Designs
    m_ResponseTable.push_back( static_cast<RESPONSE *>(&Zzu) ); // Sentence Not Recommended For New Designs
 
-   std::sort(m_ResponseTable.begin(), m_ResponseTable.end(), is_less_than);
+   std::sort(std::begin(m_ResponseTable), std::end(m_ResponseTable), is_less_than);
 
    m_SetContainerPointers();
-}
-
-NMEA0183::~NMEA0183()
-{
-   m_Initialize();
 }
 
 void NMEA0183::m_Initialize( void ) noexcept
@@ -216,11 +205,11 @@ bool NMEA0183::Parse( void ) noexcept
        ** Do a Binary Search to call the appropriate function
        */
 
-       m_Needle.Mnemonic = mnemonic;
+       GENERIC_RESPONSE needle(mnemonic);
 
-       auto iterator = std::lower_bound(m_ResponseTable.begin(), m_ResponseTable.end(), &m_Needle, is_less_than);
+       auto iterator = std::lower_bound(std::begin(m_ResponseTable), std::end(m_ResponseTable), &needle, is_less_than);
 
-       if (iterator != m_ResponseTable.end() and (*iterator)->Mnemonic.compare(mnemonic) == 0)
+       if (iterator != std::end(m_ResponseTable) and (*iterator)->Mnemonic.compare(mnemonic) == 0)
        {
            return_value = (*iterator)->Parse(m_Sentence);
 

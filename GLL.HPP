@@ -36,8 +36,7 @@ class GLL : public RESPONSE
 {
    public:
 
-      GLL();
-      virtual ~GLL();
+      inline GLL() noexcept : RESPONSE(STRING_VIEW("GLL")) {}
 
       /*
       ** Data

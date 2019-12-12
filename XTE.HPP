@@ -36,8 +36,7 @@ class XTE : public RESPONSE
 {
    public:
 
-      XTE();
-      virtual ~XTE();
+      inline XTE() noexcept : RESPONSE(STRING_VIEW("XTE")) {}
 
       /*
       ** Data

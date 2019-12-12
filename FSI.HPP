@@ -36,8 +36,7 @@ class FSI : public RESPONSE
 {
    public:
 
-      FSI();
-      virtual ~FSI();
+      inline FSI() noexcept : RESPONSE(STRING_VIEW("FSI")) {}
 
       /*
       ** Data

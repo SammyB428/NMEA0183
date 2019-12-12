@@ -36,8 +36,7 @@ class P : public RESPONSE
 {
    public:
 
-      P();
-      virtual ~P();
+      inline P() noexcept : RESPONSE(STRING_VIEW("P")) {}
 
       /*
       ** Data

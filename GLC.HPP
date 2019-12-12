@@ -36,8 +36,7 @@ class GLC : public RESPONSE
 {
    public:
 
-      GLC();
-      virtual ~GLC();
+      inline GLC() noexcept : RESPONSE(STRING_VIEW("GLC")) {}
 
       /*
       ** Data

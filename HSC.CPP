@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-HSC::HSC()
-{
-   Mnemonic.assign(STRING_VIEW("HSC"));
-   Empty();
-}
-
-HSC::~HSC()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void HSC::Empty( void ) noexcept
 {
    DegreesTrue     = 0.0;
@@ -97,9 +79,9 @@ bool HSC::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += DegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += DegreesMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
 
    sentence.Finish();
 

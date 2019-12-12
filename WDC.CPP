@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-WDC::WDC()
-{
-   Mnemonic.assign(STRING_VIEW("WDC"));
-   Empty();
-}
-
-WDC::~WDC()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void WDC::Empty( void ) noexcept
 {
    NauticalMiles = 0.0;
@@ -100,7 +82,7 @@ bool WDC::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += NauticalMiles;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += To;
 
    sentence.Finish();

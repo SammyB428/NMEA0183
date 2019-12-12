@@ -36,8 +36,7 @@ class MWV : public RESPONSE
 {
    public:
 
-      MWV();
-      virtual ~MWV();
+      inline MWV() noexcept : RESPONSE(STRING_VIEW("MWV")) {}
 
       /*
       ** Data

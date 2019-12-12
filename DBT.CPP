@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-DBT::DBT()
-{
-   Mnemonic.assign(STRING_VIEW("DBT"));
-   Empty();
-}
-
-DBT::~DBT()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void DBT::Empty( void ) noexcept
 {
    DepthFeet    = 0.0;
@@ -101,11 +83,11 @@ bool DBT::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += DepthFeet;
-   sentence += "f";
+   sentence += STRING_VIEW("f");
    sentence += DepthMeters;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += DepthFathoms;
-   sentence += "F";
+   sentence += STRING_VIEW("F");
 
    sentence.Finish();
 

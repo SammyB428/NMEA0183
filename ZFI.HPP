@@ -41,8 +41,7 @@ class ZFI : public RESPONSE
 {
    public:
 
-      ZFI();
-      virtual ~ZFI();
+      inline ZFI() noexcept : RESPONSE(STRING_VIEW("ZFI")) {}
 
       /*
       ** Data

@@ -44,8 +44,7 @@ class TTM : public RESPONSE
 {
    public:
 
-      TTM();
-      virtual ~TTM();
+      inline TTM() noexcept : RESPONSE(STRING_VIEW("TTM")) {}
 
       /*
       ** Data

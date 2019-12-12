@@ -31,26 +31,8 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-MANUFACTURER::MANUFACTURER()
-{
-   Mnemonic.clear();
-   CompanyName.clear();
-}
-
 MANUFACTURER::MANUFACTURER( std::string_view mnemonic, std::string_view company_name )
 {
    Mnemonic    = mnemonic;
    CompanyName = company_name;
-}
-
-MANUFACTURER::~MANUFACTURER()
-{
-   Mnemonic.clear();
-   CompanyName.clear();
 }

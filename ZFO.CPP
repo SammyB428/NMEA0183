@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ZFO::ZFO()
-{
-   Mnemonic.assign(STRING_VIEW("ZFO"));
-   Empty();
-}
-
-ZFO::~ZFO()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void ZFO::Empty( void ) noexcept
 {
    UTCTime.clear();

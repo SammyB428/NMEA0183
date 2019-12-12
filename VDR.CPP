@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-VDR::VDR()
-{
-   Mnemonic.assign(STRING_VIEW("VDR"));
-   Empty();
-}
-
-VDR::~VDR()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void VDR::Empty( void ) noexcept
 {
    DegreesTrue     = 0.0;
@@ -101,11 +83,11 @@ bool VDR::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += DegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += DegreesMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += Knots;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
 
    sentence.Finish();
 

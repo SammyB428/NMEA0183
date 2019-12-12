@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-LORAN_TIME_DIFFERENCE::LORAN_TIME_DIFFERENCE()
-{
-   Empty();
-}
-
-LORAN_TIME_DIFFERENCE::~LORAN_TIME_DIFFERENCE()
-{
-   Empty();
-}
-
 void LORAN_TIME_DIFFERENCE::Empty( void ) noexcept
 {
    Microseconds = 0.0;
@@ -96,27 +80,27 @@ void LORAN_TIME_DIFFERENCE::Write( SENTENCE& sentence ) const noexcept
    {
    case LORAN_SIGNAL_STATUS::LoranValid:
       
-         sentence += "A";
+         sentence += STRING_VIEW("A");
          break; 
 
    case LORAN_SIGNAL_STATUS::LoranBlinkWarning:
       
-         sentence += "B";
+         sentence += STRING_VIEW("B");
          break; 
 
    case LORAN_SIGNAL_STATUS::LoranCycleWarning:
       
-         sentence += "C";
+         sentence += STRING_VIEW("C");
          break; 
 
    case LORAN_SIGNAL_STATUS::LoranSignalToNoiseRatioWarning:
       
-         sentence += "S";
+         sentence += STRING_VIEW("S");
          break; 
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
    }
 }
 

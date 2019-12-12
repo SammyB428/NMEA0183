@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-FSI::FSI()
-{
-   Mnemonic.assign(STRING_VIEW("FSI"));
-   Empty();
-}
-
-FSI::~FSI()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void FSI::Empty( void ) noexcept
 {
    TransmittingFrequency = 0.0;

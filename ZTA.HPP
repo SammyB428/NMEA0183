@@ -41,8 +41,7 @@ class ZTA : public RESPONSE
 {
    public:
 
-      ZTA();
-      virtual ~ZTA();
+      inline ZTA() noexcept : RESPONSE(STRING_VIEW("ZTA")) {}
 
       /*
       ** Data

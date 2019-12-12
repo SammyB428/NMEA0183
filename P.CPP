@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-P::P()
-{
-   Mnemonic.assign(STRING_VIEW("P"));
-   Empty();
-}
-
-P::~P()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void P::Empty( void ) noexcept
 {
    Sentence.clear();

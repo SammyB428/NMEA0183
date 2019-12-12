@@ -36,8 +36,7 @@ class APB : public RESPONSE
 {
    public:
 
-      APB();
-      virtual ~APB();
+       inline APB() noexcept : RESPONSE(STRING_VIEW("APB")) {}
 
       /*
       ** Data

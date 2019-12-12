@@ -38,8 +38,7 @@ class SENTENCE
 {
    public:
 
-      SENTENCE();
-      virtual ~SENTENCE();
+      inline SENTENCE() noexcept {};
 
       /*
       ** Data

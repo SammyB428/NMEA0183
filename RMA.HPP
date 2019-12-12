@@ -36,8 +36,7 @@ class RMA : public RESPONSE
 {
    public:
 
-      RMA();
-      virtual ~RMA();
+      inline RMA() noexcept : RESPONSE(STRING_VIEW("RMA")) {}
 
       /*
       ** Data

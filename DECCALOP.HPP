@@ -36,8 +36,7 @@ class LINE_OF_POSITION
 {
    public:
 
-      LINE_OF_POSITION();
-      virtual ~LINE_OF_POSITION();
+      inline LINE_OF_POSITION() noexcept {};
 
       /*
       ** Data

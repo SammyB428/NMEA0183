@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-LATLONG::LATLONG()
-{
-   Empty();
-}
-
-LATLONG::~LATLONG()
-{
-   Empty();
-}
-
 void LATLONG::Empty( void ) noexcept
 {
    Latitude.Empty();

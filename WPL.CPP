@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-WPL::WPL()
-{
-   Mnemonic.assign(STRING_VIEW("WPL"));
-   Empty();
-}
-
-WPL::~WPL()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void WPL::Empty( void ) noexcept
 {
    Position.Empty();

@@ -36,8 +36,7 @@ class GSV : public RESPONSE
 {
    public:
 
-      GSV();
-      virtual ~GSV();
+      inline GSV() noexcept : RESPONSE(STRING_VIEW("GSV")) {}
 
       /*
       ** Data

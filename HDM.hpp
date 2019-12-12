@@ -41,8 +41,7 @@ class HDM : public RESPONSE
 {
    public:
 
-      HDM();
-      virtual ~HDM();
+      inline HDM() noexcept : RESPONSE(STRING_VIEW("HDM")) {}
 
       /*
       ** Data

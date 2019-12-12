@@ -36,8 +36,7 @@ class VTG : public RESPONSE
 {
    public:
 
-      VTG();
-      virtual ~VTG();
+      inline VTG() noexcept : RESPONSE(STRING_VIEW("VTG")) {}
 
       /*
       ** Data

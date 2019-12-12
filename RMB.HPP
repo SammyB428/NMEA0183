@@ -36,8 +36,7 @@ class RMB : public RESPONSE
 {
    public:
 
-      RMB();
-      virtual ~RMB();
+      inline RMB() noexcept : RESPONSE(STRING_VIEW("RMB")) {}
 
       /*
       ** Data

@@ -36,8 +36,7 @@ class DPT : public RESPONSE
 {
    public:
 
-      DPT();
-      virtual ~DPT();
+      inline DPT() noexcept : RESPONSE(STRING_VIEW("DPT")) {}
 
       /*
       ** Data

@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-VHW::VHW()
-{
-   Mnemonic.assign(STRING_VIEW("VHW"));
-   Empty();
-}
-
-VHW::~VHW()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void VHW::Empty( void ) noexcept
 {
    DegreesTrue       = 0.0;
@@ -105,13 +87,13 @@ bool VHW::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += DegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += DegreesMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += Knots;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += KilometersPerHour;
-   sentence += "K";
+   sentence += STRING_VIEW("K");
 
    sentence.Finish();
 

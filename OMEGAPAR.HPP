@@ -36,8 +36,7 @@ class OMEGA_PAIR
 {
    public:
 
-      OMEGA_PAIR();
-      virtual ~OMEGA_PAIR();
+       inline OMEGA_PAIR() noexcept {};
 
       /*
       ** Data

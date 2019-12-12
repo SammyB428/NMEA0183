@@ -38,7 +38,7 @@ class COORDINATE
 {
    public:
 
-      COORDINATE() { Coordinate = 0.0; }
+      inline COORDINATE() noexcept {}
      ~COORDINATE() { Coordinate = 0.0; }
 
       double Coordinate{ 0.0 };
@@ -67,8 +67,7 @@ class LATITUDE : public COORDINATE
 {
    public:
 
-      LATITUDE();
-      virtual ~LATITUDE();
+       inline LATITUDE() noexcept : Latitude(0.0), Northing(NORTHSOUTH::NS_Unknown) {}
 
       /*
       ** Data
@@ -98,8 +97,7 @@ class LONGITUDE : public COORDINATE
 {
    public:
 
-      LONGITUDE();
-      virtual ~LONGITUDE();
+       inline LONGITUDE() noexcept : Longitude(0.0), Easting(EASTWEST::EW_Unknown) {}
 
       /*
       ** Data
@@ -130,8 +128,7 @@ class LATLONG
 {
    public:
 
-      LATLONG();
-      virtual ~LATLONG();
+      inline LATLONG() noexcept {};
 
       /*
       ** Data

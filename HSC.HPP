@@ -36,8 +36,7 @@ class HSC : public RESPONSE
 {
    public:
 
-      HSC();
-      virtual ~HSC();
+      inline HSC() noexcept : RESPONSE(STRING_VIEW("HSC")) {}
 
       /*
       ** Data

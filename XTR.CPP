@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-XTR::XTR()
-{
-   Mnemonic.assign(STRING_VIEW("XTR"));
-   Empty();
-}
-
-XTR::~XTR()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void XTR::Empty( void ) noexcept
 {
    Magnitude        = 0.0;
@@ -97,7 +79,7 @@ bool XTR::Write( SENTENCE& sentence ) const noexcept
 
    sentence += Magnitude;
    sentence += DirectionToSteer;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
 
    sentence.Finish();
 

@@ -36,8 +36,7 @@ class WNC : public RESPONSE
 {
    public:
 
-      WNC();
-      virtual ~WNC();
+      inline WNC() noexcept : RESPONSE(STRING_VIEW("WNC")) {};
 
       /*
       ** Data

@@ -36,8 +36,7 @@ class ZDA : public RESPONSE
 {
    public:
 
-      ZDA();
-      virtual ~ZDA();
+      inline ZDA() noexcept : RESPONSE(STRING_VIEW("ZDA")) {}
 
       /*
       ** Data

@@ -41,8 +41,7 @@ class ZWP : public RESPONSE
 {
    public:
 
-      ZWP();
-      virtual ~ZWP();
+      inline ZWP() noexcept : RESPONSE(STRING_VIEW("ZWP")) {}
 
       /*
       ** Data

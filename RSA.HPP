@@ -36,8 +36,7 @@ class RSA : public RESPONSE
 {
    public:
 
-      RSA();
-      virtual ~RSA();
+      inline RSA() noexcept : RESPONSE(STRING_VIEW("RSA")) {}
 
       /*
       ** Data

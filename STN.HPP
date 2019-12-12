@@ -36,8 +36,7 @@ class STN : public RESPONSE
 {
    public:
 
-      STN();
-      virtual ~STN();
+      inline STN() noexcept : RESPONSE(STRING_VIEW("STN")) {}
 
       /*
       ** Data

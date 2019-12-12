@@ -41,8 +41,7 @@ class MHU : public RESPONSE
 {
    public:
 
-      MHU();
-      virtual ~MHU();
+      inline MHU() noexcept : RESPONSE(STRING_VIEW("MHU")) {}
 
       /*
       ** Data

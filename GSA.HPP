@@ -36,8 +36,7 @@ class GSA : public RESPONSE
 {
    public:
 
-      GSA();
-      virtual ~GSA();
+      inline GSA() noexcept : RESPONSE(STRING_VIEW("GSA")) {}
 
       /*
       ** Data

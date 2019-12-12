@@ -36,8 +36,7 @@ class FREQUENCY_AND_MODE
 {
    public:
 
-      FREQUENCY_AND_MODE();
-      virtual ~FREQUENCY_AND_MODE();
+      inline FREQUENCY_AND_MODE() noexcept {};
 
       /*
       ** Data

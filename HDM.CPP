@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-HDM::HDM()
-{
-   Mnemonic.assign(STRING_VIEW("HDM"));
-   Empty();
-}
-
-HDM::~HDM()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void HDM::Empty( void ) noexcept
 {
    HeadingDegrees = 0.0;
@@ -111,7 +93,7 @@ bool HDM::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += HeadingDegrees;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
 
    sentence.Finish();
 

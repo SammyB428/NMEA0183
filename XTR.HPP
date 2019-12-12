@@ -36,8 +36,7 @@ class XTR : public RESPONSE
 {
    public:
 
-      XTR();
-      virtual ~XTR();
+      inline XTR() noexcept : RESPONSE(STRING_VIEW("XTR")) {}
 
       /*
       ** Data

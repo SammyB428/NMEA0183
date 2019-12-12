@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-LONGITUDE::LONGITUDE()
-{
-   Empty();
-}
-
-LONGITUDE::~LONGITUDE()
-{
-   Empty();
-}
-
 void LONGITUDE::Empty( void ) noexcept
 {
    Longitude = 0.0;
@@ -111,11 +95,11 @@ void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
    
    if ( Easting == EASTWEST::East )
    {
-      sentence += "E";
+      sentence += STRING_VIEW("E");
    }
    else if ( Easting == EASTWEST::West )
    {
-      sentence += "W";
+      sentence += STRING_VIEW("W");
    }
    else
    {
@@ -124,7 +108,7 @@ void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
       ** finding and fixing a bug here
       */
 
-      sentence += "";
+      sentence += STRING_VIEW("");
    }
 }
 

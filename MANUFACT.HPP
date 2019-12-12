@@ -36,12 +36,11 @@ class MANUFACTURER
 {
    public:
 
-      MANUFACTURER();
+      inline MANUFACTURER() noexcept {};
       MANUFACTURER( std::string_view mnemonic, std::string_view company_name );
-      virtual ~MANUFACTURER();
 
       std::string Mnemonic;
       std::string CompanyName;
 };
 
-#endif // MANUFACTURER_CLASS_HEADER    
+#endif // MANUFACTURER_CLASS_HEADER

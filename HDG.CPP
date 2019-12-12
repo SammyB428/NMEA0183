@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-HDG::HDG()
-{
-   Mnemonic.assign(STRING_VIEW("HDG"));
-   Empty();
-}
-
-HDG::~HDG()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void HDG::Empty( void ) noexcept
 {
    MagneticSensorHeadingDegrees = 0.0;

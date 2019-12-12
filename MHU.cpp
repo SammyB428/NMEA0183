@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-MHU::MHU()
-{
-   Mnemonic.assign(STRING_VIEW("MHU"));
-   Empty();
-}
-
-MHU::~MHU()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void MHU::Empty( void ) noexcept
 {
    RelativeHumidityPercent = 0.0;
@@ -106,7 +88,7 @@ bool MHU::Write( SENTENCE& sentence ) const noexcept
    sentence += RelativeHumidityPercent;
    sentence += AbsoluteHumidityPercent;
    sentence += DewPointDegreesCelcius;
-   sentence += "C";
+   sentence += STRING_VIEW("C");
 
    sentence.Finish();
 

@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-VTG::VTG()
-{
-   Mnemonic.assign(STRING_VIEW("VTG"));
-   Empty();
-}
-
-VTG::~VTG()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void VTG::Empty( void ) noexcept
 {
    TrackDegreesTrue       = 0.0;
@@ -105,13 +87,13 @@ bool VTG::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += TrackDegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += TrackDegreesMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += SpeedKnots;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += SpeedKilometersPerHour;
-   sentence += "K";
+   sentence += STRING_VIEW("K");
 
    sentence.Finish();
 

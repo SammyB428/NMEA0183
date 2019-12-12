@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-SENTENCE::SENTENCE()
-{
-   Sentence.clear();
-}
-
-SENTENCE::~SENTENCE()
-{
-   Sentence.clear();
-}
-
 NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 {
    auto field_data = Field( field_number );
@@ -230,7 +214,7 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 
 uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
 {
-   int index                = 1; // Skip over the $ at the begining of the sentence
+   std::size_t index        = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
 
    std::size_t const string_length = Sentence.length();
@@ -581,6 +565,9 @@ SENTENCE const& SENTENCE::operator += ( COMMUNICATIONS_MODE const mode ) noexcep
 
        Sentence.push_back('|');
        break;
+
+   case COMMUNICATIONS_MODE::CommunicationsModeUnknown:
+       break;
    }
 
    return( *this );
@@ -640,6 +627,9 @@ SENTENCE const& SENTENCE::operator += ( TRANSDUCER_TYPE const transducer ) noexc
    case TRANSDUCER_TYPE::VolumeTransducer:
 
        Sentence.push_back('V');
+       break;
+
+   case TRANSDUCER_TYPE::TransducerUnknown:
        break;
    }
 
@@ -772,6 +762,9 @@ SENTENCE const& SENTENCE::operator += (REFERENCE const a_reference) noexcept
     case REFERENCE::PositioningSystemGroundReference:
 
         Sentence.push_back('P');
+        break;
+
+    case REFERENCE::ReferenceUnknown:
         break;
     }
 

@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-WCV::WCV()
-{
-   Mnemonic.assign(STRING_VIEW("WCV"));
-   Empty();
-}
-
-WCV::~WCV()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void WCV::Empty( void ) noexcept
 {
    Velocity = 0.0;
@@ -96,7 +78,7 @@ bool WCV::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += Velocity;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += To;
 
    sentence.Finish();

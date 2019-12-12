@@ -31,35 +31,13 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-GSV::GSV()
-{
-   Mnemonic.assign(STRING_VIEW("GSV"));
-   Empty();
-}
-
-GSV::~GSV()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void GSV::Empty( void ) noexcept
 {
-  
    NumberOfSatellites = 0;
 
-   int index = 0;
-
-   while( index < 12 )
+   for (auto& entry : SatellitesInView)
    {
-      SatellitesInView[ index ].Empty();
-      index++;
+       entry.Empty();
    }
 }
 
@@ -141,9 +119,9 @@ GSV const& GSV::operator = ( GSV const& source ) noexcept
 {
    NumberOfSatellites = source.NumberOfSatellites;
 
-   int index = 0;
+   std::size_t index = 0;
 
-   while( index < 12 )
+   while( index < std::size(SatellitesInView) )
    {
       SatellitesInView[ index ] = source.SatellitesInView[ index ];
       index++;

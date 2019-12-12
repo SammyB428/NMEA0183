@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-LCD::LCD()
-{
-   Mnemonic.assign(STRING_VIEW("LCD"));
-   Empty();
-}
-
-LCD::~LCD()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void LCD::Empty( void ) noexcept
 {
    GroupRepetitionInterval = 0;

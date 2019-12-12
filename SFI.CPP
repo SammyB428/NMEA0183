@@ -31,37 +31,15 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-SFI::SFI()
-{
-   Mnemonic.assign(STRING_VIEW("SFI"));
-   Empty();
-}
-
-SFI::~SFI()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void SFI::Empty( void ) noexcept
 {
    TotalMessages = 0.0;
    MessageNumber = 0.0;
 
-   int index = 0;
-
-   while( index < 6 )
+   for (auto& entry : Frequencies)
    {
-      Frequencies[ index ].Empty();
-      index++;
+       entry.Empty();
    }
-
 }
 
 bool SFI::Parse( SENTENCE const& sentence ) noexcept
@@ -84,7 +62,7 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
    ** First we check the checksum...
    */
 
-   int number_of_data_fields = sentence.GetNumberOfDataFields();
+   int const number_of_data_fields = sentence.GetNumberOfDataFields();
 
    if ( sentence.IsChecksumBad( number_of_data_fields + 1 ) == NMEA0183_BOOLEAN::True )
    {
@@ -99,12 +77,9 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
    ** Clear out any old data
    */
 
-   int index = 0;
-
-   while( index < 6 )
+   for (auto& entry : Frequencies)
    {
-      Frequencies[ index ].Empty();
-      index++;
+       entry.Empty();
    }
 
    int number_of_frequencies = ( number_of_data_fields - 2 ) / 2;
@@ -117,9 +92,9 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
 
    while( frequency_number < number_of_frequencies )
    {
-      index = 2 + ( frequency_number * 2 );
+      std::size_t const index = 2 + ( static_cast<std::size_t>(frequency_number) * 2 );
 
-      Frequencies[ frequency_number ].Parse( index, sentence );
+      Frequencies[ frequency_number ].Parse( static_cast<int>(index), sentence );
 
       frequency_number++;
    }
@@ -138,12 +113,9 @@ bool SFI::Write( SENTENCE& sentence ) const noexcept
    sentence += TotalMessages;
    sentence += MessageNumber;
 
-   int index = 0;
-
-   while( index < 6 )
+   for (auto const& entry : Frequencies)
    {
-      Frequencies[ index ].Write( sentence );
-      index++;
+       entry.Write(sentence);
    }
 
    sentence.Finish();
@@ -156,9 +128,9 @@ SFI const& SFI::operator = ( SFI const& source ) noexcept
    TotalMessages = source.TotalMessages;
    MessageNumber = source.MessageNumber;
 
-   int index = 0;
+   std::size_t index = 0;
 
-   while( index < 6 )
+   while( index < std::size(Frequencies) )
    {
       Frequencies[ index ] = source.Frequencies[ index ];
       index++;

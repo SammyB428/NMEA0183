@@ -36,8 +36,7 @@ class GTD : public RESPONSE
 {
    public:
 
-      GTD();
-      virtual ~GTD();
+      inline GTD() noexcept : RESPONSE(STRING_VIEW("GTD")) {}
 
       /*
       ** Data

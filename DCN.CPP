@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-DCN::DCN()
-{
-   Mnemonic.assign(STRING_VIEW("DCN"));
-   Empty();
-}
-
-DCN::~DCN()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void DCN::Empty( void ) noexcept
 {
    DeccaChainID                     = 0;
@@ -156,7 +138,7 @@ bool DCN::Write( SENTENCE& sentence ) const noexcept
    sentence += GreenLineNavigationUse;
    sentence += PurpleLineNavigationUse;
    sentence += PositionUncertaintyNauticalMiles;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
 
    switch( Basis )
    {
@@ -177,7 +159,7 @@ bool DCN::Write( SENTENCE& sentence ) const noexcept
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 

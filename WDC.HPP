@@ -41,8 +41,7 @@ class WDC : public RESPONSE
 {
    public:
 
-      WDC();
-      virtual ~WDC();
+      inline WDC() noexcept : RESPONSE(STRING_VIEW("WDC")) {}
 
       /*
       ** Data

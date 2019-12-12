@@ -41,8 +41,7 @@ class ZTE : public RESPONSE
 {
    public:
 
-      ZTE();
-      virtual ~ZTE();
+      inline ZTE() noexcept : RESPONSE(STRING_VIEW("ZTE")) {}
 
       /*
       ** Data

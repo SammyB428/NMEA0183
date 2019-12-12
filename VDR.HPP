@@ -36,8 +36,7 @@ class VDR : public RESPONSE
 {
    public:
 
-      VDR();
-      virtual ~VDR();
+      inline VDR() noexcept : RESPONSE(STRING_VIEW("VDR")) {}
 
       /*
       ** Data

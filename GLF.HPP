@@ -41,8 +41,7 @@ class GLF : public WAYPOINT_LOCATION
 {
    public:
 
-      GLF();
-      virtual ~GLF();
+      inline GLF() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GLF")) {}
 };
 
 #endif // GLF_CLASS_HEADER

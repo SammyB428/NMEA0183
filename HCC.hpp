@@ -41,8 +41,7 @@ class HCC : public RESPONSE
 {
    public:
 
-      HCC();
-      virtual ~HCC();
+      inline HCC() noexcept : RESPONSE(STRING_VIEW("HCC")) {}
 
       /*
       ** Data

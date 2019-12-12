@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-GGA::GGA()
-{
-   Mnemonic.assign(STRING_VIEW("GGA"));
-   Empty();
-}
-
-GGA::~GGA()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void GGA::Empty( void ) noexcept
 {
    UTCTime.clear();
@@ -171,9 +153,9 @@ bool GGA::Write( SENTENCE& sentence ) const noexcept
    sentence += NumberOfSatellitesInUse;
    sentence += HorizontalDilutionOfPrecision;
    sentence += AntennaAltitudeMeters;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += GeoidalSeparationMeters;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += AgeOfDifferentialGPSDataSeconds;
    sentence += DifferentialReferenceStationID;
 

@@ -41,8 +41,7 @@ class GOA : public WAYPOINT_LOCATION
 {
    public:
 
-      GOA();
-      virtual ~GOA();
+      inline GOA() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GOA")) {}
 };
 
 #endif // GOA_CLASS_HEADER

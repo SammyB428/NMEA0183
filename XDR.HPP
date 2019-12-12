@@ -36,8 +36,7 @@ class TRANSDUCER_DATA
 {
    public:
 
-      TRANSDUCER_DATA();
-      virtual ~TRANSDUCER_DATA();
+      inline TRANSDUCER_DATA() noexcept {};
 
       /*
       ** Data
@@ -67,8 +66,7 @@ class XDR : public RESPONSE
 {
    public:
 
-      XDR();
-     ~XDR();
+      inline XDR() noexcept : RESPONSE(STRING_VIEW("XDR")) {};
 
       std::vector<TRANSDUCER_DATA> Transducers;
 

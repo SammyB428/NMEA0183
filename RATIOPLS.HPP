@@ -36,8 +36,7 @@ class RATIO_AND_PULSE
 {
    public:
 
-      RATIO_AND_PULSE();
-      virtual ~RATIO_AND_PULSE();
+      inline RATIO_AND_PULSE() noexcept {};
 
       /*
       ** Data

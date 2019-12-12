@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-VLW::VLW()
-{
-   Mnemonic.assign(STRING_VIEW("VLW"));
-   Empty();
-}
-
-VLW::~VLW()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void VLW::Empty( void ) noexcept
 {
    TotalDistanceNauticalMiles      = 0.0;
@@ -97,9 +79,9 @@ bool VLW::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += TotalDistanceNauticalMiles;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += DistanceSinceResetNauticalMiles;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
 
    sentence.Finish();
 

@@ -41,8 +41,7 @@ class ZZU : public RESPONSE
 {
    public:
 
-      ZZU();
-      virtual ~ZZU();
+      inline ZZU() noexcept : RESPONSE(STRING_VIEW("ZZU")) {}
 
       /*
       ** Data

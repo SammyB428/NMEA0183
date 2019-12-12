@@ -36,8 +36,7 @@ class SATELLITE_DATA
 {
    public:
 
-      SATELLITE_DATA();
-      virtual ~SATELLITE_DATA();
+      inline SATELLITE_DATA() noexcept {};
 
       /*
       ** Data

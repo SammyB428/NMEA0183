@@ -36,8 +36,7 @@ class BWR : public RESPONSE
 {
    public:
 
-      BWR();
-      virtual ~BWR();
+      inline BWR() noexcept : RESPONSE(STRING_VIEW("BWR")) {}
 
       /*
       ** Data

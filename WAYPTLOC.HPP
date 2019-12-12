@@ -41,8 +41,7 @@ class WAYPOINT_LOCATION : public RESPONSE
 {
    public:
 
-      WAYPOINT_LOCATION();
-      virtual ~WAYPOINT_LOCATION();
+       inline WAYPOINT_LOCATION(std::string_view id) : RESPONSE(id) {}
 
       /*
       ** Data

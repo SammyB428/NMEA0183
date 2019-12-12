@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-HDT::HDT()
-{
-   Mnemonic.assign(STRING_VIEW("HDT"));
-   Empty();
-}
-
-HDT::~HDT()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void HDT::Empty( void ) noexcept
 {
    DegreesTrue = 0.0;
@@ -106,7 +88,7 @@ bool HDT::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += DegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
 
    sentence.Finish();
 

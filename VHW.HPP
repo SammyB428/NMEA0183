@@ -36,8 +36,7 @@ class VHW : public RESPONSE
 {
    public:
 
-      VHW();
-      virtual ~VHW();
+      inline VHW() noexcept : RESPONSE(STRING_VIEW("VHW")) {}
 
       /*
       ** Data

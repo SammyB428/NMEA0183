@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-BEC::BEC()
-{
-   Mnemonic.assign(STRING_VIEW("BEC"));
-   Empty();
-}
-
-BEC::~BEC()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void BEC::Empty( void ) noexcept
 {
    UTCTime.clear();
@@ -102,11 +84,11 @@ bool BEC::Write( SENTENCE& sentence ) const noexcept
    sentence += UTCTime;
    sentence += Position;
    sentence += BearingTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += BearingMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += DistanceNauticalMiles;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += To;
 
    sentence.Finish();

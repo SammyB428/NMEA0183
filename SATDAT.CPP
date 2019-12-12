@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-SATELLITE_DATA::SATELLITE_DATA()
-{
-   Empty();
-}
-
-SATELLITE_DATA::~SATELLITE_DATA()
-{
-   Empty();
-}
-
 void SATELLITE_DATA::Empty( void ) noexcept
 {
    SatelliteNumber    = 0;
@@ -82,7 +66,7 @@ void SATELLITE_DATA::Write( SENTENCE& sentence ) const noexcept
 
    if ( SignalToNoiseRatio == (-1) )
    {
-      sentence += "";
+      sentence += STRING_VIEW("");
    }
    else
    {

@@ -36,8 +36,7 @@ class HDG : public RESPONSE
 {
    public:
 
-      HDG();
-      virtual ~HDG();
+      inline HDG() noexcept : RESPONSE(STRING_VIEW("HDG")) {}
 
       /*
       ** Data

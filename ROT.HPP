@@ -36,8 +36,7 @@ class ROT : public RESPONSE
 {
    public:
 
-      ROT();
-      virtual ~ROT();
+      inline ROT() noexcept : RESPONSE(STRING_VIEW("ROT")) {}
 
       /*
       ** Data

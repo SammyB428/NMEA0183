@@ -145,13 +145,6 @@ class NMEA0183
 
       SENTENCE m_Sentence;
 
-      /*
-        ASD is chosen as the RESPONSE class to be the needle (what we're searching for) because it is the
-        most light weight concrete class. It has no data members...
-        This needle is used to binary search the haystack of possible responses.
-      */
-      ASD m_Needle;
-
       void m_Initialize( void ) noexcept;
 
    protected:
@@ -163,7 +156,6 @@ class NMEA0183
    public:
 
       NMEA0183();
-      virtual ~NMEA0183();
 
       /*
       HOW TO USE THIS CLASS

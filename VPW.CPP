@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-VPW::VPW()
-{
-   Mnemonic.assign(STRING_VIEW("VPW"));
-   Empty();
-}
-
-VPW::~VPW()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void VPW::Empty( void ) noexcept
 {
    Knots           = 0.0;
@@ -97,9 +79,9 @@ bool VPW::Write( SENTENCE& sentence ) const noexcept
    RESPONSE::Write( sentence );
 
    sentence += Knots;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
    sentence += MetersPerSecond;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
 
    sentence.Finish();
 

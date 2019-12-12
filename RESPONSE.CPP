@@ -31,31 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-RESPONSE::RESPONSE()
-{
-   DataSource.assign(STRING_VIEW("--")); // Default to an unknown source
-   Mnemonic.clear();
-   Talker.clear();
-
-   // 15 Jan 98 - Thanks go to Craig Miller (Craig.Miller@Bigfoot.com) for
-   // finding a bug here. I had left off the () after Empty
-   ErrorMessage.clear();
-}
-
-RESPONSE::~RESPONSE()
-{
-   DataSource.clear();
-   Mnemonic.clear();
-   Talker.clear();
-   ErrorMessage.clear();
-}
-
 void RESPONSE::SetContainer( NMEA0183 *container ) noexcept
 {
    container_p = container;

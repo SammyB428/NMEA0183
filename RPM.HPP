@@ -36,8 +36,7 @@ class RPM : public RESPONSE
 {
    public:
 
-      RPM();
-      virtual ~RPM();
+      inline RPM() noexcept : RESPONSE(STRING_VIEW("RPM")) {}
 
       /*
       ** Data

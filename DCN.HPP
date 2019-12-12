@@ -44,8 +44,7 @@ class DCN : public RESPONSE
 {
    public:
 
-      DCN();
-      virtual ~DCN();
+      inline DCN() noexcept : RESPONSE(STRING_VIEW("DCN")) {}
 
       /*
       ** Data

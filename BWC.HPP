@@ -36,8 +36,7 @@ class BWC : public RESPONSE
 {
    public:
 
-      BWC();
-      virtual ~BWC();
+      inline BWC() noexcept : RESPONSE(STRING_VIEW("BWC")) {}
 
       /*
       ** Data

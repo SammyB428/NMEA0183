@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-FREQUENCY_AND_MODE::FREQUENCY_AND_MODE()
-{
-   Empty();
-}
-
-FREQUENCY_AND_MODE::~FREQUENCY_AND_MODE()
-{
-   Empty();
-}
-
 void FREQUENCY_AND_MODE::Empty( void ) noexcept
 {
    Frequency = 0.0;

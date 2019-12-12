@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-RTE::RTE()
-{
-   Mnemonic.assign(STRING_VIEW("RTE"));
-   Empty();
-}
-
-RTE::~RTE()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void RTE::Empty( void ) noexcept
 {
    m_TotalNumberOfMessages     = 0.0;
@@ -151,17 +133,17 @@ bool RTE::Write( SENTENCE& sentence ) const noexcept
    {
       case RTE::ROUTE_TYPE::CompleteRoute:
 
-         sentence += "c";
+         sentence += STRING_VIEW("c");
          break;
 
       case RTE::ROUTE_TYPE::WorkingRoute:
 
-         sentence += "w";
+         sentence += STRING_VIEW("w");
          break;
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 

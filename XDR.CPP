@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-XDR::XDR()
-{
-   Mnemonic.assign(STRING_VIEW("XDR"));
-   Empty();
-}
-
-XDR::~XDR()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void XDR::Empty( void ) noexcept
 {
     Transducers.clear();
@@ -107,16 +89,6 @@ bool XDR::Write( SENTENCE& sentence ) const noexcept
    sentence.Finish();
 
    return( true );
-}
-
-TRANSDUCER_DATA::TRANSDUCER_DATA()
-{
-   Empty();
-}
-
-TRANSDUCER_DATA::~TRANSDUCER_DATA()
-{
-   Empty();
 }
 
 void TRANSDUCER_DATA::Empty( void ) noexcept

@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-RSA::RSA()
-{
-   Mnemonic.assign(STRING_VIEW("RSA"));
-   Empty();
-}
-
-RSA::~RSA()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void RSA::Empty( void ) noexcept
 {
    Starboard            = 0.0;

@@ -36,8 +36,7 @@ class ALM : public RESPONSE
 {
    public:
 
-      ALM();
-      virtual ~ALM();
+       inline ALM() noexcept : RESPONSE(STRING_VIEW("ALM")) {}
 
       /*
       ** Data

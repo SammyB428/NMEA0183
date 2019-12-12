@@ -36,8 +36,7 @@ class VPW : public RESPONSE
 {
    public:
 
-      VPW();
-      virtual ~VPW();
+      inline VPW() noexcept : RESPONSE(STRING_VIEW("VPW")) {}
 
       /*
       ** Data

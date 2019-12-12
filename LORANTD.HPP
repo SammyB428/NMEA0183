@@ -45,8 +45,7 @@ class LORAN_TIME_DIFFERENCE
 {
    public:
 
-      LORAN_TIME_DIFFERENCE();
-      virtual ~LORAN_TIME_DIFFERENCE();
+      inline LORAN_TIME_DIFFERENCE() noexcept {};
 
       /*
       ** Data

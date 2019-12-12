@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -234,24 +237,13 @@
     <ClCompile Include="EXPID.CPP" />
     <ClCompile Include="FREQMODE.CPP" />
     <ClCompile Include="FSI.CPP" />
-    <ClCompile Include="GDA.CPP" />
-    <ClCompile Include="GDF.CPP" />
-    <ClCompile Include="GDP.CPP" />
     <ClCompile Include="GGA.CPP" />
-    <ClCompile Include="GLA.CPP" />
     <ClCompile Include="GLC.CPP" />
-    <ClCompile Include="GLF.CPP" />
     <ClCompile Include="GLL.CPP" />
-    <ClCompile Include="GLP.CPP" />
-    <ClCompile Include="GOA.CPP" />
-    <ClCompile Include="GOF.CPP" />
-    <ClCompile Include="GOP.CPP" />
     <ClCompile Include="GSA.CPP" />
     <ClCompile Include="GSV.CPP" />
     <ClCompile Include="GTD.CPP" />
     <ClCompile Include="GXA.CPP" />
-    <ClCompile Include="GXF.CPP" />
-    <ClCompile Include="GXP.CPP" />
     <ClCompile Include="HCC.CPP" />
     <ClCompile Include="HDG.CPP" />
     <ClCompile Include="HDM.CPP" />

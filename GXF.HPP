@@ -41,8 +41,7 @@ class GXF : public WAYPOINT_LOCATION
 {
    public:
 
-      GXF();
-      virtual ~GXF();
+      inline GXF() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GXF")) {}
 };
 
 #endif // GXF_CLASS_HEADER

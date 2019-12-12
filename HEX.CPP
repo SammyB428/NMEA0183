@@ -31,17 +31,11 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
 std::string Hex( uint32_t const value ) noexcept
 {
    char temp_string[ 65 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%04lX", value );
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%04lX", static_cast<unsigned long>(value) );
 
    return( std::string(temp_string, number_of_characters) );
 }

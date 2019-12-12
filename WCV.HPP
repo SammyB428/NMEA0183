@@ -36,8 +36,7 @@ class WCV : public RESPONSE
 {
    public:
 
-      WCV();
-      virtual ~WCV();
+      inline WCV() noexcept : RESPONSE(STRING_VIEW("WCV")) {}
 
       /*
       ** Data

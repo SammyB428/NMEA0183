@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-DPT::DPT()
-{
-   Mnemonic.assign(STRING_VIEW("DPT"));
-   Empty();
-}
-
-DPT::~DPT()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void DPT::Empty( void ) noexcept
 {
    DepthMeters                = 0.0;

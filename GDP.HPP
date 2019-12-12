@@ -41,8 +41,7 @@ class GDP : public WAYPOINT_LOCATION
 {
    public:
 
-      GDP();
-      virtual ~GDP();
+      inline GDP() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GDP")) {}
 };
 
 #endif // GDP_CLASS_HEADER

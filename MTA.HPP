@@ -41,8 +41,7 @@ class MTA : public RESPONSE
 {
    public:
 
-      MTA();
-      virtual ~MTA();
+      inline MTA() noexcept : RESPONSE(STRING_VIEW("MTA")) {}
 
       /*
       ** Data

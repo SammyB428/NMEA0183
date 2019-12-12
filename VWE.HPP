@@ -36,8 +36,7 @@ class VWE : public RESPONSE
 {
    public:
 
-      VWE();
-      virtual ~VWE();
+      inline VWE() noexcept : RESPONSE(STRING_VIEW("VWE")) {}
 
       /*
       ** Data

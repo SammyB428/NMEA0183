@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-OLN::OLN()
-{
-   Mnemonic.assign(STRING_VIEW("OLN"));
-   Empty();
-}
-
-OLN::~OLN()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void OLN::Empty( void ) noexcept
 {
    Pair1.Empty();

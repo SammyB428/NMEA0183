@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-OMEGA_PAIR::OMEGA_PAIR()
-{
-   Empty();
-}
-
-OMEGA_PAIR::~OMEGA_PAIR()
-{
-   Empty();
-}
-
 void OMEGA_PAIR::Empty( void ) noexcept
 {
    Name.clear();

@@ -44,8 +44,7 @@ class RSD : public RESPONSE
 {
    public:
 
-      RSD();
-      virtual ~RSD();
+      inline RSD() noexcept : RESPONSE(STRING_VIEW("RSD")) {}
 
       /*
       ** Data

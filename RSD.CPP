@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-RSD::RSD()
-{
-   Mnemonic.assign(STRING_VIEW("RSD"));
-   Empty();
-}
-
-RSD::~RSD()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void RSD::Empty( void ) noexcept
 {
    Data1.Empty();
@@ -136,22 +118,22 @@ bool RSD::Write( SENTENCE& sentence ) const noexcept
    {
    case ROTATION::CourseUpRotation:
 
-         sentence += "C";
+         sentence += STRING_VIEW("C");
          break;
 
    case ROTATION::HeadUpRotation:
 
-         sentence += "H";
+         sentence += STRING_VIEW("H");
          break;
 
    case ROTATION::NorthUpRotation:
 
-         sentence += "N";
+         sentence += STRING_VIEW("N");
          break;
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 

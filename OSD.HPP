@@ -36,8 +36,7 @@ class OSD : public RESPONSE
 {
    public:
 
-      OSD();
-      virtual ~OSD();
+      inline OSD() noexcept : RESPONSE(STRING_VIEW("OSD")) {}
 
       /*
       ** Data

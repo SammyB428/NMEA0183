@@ -36,8 +36,7 @@ class WPL : public RESPONSE
 {
    public:
 
-      WPL();
-      virtual ~WPL();
+      inline WPL() noexcept : RESPONSE(STRING_VIEW("WPL")) {}
 
       /*
       ** Data

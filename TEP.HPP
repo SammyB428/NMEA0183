@@ -41,8 +41,7 @@ class TEP : public RESPONSE
 {
    public:
 
-      TEP();
-      virtual ~TEP();
+      inline TEP() noexcept : RESPONSE(STRING_VIEW("TEP")) {}
 
       /*
       ** Data

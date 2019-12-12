@@ -36,8 +36,7 @@ class HDT : public RESPONSE
 {
    public:
 
-      HDT();
-      virtual ~HDT();
+      inline HDT() noexcept : RESPONSE(STRING_VIEW("HDT")) {}
 
       /*
       ** Data

@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-LATITUDE::LATITUDE()
-{
-   Empty();
-}
-
-LATITUDE::~LATITUDE()
-{
-   Empty();
-}
-
 void LATITUDE::Empty( void ) noexcept
 {
    Latitude = 0.0;
@@ -68,9 +52,7 @@ void LATITUDE::Parse( int position_field_number, int north_or_south_field_number
    // Thanks go to Eric Parsonage (ericpa@mpx.com.au) for finding a nasty
    // little bug that used to live here.
 
-   double position = 0.0;
-
-   position = sentence.Double( position_field_number );
+   double const position = sentence.Double( position_field_number );
 
    auto north_or_south = sentence.Field( north_or_south_field_number );
 
@@ -111,11 +93,11 @@ void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 
    if ( Northing == NORTHSOUTH::North )
    {
-      sentence += "N";
+      sentence += STRING_VIEW("N");
    }
    else if ( Northing == NORTHSOUTH::South )
    {
-      sentence += "S";
+      sentence += STRING_VIEW("S");
    }
    else
    {
@@ -124,7 +106,7 @@ void LATITUDE::Write( SENTENCE& sentence ) const noexcept
       ** finding and fixing a bug here
       */
 
-      sentence += "";
+      sentence += STRING_VIEW("");
    }
 }
 

@@ -36,8 +36,7 @@ class SFI : public RESPONSE
 {
    public:
 
-      SFI();
-      virtual ~SFI();
+      inline SFI() noexcept : RESPONSE(STRING_VIEW("SFI")) {}
 
       /*
       ** Data

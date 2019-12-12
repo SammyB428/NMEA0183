@@ -36,8 +36,7 @@ class BOD : public RESPONSE
 {
    public:
 
-      BOD();
-      virtual ~BOD();
+      inline BOD() noexcept : RESPONSE(STRING_VIEW("BOD")) {}
 
       /*
       ** Data

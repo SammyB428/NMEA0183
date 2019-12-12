@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-IMA::IMA()
-{
-   Mnemonic.assign(STRING_VIEW("IMA"));
-   Empty();
-}
-
-IMA::~IMA()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void IMA::Empty( void ) noexcept
 {
    VesselName.clear();
@@ -119,11 +101,11 @@ bool IMA::Write( SENTENCE& sentence ) const noexcept
    sentence += Callsign;
    sentence += Position;
    sentence += HeadingDegreesTrue;
-   sentence += "T";
+   sentence += STRING_VIEW("T");
    sentence += HeadingDegreesMagnetic;
-   sentence += "M";
+   sentence += STRING_VIEW("M");
    sentence += SpeedKnots;
-   sentence += "N";
+   sentence += STRING_VIEW("N");
 
    sentence.Finish();
 

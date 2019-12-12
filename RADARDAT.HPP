@@ -36,8 +36,7 @@ class RADAR_DATA
 {
    public:
 
-      RADAR_DATA();
-      virtual ~RADAR_DATA();
+      inline RADAR_DATA() noexcept {};
 
       /*
       ** Data

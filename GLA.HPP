@@ -41,8 +41,7 @@ class GLA : public WAYPOINT_LOCATION
 {
    public:
 
-      GLA();
-      virtual ~GLA();
+      inline GLA() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GLA")) {}
 };
 
 #endif // GLA_CLASS_HEADER

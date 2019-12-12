@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ZPI::ZPI()
-{
-   Mnemonic.assign(STRING_VIEW("ZPI"));
-   Empty();
-}
-
-ZPI::~ZPI()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void ZPI::Empty( void ) noexcept
 {
    UTCTimeString.clear();

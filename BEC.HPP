@@ -36,8 +36,7 @@ class BEC : public RESPONSE
 {
    public:
 
-      BEC();
-      virtual ~BEC();
+       inline BEC() noexcept : RESPONSE(STRING_VIEW("BEC")) {}
 
       /*
       ** Data

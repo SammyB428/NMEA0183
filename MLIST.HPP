@@ -36,8 +36,7 @@ class MANUFACTURER_LIST
 {
    public:
 
-      MANUFACTURER_LIST();
-      virtual ~MANUFACTURER_LIST();
+      inline MANUFACTURER_LIST() noexcept {};
 
       /*
       ** Data

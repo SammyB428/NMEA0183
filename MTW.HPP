@@ -36,8 +36,7 @@ class MTW : public RESPONSE
 {
    public:
 
-      MTW();
-      virtual ~MTW();
+      inline MTW() noexcept : RESPONSE(STRING_VIEW("MTW")) {}
 
       /*
       ** Data

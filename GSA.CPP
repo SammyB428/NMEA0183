@@ -31,35 +31,14 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-GSA::GSA()
-{
-   Mnemonic.assign(STRING_VIEW("GSA"));
-   Empty();
-}
-
-GSA::~GSA()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void GSA::Empty( void ) noexcept
 {
    OperatingMode = OPERATING_MODE::UnknownOperatingMode;
    FixMode       = FIX_MODE::FixUnknown;
 
-   int index = 0;
-
-   while( index < 12 )
+   for (auto& entry : SatelliteNumber)
    {
-      SatelliteNumber[ index ] = 0;
-      index++;
+       entry = 0;
    }
 
    PDOP = 0.0;
@@ -129,7 +108,7 @@ bool GSA::Parse( SENTENCE const& sentence ) noexcept
        OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
    }
 
-   int index = sentence.Integer( 2 );
+   std::size_t index = sentence.Integer( 2 );
 
    switch( index )
    {
@@ -156,9 +135,9 @@ bool GSA::Parse( SENTENCE const& sentence ) noexcept
 
    index = 0;
 
-   while( index < 12 )
+   while( index < std::size(SatelliteNumber) )
    {
-      SatelliteNumber[ index ] = sentence.Integer( index + 3 );
+      SatelliteNumber[ index ] = sentence.Integer( static_cast<int>(index + 3) );
       index++;
    }
 
@@ -181,17 +160,17 @@ bool GSA::Write( SENTENCE& sentence ) const noexcept
    {
       case GSA::OPERATING_MODE::Manual:
 
-         sentence += "M";
+         sentence += STRING_VIEW("M");
          break;
 
       case GSA::OPERATING_MODE::Automatic:
 
-         sentence += "A";
+         sentence += STRING_VIEW("A");
          break;
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 
@@ -199,39 +178,35 @@ bool GSA::Write( SENTENCE& sentence ) const noexcept
    {
       case GSA::FIX_MODE::FixUnavailable:
 
-         sentence += "1";
+         sentence += STRING_VIEW("1");
          break;
 
       case GSA::FIX_MODE::TwoDimensional:
 
-         sentence += "2";
+         sentence += STRING_VIEW("2");
          break;
 
       case GSA::FIX_MODE::ThreeDimensional:
 
-         sentence += "3";
+         sentence += STRING_VIEW("3");
          break;
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 
-   int index = 0;
-
-   while( index < 12 )
+   for (auto const& entry : SatelliteNumber)
    {
-      if ( SatelliteNumber[ index ] != 0 )
-      {
-         sentence += SatelliteNumber[ index ];
-      }
-      else
-      {
-         sentence += "";
-      }
-
-      index++;
+       if (entry != 0)
+       {
+           sentence += entry;
+       }
+       else
+       {
+           sentence += STRING_VIEW("");
+       }
    }
 
    sentence += PDOP;
@@ -248,9 +223,9 @@ GSA const& GSA::operator = ( GSA const& source ) noexcept
    OperatingMode = source.OperatingMode;
    FixMode       = source.FixMode;
 
-   int index = 0;
+   std::size_t index = 0;
 
-   while( index < 12 )
+   while( index < std::size(SatelliteNumber) )
    {
       SatelliteNumber[ index ] = source.SatelliteNumber[ index ];
       index++;

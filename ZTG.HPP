@@ -36,8 +36,7 @@ class ZTG : public RESPONSE
 {
    public:
 
-      ZTG();
-      virtual ~ZTG();
+      inline ZTG() noexcept : RESPONSE(STRING_VIEW("ZTG")) {}
 
       /*
       ** Data

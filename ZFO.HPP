@@ -36,8 +36,7 @@ class ZFO : public RESPONSE
 {
    public:
 
-      ZFO();
-      virtual ~ZFO();
+      inline ZFO() noexcept : RESPONSE(STRING_VIEW("ZFO")) {}
 
       /*
       ** Data

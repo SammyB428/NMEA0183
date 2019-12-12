@@ -31,22 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-MANUFACTURER_LIST::MANUFACTURER_LIST()
-{
-   ManufacturerTable.clear();
-}
-
-MANUFACTURER_LIST::~MANUFACTURER_LIST()
-{
-   Empty();
-}
-
 void MANUFACTURER_LIST::Empty( void ) noexcept
 {
     ManufacturerTable.clear();
@@ -394,7 +378,7 @@ void MANUFACTURER_LIST::Fill( void ) noexcept
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("WST"), STRING_VIEW("West Electronics Limited"))); 
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("YAS"), STRING_VIEW("Yaesu Electronics"))); 
 
-   std::sort(ManufacturerTable.begin(), ManufacturerTable.end(), is_less_than);
+   std::sort(std::begin(ManufacturerTable), std::end(ManufacturerTable), is_less_than);
 }
 
 std::string const& MANUFACTURER_LIST::Find( std::string_view mnemonic ) noexcept
@@ -412,11 +396,11 @@ std::string const& MANUFACTURER_LIST::Find( std::string_view mnemonic ) noexcept
       Fill();
    }
 
-   MANUFACTURER needle(mnemonic, "");
+   MANUFACTURER needle(mnemonic, STRING_VIEW(""));
 
-   auto iterator = std::lower_bound(ManufacturerTable.cbegin(), ManufacturerTable.cend(), needle, is_less_than);
+   auto iterator = std::lower_bound(std::cbegin(ManufacturerTable), std::cend(ManufacturerTable), needle, is_less_than);
 
-   if (iterator != ManufacturerTable.cend() and iterator->Mnemonic.compare( mnemonic ) == 0)
+   if (iterator != std::cend(ManufacturerTable) and iterator->Mnemonic.compare( mnemonic ) == 0)
    {
        return_value = iterator->CompanyName;
    }

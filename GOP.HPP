@@ -41,8 +41,7 @@ class GOP : public WAYPOINT_LOCATION
 {
    public:
 
-      GOP();
-      virtual ~GOP();
+      inline GOP() noexcept : WAYPOINT_LOCATION(STRING_VIEW("GOP")) {}
 };
 
 #endif // GOP_CLASS_HEADER

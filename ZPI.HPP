@@ -41,8 +41,7 @@ class ZPI : public RESPONSE
 {
    public:
 
-      ZPI();
-      virtual ~ZPI();
+      inline ZPI() noexcept : RESPONSE(STRING_VIEW("ZPI")) {}
 
       /*
       ** Data

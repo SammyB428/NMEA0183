@@ -41,8 +41,7 @@ class ZLZ : public RESPONSE
 {
    public:
 
-      ZLZ();
-      virtual ~ZLZ();
+      inline ZLZ() noexcept : RESPONSE(STRING_VIEW("ZLZ")) {}
 
       /*
       ** Data
@@ -52,7 +51,7 @@ class ZLZ : public RESPONSE
       time_t      UTCTime{ 0 };
       std::string LocalTimeString;
       time_t      LocalTime{ 0 };
-      int         LocalHourDeviation;
+      int         LocalHourDeviation{ 0 };
 
       /*
       ** Methods

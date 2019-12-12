@@ -36,24 +36,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-ZLZ::ZLZ()
-{
-   Mnemonic.assign(STRING_VIEW("ZLZ"));
-   Empty();
-}
-
-ZLZ::~ZLZ()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void ZLZ::Empty( void ) noexcept
 {
    UTCTimeString.clear();

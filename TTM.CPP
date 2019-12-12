@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-TTM::TTM()
-{
-   Mnemonic.assign(STRING_VIEW("TTM"));
-   Empty();
-}
-
-TTM::~TTM()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void TTM::Empty( void ) noexcept
 {
    TargetNumber                            = 0;
@@ -168,22 +150,22 @@ bool TTM::Write( SENTENCE& sentence ) const noexcept
    {
    case TARGET_STATUS::TargetLost:
 
-         sentence += "L";
+         sentence += STRING_VIEW("L");
          break;
 
    case TARGET_STATUS::TargetQuery:
 
-         sentence += "Q";
+         sentence += STRING_VIEW("Q");
          break;
 
    case TARGET_STATUS::TargetTracking:
 
-         sentence += "T";
+         sentence += STRING_VIEW("T");
          break;
 
       default:
 
-         sentence += "";
+         sentence += STRING_VIEW("");
          break;
    }
 

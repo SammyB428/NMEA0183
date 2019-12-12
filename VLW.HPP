@@ -36,8 +36,7 @@ class VLW : public RESPONSE
 {
    public:
 
-      VLW();
-      virtual ~VLW();
+      inline VLW() noexcept : RESPONSE(STRING_VIEW("VLW")) {};
 
       /*
       ** Data

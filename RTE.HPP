@@ -44,8 +44,7 @@ class RTE : public RESPONSE
 
    public:
 
-      RTE();
-      virtual ~RTE();
+      inline RTE() noexcept : RESPONSE(STRING_VIEW("RTE")) {}
 
       enum class ROUTE_TYPE
       {

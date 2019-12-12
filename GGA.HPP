@@ -36,8 +36,7 @@ class GGA : public RESPONSE
 {
    public:
 
-      GGA();
-      virtual ~GGA();
+      inline GGA() noexcept : RESPONSE(STRING_VIEW("GGA")) {}
 
       /*
       ** Data

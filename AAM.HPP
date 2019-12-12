@@ -36,8 +36,7 @@ class AAM : public RESPONSE
 {
    public:
 
-      AAM();
-      virtual ~AAM();
+       inline AAM() noexcept : RESPONSE(STRING_VIEW("AAM")) {}
 
       /*
       ** Data

@@ -31,24 +31,6 @@ SOFTWARE.
 #include "nmea0183.h"
 #pragma hdrstop
 
-#if defined( _DEBUG ) && defined( _INC_CRTDBG )
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#define new DEBUG_NEW
-#endif // _DEBUG
-
-MTW::MTW()
-{
-   Mnemonic.assign(STRING_VIEW("MTW"));
-   Empty();
-}
-
-MTW::~MTW()
-{
-   Mnemonic.clear();
-   Empty();
-}
-
 void MTW::Empty( void ) noexcept
 {
    Temperature = 0.0;

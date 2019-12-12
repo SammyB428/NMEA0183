@@ -36,8 +36,7 @@ class RMC : public RESPONSE
 {
    public:
 
-      RMC();
-      virtual ~RMC();
+      inline RMC() noexcept : RESPONSE(STRING_VIEW("RMC")) {}
 
       /*
       ** Data
