@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+// SPDX-License-Identifier: MIT
+
 /*
 ** This Sentence Not Recommended For New Designs
 ** There is no recommended replacement.
