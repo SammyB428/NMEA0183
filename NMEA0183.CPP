@@ -152,7 +152,7 @@ bool NMEA0183::IsGood( void ) const noexcept
    ** NMEA 0183 sentences begin with $ and and with CR LF
    */
 
-   if ( m_Sentence.Sentence[ 0 ] != '$' )
+   if ( m_Sentence.Sentence[ 0 ] not_eq '$' )
    {
       return( false );
    }
@@ -161,12 +161,12 @@ bool NMEA0183::IsGood( void ) const noexcept
    ** Next to last character must be a CR
    */
 
-   if ( m_Sentence.Sentence[ m_Sentence.Sentence.length() - 2 ] != CARRIAGE_RETURN )
+   if ( m_Sentence.Sentence[ m_Sentence.Sentence.length() - 2 ] not_eq CARRIAGE_RETURN )
    {
       return( false );
    }
 
-   if ( m_Sentence.Sentence[m_Sentence.Sentence.length() - 1 ] != LINE_FEED )
+   if ( m_Sentence.Sentence[m_Sentence.Sentence.length() - 1 ] not_eq LINE_FEED )
    {
       return( false );
    }
@@ -211,7 +211,7 @@ bool NMEA0183::Parse( void ) noexcept
 
        auto iterator = std::lower_bound(std::begin(m_ResponseTable), std::end(m_ResponseTable), &needle, is_less_than);
 
-       if (iterator != std::end(m_ResponseTable) and (*iterator)->Mnemonic.compare(mnemonic) == 0)
+       if (iterator not_eq std::end(m_ResponseTable) and (*iterator)->Mnemonic.compare(mnemonic) == 0)
        {
            return_value = (*iterator)->Parse(m_Sentence);
 

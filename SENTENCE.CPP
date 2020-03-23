@@ -122,10 +122,10 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
    std::size_t const string_length = Sentence.length();
    std::size_t index = 1; // Skip over the $ at the begining of the sentence
 
-   while( index < string_length    and
-          Sentence[ index ] != '*' and
-          Sentence[ index ] != CARRIAGE_RETURN and
-          Sentence[ index ] != LINE_FEED )
+   while( index < string_length and
+          Sentence[ index ] not_eq '*' and
+          Sentence[ index ] not_eq CARRIAGE_RETURN and
+          Sentence[ index ] not_eq LINE_FEED )
    {
       checksum_value xor_eq Sentence[ index ];
       index++;
@@ -199,10 +199,10 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
    {
        auto address_of_first_character = &Sentence[index];
 
-      while( index < string_length    and
-             Sentence[ index ] != ',' and
-             Sentence[ index ] != '*' and
-             Sentence[ index ] != 0x00 )
+      while( index < string_length and
+             Sentence[ index ] not_eq ',' and
+             Sentence[ index ] not_eq '*' and
+             Sentence[ index ] not_eq 0x00 )
       {
          //return_string += Sentence[ index ];
          index++;
@@ -279,7 +279,7 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
       return(NMEA0183_BOOLEAN::NMEA_Unknown);
    }
 
-   if ( ComputeChecksum() != HexValue( checksum_in_sentence ) )
+   if ( ComputeChecksum() not_eq HexValue( checksum_in_sentence ) )
    {
       return(NMEA0183_BOOLEAN::True);
    }

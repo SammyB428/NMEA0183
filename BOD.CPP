@@ -80,7 +80,7 @@ bool BOD::Parse( SENTENCE const& sentence ) noexcept
 
 std::string BOD::PlainEnglish(void) const noexcept
 {
-    std::string return_string(STRING_VIEW("You are bearing "));
+   std::string return_string(STRING_VIEW("You are bearing "));
 
    char temp_string [ 22 ];
 

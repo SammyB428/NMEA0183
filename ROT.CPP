@@ -80,16 +80,16 @@ std::string ROT::PlainEnglish( void ) const noexcept
 
    if ( RateOfTurn < 0 )
    {
-      number_of_characters = ::sprintf( temp_string, "Port at a rate of %.1lg degrees per minute.", static_cast<double>(RateOfTurn * -1.0) );
+      number_of_characters = ::sprintf( temp_string, "Port at a rate of %.1f degrees per minute.", static_cast<double>(RateOfTurn * -1.0) );
    }
    else
    {
-      number_of_characters = ::sprintf( temp_string, "Starboard at a rate of %.1lg degrees per minute.", RateOfTurn );
+      number_of_characters = ::sprintf( temp_string, "Starboard at a rate of %.1f degrees per minute.", RateOfTurn );
    }
 
    return_string.append(temp_string, number_of_characters);
 
-   if ( IsDataValid != NMEA0183_BOOLEAN::True )
+   if ( IsDataValid not_eq NMEA0183_BOOLEAN::True )
    {
       if ( IsDataValid == NMEA0183_BOOLEAN::False )
       {

@@ -41,7 +41,7 @@ void LATITUDE::Empty( void ) noexcept
 
 bool LATITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Northing != NORTHSOUTH::North and Northing != NORTHSOUTH::South )
+   if ( Northing not_eq NORTHSOUTH::North and Northing not_eq NORTHSOUTH::South )
    {
       return( false );
    }
@@ -90,8 +90,8 @@ void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
-   (void) ::sprintf( temp_string, "%07.2f", Latitude );
-   sentence += temp_string;
+   std::size_t const number_of_characters = ::sprintf( temp_string, "%07.2f", Latitude );
+   sentence += std::string_view( temp_string, number_of_characters);
 
    if ( Northing == NORTHSOUTH::North )
    {

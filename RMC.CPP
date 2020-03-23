@@ -109,16 +109,9 @@ std::string RMC::PlainEnglish( void ) const noexcept
    return_string.append(STRING_VIEW(" you were at "));
    return_string.append(Position.PlainEnglish());
    return_string.append(STRING_VIEW(", making "));
-
-   char temp_string[ 128 ];
-
-   std::size_t number_of_characters = ::sprintf( temp_string, "%lg", SpeedOverGroundKnots );
-
-   return_string.append(temp_string, number_of_characters);
+   return_string.append(std::to_string(SpeedOverGroundKnots));
    return_string.append(STRING_VIEW(" knots, track made good "));
-
-   number_of_characters = ::sprintf(temp_string, "%lg", TrackMadeGoodDegreesTrue );
-   return_string.append(temp_string, number_of_characters);
+   return_string.append(std::to_string(TrackMadeGoodDegreesTrue));
    return_string.append(STRING_VIEW(" degrees true."));
 
    return( return_string );

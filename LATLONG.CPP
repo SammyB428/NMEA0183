@@ -58,7 +58,7 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
 {
    char temp_string[256];
 
-   std::size_t number_of_characters = ::sprintf( temp_string, "Latitude %d %.5lg", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
+   std::size_t number_of_characters = ::sprintf( temp_string, "Latitude %d %.5f", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
 
    std::string return_string(temp_string, number_of_characters);
 
@@ -71,7 +71,7 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
       return_string.append(STRING_VIEW(" South, Longitude "));
    }
 
-   number_of_characters = ::sprintf( temp_string, "%d %.5lg", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
+   number_of_characters = ::sprintf( temp_string, "%d %.5f", Longitude.GetWholeDegrees(), Longitude.GetDecimalMinutes() );
 
    return_string.append(temp_string, number_of_characters);
 

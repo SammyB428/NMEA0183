@@ -402,7 +402,7 @@ std::string const& MANUFACTURER_LIST::Find( std::string_view mnemonic ) noexcept
 
    auto iterator = std::lower_bound(std::cbegin(ManufacturerTable), std::cend(ManufacturerTable), needle, is_less_than);
 
-   if (iterator != std::cend(ManufacturerTable) and iterator->Mnemonic.compare( mnemonic ) == 0)
+   if (iterator not_eq std::cend(ManufacturerTable) and iterator->Mnemonic.compare( mnemonic ) == 0)
    {
        return_value = iterator->CompanyName;
    }

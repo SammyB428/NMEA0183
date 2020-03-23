@@ -41,7 +41,7 @@ void LONGITUDE::Empty( void ) noexcept
 
 bool LONGITUDE::IsDataValid( void ) const noexcept
 {
-   if ( Easting != EASTWEST::East and Easting != EASTWEST::West )
+   if ( Easting not_eq EASTWEST::East and Easting not_eq EASTWEST::West )
    {
       return( false );
    }
@@ -92,8 +92,8 @@ void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
-   ::sprintf( temp_string, "%08.2f", Longitude );
-   sentence += temp_string;
+   std::size_t number_of_characters = ::sprintf( temp_string, "%08.2f", Longitude );
+   sentence += std::string_view(temp_string, number_of_characters );
    
    if ( Easting == EASTWEST::East )
    {

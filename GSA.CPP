@@ -201,7 +201,7 @@ bool GSA::Write( SENTENCE& sentence ) const noexcept
 
    for (auto const& entry : SatelliteNumber)
    {
-       if (entry != 0)
+       if (entry not_eq 0)
        {
            sentence += entry;
        }
