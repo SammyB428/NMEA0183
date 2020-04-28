@@ -46,6 +46,7 @@ SOFTWARE.
 #include <charconv>
 #include <math.h>
 #include <time.h>
+#include <inttypes.h>
 
 #define STRING_VIEW(_x)  std::string_view(  _x, std::size(_x) - 1)
 
