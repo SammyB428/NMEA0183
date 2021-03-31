@@ -77,7 +77,7 @@ bool RMB::Parse( SENTENCE const& sentence ) noexcept
    ** First we check the checksum...
    */
 
-   NMEA0183_BOOLEAN const check = sentence.IsChecksumBad( 14 );
+   auto const check = sentence.IsChecksumBad( 14 );
 
    if ( check == NMEA0183_BOOLEAN::True )
    {

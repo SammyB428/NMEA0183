@@ -67,7 +67,7 @@ bool ZZU::Parse( SENTENCE const& sentence ) noexcept
        return( false );
    }
 
-   time_t temp_time = time(nullptr);
+   auto temp_time = time(nullptr);
 
    auto tm_p = gmtime(&temp_time);
 

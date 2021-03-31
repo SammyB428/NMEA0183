@@ -89,21 +89,21 @@ bool ALM::Parse( SENTENCE const& sentence ) noexcept
        return( false );
    } 
 
-   NumberOfMessages         = (uint16_t) sentence.Integer( 1 );
-   MessageNumber            = (uint16_t) sentence.Integer( 2 );
-   PRNNumber                = (uint16_t) sentence.Integer( 3 );
-   WeekNumber               = (uint16_t) sentence.Integer( 4 );
-   SVHealth                 = (uint16_t) ::HexValue( sentence.Field( 5 ) );
-   Eccentricity             = (uint16_t) ::HexValue( sentence.Field( 6 ) );
-   AlmanacReferenceTime     = (uint16_t) ::HexValue( sentence.Field( 7 ) );
-   InclinationAngle         = (uint16_t) ::HexValue( sentence.Field( 8 ) );
-   RateOfRightAscension     = (uint16_t) ::HexValue( sentence.Field( 9 ) );
+   NumberOfMessages         = static_cast<uint16_t>(sentence.Integer( 1 ));
+   MessageNumber            = static_cast<uint16_t>(sentence.Integer( 2 ));
+   PRNNumber                = static_cast<uint16_t>(sentence.Integer( 3 ));
+   WeekNumber               = static_cast<uint16_t>(sentence.Integer( 4 ));
+   SVHealth                 = static_cast<uint16_t>(::HexValue( sentence.Field( 5 ) ));
+   Eccentricity             = static_cast<uint16_t>(::HexValue( sentence.Field( 6 ) ));
+   AlmanacReferenceTime     = static_cast<uint16_t>(::HexValue( sentence.Field( 7 ) ));
+   InclinationAngle         = static_cast<uint16_t>(::HexValue( sentence.Field( 8 ) ));
+   RateOfRightAscension     = static_cast<uint16_t>(::HexValue( sentence.Field( 9 ) ));
    RootOfSemiMajorAxis      = ::HexValue( sentence.Field( 10 ) );
    ArgumentOfPerigee        = ::HexValue( sentence.Field( 11 ) );
    LongitudeOfAscensionNode = ::HexValue( sentence.Field( 12 ) );
    MeanAnomaly              = ::HexValue( sentence.Field( 13 ) );
-   F0ClockParameter         = (uint16_t) ::HexValue( sentence.Field( 14 ) );
-   F1ClockParameter         = (uint16_t) ::HexValue( sentence.Field( 15 ) );
+   F0ClockParameter         = static_cast<uint16_t>(::HexValue( sentence.Field( 14 ) ));
+   F1ClockParameter         = static_cast<uint16_t>(::HexValue( sentence.Field( 15 ) ));
 
    return( true );
 }

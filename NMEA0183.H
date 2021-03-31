@@ -132,6 +132,17 @@ enum class TRANSDUCER_TYPE
    VolumeTransducer              = 'V'
 };
 
+enum class FAA_MODE
+{
+    ModeUnknown = 0,
+    Autonomous = 'A',
+    Differential = 'D',
+    Estimated = 'E',
+    NotValid = 'N',
+    Simulated = 'S',
+    Manual = 'M'
+};
+
 /*
 ** Misc Function Prototypes
 */

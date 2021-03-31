@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2021 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -119,7 +119,7 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 {
    uint8_t checksum_value = 0;
 
-   std::size_t const string_length = Sentence.length();
+   auto const string_length = Sentence.length();
    std::size_t index = 1; // Skip over the $ at the begining of the sentence
 
    while( index < string_length and
@@ -183,7 +183,7 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
    std::size_t index        = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
 
-   std::size_t const string_length = Sentence.length();
+   auto const string_length = Sentence.length();
 
    while( current_field_number < desired_field_number and index < string_length )
    {
@@ -219,7 +219,7 @@ uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
    std::size_t index        = 1; // Skip over the $ at the begining of the sentence
    int current_field_number = 0;
 
-   std::size_t const string_length = Sentence.length();
+   auto const string_length = Sentence.length();
 
    while( index < string_length )
    {
@@ -241,7 +241,7 @@ uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
 
 void SENTENCE::Finish( void ) noexcept
 {
-   uint8_t const checksum = ComputeChecksum();
+   auto const checksum = ComputeChecksum();
 
    char temp_string[ 10 ];
 
@@ -376,7 +376,7 @@ REFERENCE SENTENCE::Reference( int field_number ) const noexcept
 
 time_t SENTENCE::Time( int field_number ) const noexcept
 {
-   time_t return_value = time(nullptr);
+   auto return_value = time(nullptr);
 
    auto temp_string = Field( field_number );
 
@@ -462,6 +462,47 @@ TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const noexcept
    {
        return(TRANSDUCER_TYPE::TransducerUnknown);
    }
+}
+
+FAA_MODE SENTENCE::FAAMode(int field_number) const noexcept
+{
+    auto field_data = Field(field_number);
+
+    if (field_data.length() == 1)
+    {
+        if (field_data[0] == 'A')
+        {
+            return(FAA_MODE::Autonomous);
+        }
+        else if (field_data[0] == 'D')
+        {
+            return(FAA_MODE::Differential);
+        }
+        else if (field_data[0] == 'E')
+        {
+            return(FAA_MODE::Estimated);
+        }
+        else if (field_data[0] == 'N')
+        {
+            return(FAA_MODE::NotValid);
+        }
+        else if (field_data[0] == 'S')
+        {
+            return(FAA_MODE::Simulated);
+        }
+        else if (field_data[0] == 'M')
+        {
+            return(FAA_MODE::Manual);
+        }
+        else
+        {
+            return(FAA_MODE::ModeUnknown);
+        }
+    }
+    else
+    {
+        return(FAA_MODE::ModeUnknown);
+    }
 }
 
 /*

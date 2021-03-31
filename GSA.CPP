@@ -110,7 +110,7 @@ bool GSA::Parse( SENTENCE const& sentence ) noexcept
        OperatingMode = GSA::OPERATING_MODE::UnknownOperatingMode;
    }
 
-   std::size_t index = sentence.Integer( 2 );
+   auto index = sentence.Integer( 2 );
 
    switch( index )
    {

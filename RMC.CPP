@@ -44,6 +44,7 @@ void RMC::Empty( void ) noexcept
    Date.clear();
    MagneticVariation          = 0.0;
    MagneticVariationDirection = EASTWEST::EW_Unknown;
+   FAAMode                    = FAA_MODE::ModeUnknown;
 }
 
 bool RMC::Parse( SENTENCE const& sentence ) noexcept
@@ -67,26 +68,38 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
    **  9) Date, ddmmyy
    ** 10) Magnetic Variation, degrees
    ** 11) E or W
-   ** 12) Checksum
+   ** 12) FAA Mode (version 2.3)
+   ** 13) Checksum
    */
 
    /*
    ** First we check the checksum...
    */
 
-   NMEA0183_BOOLEAN const check = sentence.IsChecksumBad( 12 );
+    int checksum_field = 12;
 
-   if ( check == NMEA0183_BOOLEAN::True )
+   // Version 2.3 of the standard has things different
+
+    FAAMode = sentence.FAAMode(12);
+
+   if (FAAMode != FAA_MODE::ModeUnknown)
+   {
+       checksum_field = 13;
+   }
+
+   auto const check = sentence.IsChecksumBad(checksum_field);
+
+   if (check == NMEA0183_BOOLEAN::True)
    {
        SetErrorMessage(STRING_VIEW("Invalid Checksum"));
-       return( false );
+       return(false);
    }
-   
-   if ( check == NMEA0183_BOOLEAN::NMEA_Unknown )
+
+   if (check == NMEA0183_BOOLEAN::NMEA_Unknown)
    {
        SetErrorMessage(STRING_VIEW("Missing Checksum"));
-       return( false );
-   } 
+       return(false);
+   }
 
    UTCTime                    = sentence.Field( 1 );
    Time                       = sentence.Time( 1 );

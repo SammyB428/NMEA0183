@@ -45,7 +45,7 @@ class GSV : public RESPONSE
       */
 
       int            NumberOfSatellites{ 0 };
-      SATELLITE_DATA SatellitesInView[ 12 ];
+      SATELLITE_DATA SatellitesInView[ 36 ];
 
       /*
       ** Methods

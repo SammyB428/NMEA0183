@@ -76,7 +76,7 @@ bool GXA::Parse( SENTENCE const& sentence ) noexcept
    Time            = sentence.Time( 1 );
    Position.Parse( 2, 3, 4, 5, sentence );
    WaypointID      = sentence.Field( 6 );
-   SatelliteNumber = (uint16_t) sentence.Integer( 7 );
+   SatelliteNumber = static_cast<uint16_t>(sentence.Integer( 7 ));
 
    return( true );
 }

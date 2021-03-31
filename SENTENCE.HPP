@@ -67,6 +67,7 @@ class SENTENCE
       virtual REFERENCE Reference( int field_number ) const noexcept;
       virtual time_t Time( int field_number ) const noexcept;
       virtual TRANSDUCER_TYPE TransducerType( int field_number ) const noexcept;
+      virtual FAA_MODE FAAMode(int field_number) const noexcept;
 
       /*
       ** Operators

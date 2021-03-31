@@ -53,6 +53,7 @@ class RMC : public RESPONSE
       std::string      Date;
       double           MagneticVariation{ 0.0 };
       EASTWEST         MagneticVariationDirection{ EASTWEST::EW_Unknown };
+      FAA_MODE         FAAMode{ FAA_MODE::ModeUnknown };
 
       /*
       ** Methods

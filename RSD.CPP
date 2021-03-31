@@ -73,7 +73,7 @@ bool RSD::Parse( SENTENCE const& sentence ) noexcept
    RangeScale                            = sentence.Double( 11 );
    RangeUnits                            = sentence.Field( 12 );
 
-   int temp_integer = sentence.Integer( 13 );
+   auto const temp_integer = sentence.Integer( 13 );
 
    switch( temp_integer )
    {

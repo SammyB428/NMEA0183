@@ -71,7 +71,7 @@ bool FSI::Parse( SENTENCE const& sentence ) noexcept
    TransmittingFrequency = sentence.Double( 1 );
    ReceivingFrequency    = sentence.Double( 2 );
    Mode                  = sentence.CommunicationsMode( 3 );
-   PowerLevel            = (short) sentence.Integer( 4 );
+   PowerLevel            = static_cast<uint16_t>(sentence.Integer( 4 ));
 
    return( true );
 }

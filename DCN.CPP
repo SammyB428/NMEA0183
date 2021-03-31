@@ -96,7 +96,7 @@ bool DCN::Parse( SENTENCE const& sentence ) noexcept
    PurpleLineNavigationUse          = sentence.Boolean( 13 );
    PositionUncertaintyNauticalMiles = sentence.Double( 14 );
 
-   int temp_integer = sentence.Integer( 16 );
+   auto const temp_integer = sentence.Integer( 16 );
 
    switch( temp_integer )
    {

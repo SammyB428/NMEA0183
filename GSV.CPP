@@ -85,7 +85,7 @@ bool GSV::Parse( SENTENCE const& sentence ) noexcept
        return( false );
    }
 
-   int const message_number = sentence.Integer( 2 );
+   auto const message_number = sentence.Integer( 2 );
 
    NumberOfSatellites = sentence.Integer( 3 );
 
@@ -93,7 +93,13 @@ bool GSV::Parse( SENTENCE const& sentence ) noexcept
 
    while( index < 4 )
    {
-      SatellitesInView[ ( ( message_number - 1 ) * 4 ) + index ].Parse( ( index * 4 ) + 4, sentence );
+      auto const array_index = ((message_number - 1) * 4) + index;
+
+      if (array_index < std::size(SatellitesInView))
+      {
+          SatellitesInView[array_index].Parse((index * 4) + 4, sentence);
+      }
+
       index++;
    }
 
