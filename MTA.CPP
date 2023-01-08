@@ -81,7 +81,7 @@ std::string MTA::PlainEnglish(void) const noexcept
 
     char temp_string[65];
 
-    std::size_t const number_of_characters = ::sprintf(temp_string, "%.1f ", Temperature);
+    auto const number_of_characters{ ::sprintf(temp_string, "%.1f ", Temperature) };
 
     return_string.append(temp_string, number_of_characters);
     return_string.append(UnitOfMeasurement);

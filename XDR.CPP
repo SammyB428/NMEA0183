@@ -58,7 +58,7 @@ bool XDR::Parse( SENTENCE const& sentence ) noexcept
 
    Empty();
 
-   int field_number = 1;
+   int field_number{ 1 };
 
    TRANSDUCER_DATA transducer_data;
 

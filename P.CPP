@@ -47,7 +47,7 @@ bool P::Parse( SENTENCE const& sentence ) noexcept
 
    Sentence = sentence;
 
-   auto temp_string = sentence.Field( 0 );
+   auto temp_string{ sentence.Field(0) };
 
    Source      = temp_string.substr( 1, 3 );
    CompanyName = Manufacturers.Find( Source );

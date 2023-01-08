@@ -76,7 +76,7 @@ std::string ROT::PlainEnglish( void ) const noexcept
 
    char temp_string[ 80 ];
 
-   std::size_t number_of_characters = 0;
+   std::size_t number_of_characters{ 0 };
 
    if ( RateOfTurn < 0 )
    {

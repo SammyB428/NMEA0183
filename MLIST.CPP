@@ -400,7 +400,7 @@ std::string const& MANUFACTURER_LIST::Find( std::string_view mnemonic ) noexcept
 
    MANUFACTURER needle(mnemonic, STRING_VIEW(""));
 
-   auto iterator = std::lower_bound(std::cbegin(ManufacturerTable), std::cend(ManufacturerTable), needle, is_less_than);
+   auto iterator{ std::lower_bound(std::cbegin(ManufacturerTable), std::cend(ManufacturerTable), needle, is_less_than) };
 
    if (iterator not_eq std::cend(ManufacturerTable) and iterator->Mnemonic.compare( mnemonic ) == 0)
    {

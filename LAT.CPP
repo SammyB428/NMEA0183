@@ -54,9 +54,8 @@ void LATITUDE::Parse( int position_field_number, int north_or_south_field_number
    // Thanks go to Eric Parsonage (ericpa@mpx.com.au) for finding a nasty
    // little bug that used to live here.
 
-   double const position = sentence.Double( position_field_number );
-
-   auto north_or_south = sentence.Field( north_or_south_field_number );
+   auto const position{ sentence.Double(position_field_number) };
+   auto north_or_south{ sentence.Field(north_or_south_field_number) };
 
    Set( position, north_or_south );
 }
@@ -90,7 +89,7 @@ void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%07.2f", Latitude );
+   auto const number_of_characters{ ::sprintf(temp_string, "%07.2f", Latitude) };
    sentence += std::string_view( temp_string, number_of_characters);
 
    if ( Northing == NORTHSOUTH::North )
@@ -127,33 +126,31 @@ LATITUDE const& LATITUDE::operator = ( LATITUDE const& source ) noexcept
 
 double COORDINATE::GetDecimalDegrees( void ) const noexcept
 {
-   int degrees = static_cast<int>(::floor( Coordinate ));
-   int minutes = degrees % 100;
+   int degrees{ static_cast<int>(::floor(Coordinate)) };
+   int minutes{ degrees % 100 };
 
-   double throw_away = 0.0;
+   double throw_away{ 0.0 };
 
-   double fractional_minutes = ::modf( Coordinate, &throw_away );
+   auto fractional_minutes{ ::modf(Coordinate, &throw_away) };
 
    degrees -= minutes;
    degrees /= 100;
 
-   double return_value = degrees;
+   auto return_value{ static_cast<double>(degrees) };
    return_value += static_cast<double>( static_cast<double>(minutes) / static_cast<double>(60.0) );
    return_value += static_cast<double>( static_cast<double>(fractional_minutes) / static_cast<double>(60.0) );
 
    return( return_value );
 }
 
-double COORDINATE::GetDecimalMinutes( void ) const noexcept
+double COORDINATE::GetDecimalMinutes(void) const noexcept
 {
-   int degrees = static_cast<int>(::floor( Coordinate ));
-   int minutes = degrees % 100;
+   int degrees{ static_cast<int>(::floor(Coordinate)) };
+   int minutes{ degrees % 100 };
 
-   double throw_away = 0.0;
-
-   double fractional_minutes = ::modf( Coordinate, &throw_away );
-
-   double return_value = static_cast<double>(minutes);
+   double throw_away{ 0.0 };
+   auto fractional_minutes{ ::modf(Coordinate, &throw_away) };
+   double return_value{ static_cast<double>(minutes) };
    return_value += fractional_minutes;
 
    return( return_value );
@@ -161,13 +158,10 @@ double COORDINATE::GetDecimalMinutes( void ) const noexcept
 
 double COORDINATE::GetDecimalSeconds( void ) const noexcept
 {
-   double minutes = GetDecimalMinutes();
-
-   double throw_away = 0.0;
-
-   double fractional_minutes = ::modf( minutes, &throw_away );
-
-   double return_value = static_cast<double>( static_cast<double>(fractional_minutes) * static_cast<double>(60.0) );
+   auto minutes{ GetDecimalMinutes() };
+   double throw_away{ 0.0 };
+   auto fractional_minutes{ ::modf(minutes, &throw_away) };
+   auto return_value{ static_cast<double>(static_cast<double>(fractional_minutes) * static_cast<double>(60.0)) };
 
    return( return_value );
 }

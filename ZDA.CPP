@@ -72,14 +72,14 @@ bool ZDA::Parse( SENTENCE const& sentence ) noexcept
 
    UTCTime = sentence.Field( 1 );
 
-   int hours = 0;
-   (void)std::from_chars(UTCTime.data(), UTCTime.data() + 2, hours, 10);
+   int hours{ 0 };
+   std::ignore = std::from_chars(UTCTime.data(), UTCTime.data() + 2, hours, 10);
 
-   int minutes = 0;
-   (void)std::from_chars(UTCTime.data() + 2, UTCTime.data() + 4, minutes, 10);
+   int minutes{ 0 };
+   std::ignore = std::from_chars(UTCTime.data() + 2, UTCTime.data() + 4, minutes, 10);
 
-   int seconds = 0;
-   (void)std::from_chars(UTCTime.data() + 4, UTCTime.data() + 6, seconds, 10);
+   int seconds{ 0 };
+   std::ignore = std::from_chars(UTCTime.data() + 4, UTCTime.data() + 6, seconds, 10);
 
    Day                   = sentence.Integer( 2 );
    Month                 = sentence.Integer( 3 );

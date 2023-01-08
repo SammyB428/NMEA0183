@@ -79,7 +79,7 @@ std::string TEP::PlainEnglish( void ) const noexcept
 
    char temp_string[65];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%.3f degrees.", ElevationDegrees );
+   auto const number_of_characters{ ::sprintf(temp_string, "%.3f degrees.", ElevationDegrees) };
 
    return_string.append(temp_string, number_of_characters);
 

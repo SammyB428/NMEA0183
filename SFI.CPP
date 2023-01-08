@@ -64,7 +64,7 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
    ** First we check the checksum...
    */
 
-   int const number_of_data_fields = sentence.GetNumberOfDataFields();
+   auto const number_of_data_fields{ sentence.GetNumberOfDataFields() };
 
    if ( sentence.IsChecksumBad( number_of_data_fields + 1 ) == NMEA0183_BOOLEAN::True )
    {
@@ -84,8 +84,8 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
        entry.Empty();
    }
 
-   int number_of_frequencies = ( number_of_data_fields - 2 ) / 2;
-   int frequency_number      = 0;
+   int number_of_frequencies{ (number_of_data_fields - 2) / 2 };
+   int frequency_number{ 0 };
 
    /*
    ** index is the number of data fields before the frequency/mode +
@@ -94,7 +94,7 @@ bool SFI::Parse( SENTENCE const& sentence ) noexcept
 
    while( frequency_number < number_of_frequencies )
    {
-      std::size_t const index = 2 + ( static_cast<std::size_t>(frequency_number) * 2 );
+      auto const index{ 2 + (static_cast<std::size_t>(frequency_number) * 2) };
 
       Frequencies[ frequency_number ].Parse( static_cast<int>(index), sentence );
 
@@ -130,7 +130,7 @@ SFI const& SFI::operator = ( SFI const& source ) noexcept
    TotalMessages = source.TotalMessages;
    MessageNumber = source.MessageNumber;
 
-   std::size_t index = 0;
+   std::size_t index{ 0 };
 
    while( index < std::size(Frequencies) )
    {

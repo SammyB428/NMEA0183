@@ -127,7 +127,7 @@ GSV const& GSV::operator = ( GSV const& source ) noexcept
 {
    NumberOfSatellites = source.NumberOfSatellites;
 
-   std::size_t index = 0;
+   std::size_t index{ 0 };
 
    while( index < std::size(SatellitesInView) )
    {

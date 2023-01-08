@@ -54,11 +54,11 @@ void LONGITUDE::Parse( int position_field_number, int east_or_west_field_number,
    // Thanks go to Eric Parsonage (ericpa@mpx.com.au) for finding a nasty
    // little bug that used to live here.
 
-   double position = 0.0;
+   double position{ 0.0 };
 
    position = sentence.Double( position_field_number );
 
-   auto east_or_west = sentence.Field( east_or_west_field_number );
+   auto east_or_west{ sentence.Field(east_or_west_field_number) };
 
    Set( position, east_or_west );
 }
@@ -92,7 +92,7 @@ void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
 {
    char temp_string[ 80 ];
 
-   std::size_t number_of_characters = ::sprintf( temp_string, "%08.2f", Longitude );
+   auto number_of_characters{ ::sprintf(temp_string, "%08.2f", Longitude) };
    sentence += std::string_view(temp_string, number_of_characters );
    
    if ( Easting == EASTWEST::East )

@@ -58,7 +58,7 @@ std::string LATLONG::PlainEnglish( void ) const noexcept
 {
    char temp_string[256];
 
-   std::size_t number_of_characters = ::sprintf( temp_string, "Latitude %d %.5f", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes() );
+   auto number_of_characters{ ::sprintf(temp_string, "Latitude %d %.5f", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes()) };
 
    std::string return_string(temp_string, number_of_characters);
 

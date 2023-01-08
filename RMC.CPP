@@ -76,7 +76,7 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
    ** First we check the checksum...
    */
 
-    int checksum_field = 12;
+    int checksum_field{ 12 };
 
    // Version 2.3 of the standard has things different
 
@@ -87,7 +87,7 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
        checksum_field = 13;
    }
 
-   auto const check = sentence.IsChecksumBad(checksum_field);
+   auto const check{ sentence.IsChecksumBad(checksum_field) };
 
    if (check == NMEA0183_BOOLEAN::True)
    {

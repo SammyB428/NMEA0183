@@ -74,7 +74,7 @@ std::string HDT::PlainEnglish( void ) const noexcept
    
    char temp_string[65];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%.2f degrees.", DegreesTrue );
+   auto const number_of_characters{ ::sprintf(temp_string, "%.2f degrees.", DegreesTrue) };
 
    return_string.append(temp_string, number_of_characters);
 

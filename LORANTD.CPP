@@ -43,7 +43,7 @@ void LORAN_TIME_DIFFERENCE::Parse( int first_field_number, SENTENCE const& sente
 {
    Microseconds = sentence.Double( first_field_number );
 
-   auto field_data = sentence.Field( first_field_number + 1 );
+   auto field_data{ sentence.Field(first_field_number + 1) };
 
    if (field_data.length() == 1)
    {

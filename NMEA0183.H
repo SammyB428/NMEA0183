@@ -149,9 +149,9 @@ enum class FAA_MODE
 
 inline uint32_t HexValue(std::string_view hex_string) noexcept
 {
-    uint32_t return_value = 0;
+    uint32_t return_value{ 0 };
 
-    (void)std::from_chars(&hex_string[0], &hex_string[0] + hex_string.length(), return_value, 16);
+    std::ignore = std::from_chars(&hex_string[0], &hex_string[0] + hex_string.length(), return_value, 16);
 
     return(return_value);
 }

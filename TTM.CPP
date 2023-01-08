@@ -97,7 +97,7 @@ bool TTM::Parse( SENTENCE const& sentence ) noexcept
    Increasing                              = sentence.Field( 10 );
    TargetName                              = sentence.Field( 11 );
 
-   auto field_data = sentence.Field( 12 );
+   auto field_data{ sentence.Field(12) };
 
    if (field_data.length() == 1)
    {

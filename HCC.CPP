@@ -80,7 +80,7 @@ std::string HCC::PlainEnglish( void ) const noexcept
 
    char temp_string[ 80 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%.2f degrees.", HeadingDegrees );
+   auto const number_of_characters{ ::sprintf(temp_string, "%.2f degrees.", HeadingDegrees) };
 
    return_string.append(temp_string, number_of_characters);
 

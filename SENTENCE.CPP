@@ -35,7 +35,7 @@ SOFTWARE.
 
 NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -60,7 +60,7 @@ NMEA0183_BOOLEAN SENTENCE::Boolean( int field_number ) const noexcept
 
 COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -117,10 +117,10 @@ COMMUNICATIONS_MODE SENTENCE::CommunicationsMode( int field_number ) const noexc
 
 uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 {
-   uint8_t checksum_value = 0;
+   uint8_t checksum_value{ 0 };
 
-   auto const string_length = Sentence.length();
-   std::size_t index = 1; // Skip over the $ at the begining of the sentence
+   auto const string_length{ Sentence.length() };
+   std::size_t index{ 1 }; // Skip over the $ at the begining of the sentence
 
    while( index < string_length and
           Sentence[ index ] not_eq '*' and
@@ -136,23 +136,23 @@ uint8_t SENTENCE::ComputeChecksum( void ) const noexcept
 
 double SENTENCE::Double( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() < 1)
    {
        return(0.0);
    }
 
-   double return_value = 0.0;
+   double return_value{ 0.0 };
 
-   (void)std::from_chars(&field_data[0], &field_data[0] + field_data.length(), return_value);
+   std::ignore = std::from_chars(&field_data[0], &field_data[0] + field_data.length(), return_value);
 
    return(return_value);
 }
 
 EASTWEST SENTENCE::EastOrWest( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -180,10 +180,10 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
    // Thanks to Vilhelm Persson (vilhelm.persson@st.se) for finding a 
    // bug that lived here.
 
-   std::size_t index        = 1; // Skip over the $ at the begining of the sentence
-   int current_field_number = 0;
+   std::size_t index{ 1 }; // Skip over the $ at the begining of the sentence
+   int current_field_number{ 0 };
 
-   auto const string_length = Sentence.length();
+   auto const string_length{ Sentence.length() };
 
    while( current_field_number < desired_field_number and index < string_length )
    {
@@ -197,7 +197,7 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 
    if ( current_field_number == desired_field_number )
    {
-       auto address_of_first_character = &Sentence[index];
+      auto address_of_first_character{ &Sentence[index] };
 
       while( index < string_length and
              Sentence[ index ] not_eq ',' and
@@ -216,10 +216,10 @@ std::string_view SENTENCE::Field( int desired_field_number ) const noexcept
 
 uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
 {
-   std::size_t index        = 1; // Skip over the $ at the begining of the sentence
-   int current_field_number = 0;
+   std::size_t index{ 1 }; // Skip over the $ at the begining of the sentence
+   int current_field_number{ 0 };
 
-   auto const string_length = Sentence.length();
+   auto const string_length{ Sentence.length() };
 
    while( index < string_length )
    {
@@ -241,27 +241,27 @@ uint16_t SENTENCE::GetNumberOfDataFields( void ) const noexcept
 
 void SENTENCE::Finish( void ) noexcept
 {
-   auto const checksum = ComputeChecksum();
+   auto const checksum{ ComputeChecksum() };
 
    char temp_string[ 10 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED );
+   auto const number_of_characters{ ::sprintf(temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED) };
 
    Sentence.append(temp_string, number_of_characters);
 }
 
 int SENTENCE::Integer( int field_number ) const noexcept
 {
-   auto integer_string = Field( field_number );
+   auto integer_string{ Field(field_number) };
 
    if (integer_string.length() < 1)
    {
        return(0);
    }
 
-   int return_value = 0;
+   int return_value{ 0 };
 
-   (void)std::from_chars(&integer_string[0], &integer_string[0] + integer_string.length(), return_value, 10);
+   std::ignore = std::from_chars(&integer_string[0], &integer_string[0] + integer_string.length(), return_value, 10);
 
    return(return_value);
 }
@@ -272,7 +272,7 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
    ** Checksums are optional, return TRUE if an existing checksum is known to be bad
    */
 
-   auto checksum_in_sentence = Field( checksum_field_number );
+   auto checksum_in_sentence{ Field(checksum_field_number) };
 
    if ( checksum_in_sentence.empty() == true )
    {
@@ -289,7 +289,7 @@ NMEA0183_BOOLEAN SENTENCE::IsChecksumBad( int checksum_field_number ) const noex
 
 LEFTRIGHT SENTENCE::LeftOrRight( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -314,7 +314,7 @@ LEFTRIGHT SENTENCE::LeftOrRight( int field_number ) const noexcept
 
 NORTHSOUTH SENTENCE::NorthOrSouth( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -339,7 +339,7 @@ NORTHSOUTH SENTENCE::NorthOrSouth( int field_number ) const noexcept
 
 REFERENCE SENTENCE::Reference( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -376,30 +376,28 @@ REFERENCE SENTENCE::Reference( int field_number ) const noexcept
 
 time_t SENTENCE::Time( int field_number ) const noexcept
 {
-   auto return_value = time(nullptr);
-
-   auto temp_string = Field( field_number );
+   auto return_value{ time(nullptr) };
+   auto temp_string{ Field(field_number) };
 
    if ( temp_string.length() >= 6 )
    {
-      int hours = 0;
-      std::from_chars(&temp_string[0], &temp_string[2], hours);
+      int hours{ 0 };
+      std::ignore = std::from_chars(&temp_string[0], &temp_string[2], hours);
 
-      int minutes = 0;
-      std::from_chars(&temp_string[2], &temp_string[4], minutes);
+      int minutes{ 0 };
+      std::ignore = std::from_chars(&temp_string[2], &temp_string[4], minutes);
 
-      int seconds = 0;
+      int seconds{ 0 };
       // You have to code from_chars() with:
       // &temp_string[0] + 6 instead of:
       // &temp_string[6]
       // Because string_view will throw an exception that [6] is out of bounds.
-      std::from_chars(&temp_string[4], &temp_string[0] + 6, seconds);
+      std::ignore = std::from_chars(&temp_string[4], &temp_string[0] + 6, seconds);
 
-      auto tm_p = gmtime(&return_value);
-
-      int year = tm_p->tm_year + 1900;
-      int month = tm_p->tm_mon;
-      int day = tm_p->tm_mday;
+      auto tm_p{ gmtime(&return_value) };
+      auto const year{ tm_p->tm_year + 1900 };
+      auto const month{ tm_p->tm_mon };
+      auto const day{ tm_p->tm_mday };
 
       return_value = ctime( year, month, day, hours, minutes, seconds );
    }
@@ -409,7 +407,7 @@ time_t SENTENCE::Time( int field_number ) const noexcept
 
 TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const noexcept
 {
-   auto field_data = Field( field_number );
+   auto field_data{ Field(field_number) };
 
    if (field_data.length() == 1)
    {
@@ -466,7 +464,7 @@ TRANSDUCER_TYPE SENTENCE::TransducerType( int field_number ) const noexcept
 
 FAA_MODE SENTENCE::FAAMode(int field_number) const noexcept
 {
-    auto field_data = Field(field_number);
+    auto field_data{ Field(field_number) };
 
     if (field_data.length() == 1)
     {
@@ -545,7 +543,7 @@ SENTENCE const& SENTENCE::operator += ( double const value ) noexcept
 {
    char temp_string[ 80 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%.3f", value );
+   auto const number_of_characters{ ::sprintf(temp_string, "%.3f", value) };
 
    Sentence.push_back(',');
    Sentence.append(temp_string, number_of_characters);
@@ -699,7 +697,7 @@ SENTENCE const& SENTENCE::operator += ( int const value ) noexcept
 {
    char temp_string[ 80 ];
 
-   auto conversion = std::to_chars(temp_string, temp_string + std::size(temp_string), value);
+   auto conversion{ std::to_chars(temp_string, temp_string + std::size(temp_string), value) };
 
    Sentence.push_back(',');
    Sentence.append(temp_string, std::distance(temp_string, conversion.ptr));
@@ -748,11 +746,11 @@ SENTENCE const& SENTENCE::operator += ( LATLONG const& source ) noexcept
 
 SENTENCE const& SENTENCE::operator += ( time_t const time_value ) noexcept
 {
-   auto tm_p = gmtime(&time_value);
+   auto tm_p{ gmtime(&time_value) };
 
    char temp_string[65];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec );
+   auto const number_of_characters{ ::sprintf(temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec) };
 
    Sentence.push_back(',');
    Sentence.append(temp_string, number_of_characters);

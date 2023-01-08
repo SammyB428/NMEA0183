@@ -37,11 +37,8 @@ std::string expand_talker_id( std::string_view identifier ) noexcept
 {
    std::string expanded_identifier;
 
-   char first_character  = 0x00;
-   char second_character = 0x00;
-
-   first_character  = identifier[ 0 ];
-   second_character = identifier[ 1 ];
+   auto first_character{ identifier[0] };
+   auto second_character{ identifier[1] };
 
    /*
    ** Set up our default return value

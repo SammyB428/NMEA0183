@@ -176,11 +176,11 @@ bool NMEA0183::IsGood( void ) const noexcept
 
 bool NMEA0183::Parse( void ) noexcept
 {
-   bool return_value = false;
+   bool return_value{ false };
 
    if (IsGood())
    {
-       auto mnemonic = m_Sentence.Field(0);
+       auto mnemonic{ m_Sentence.Field(0) };
 
        /*
        ** See if this is a proprietary field
@@ -209,7 +209,7 @@ bool NMEA0183::Parse( void ) noexcept
 
        GENERIC_RESPONSE needle(mnemonic);
 
-       auto iterator = std::lower_bound(std::begin(m_ResponseTable), std::end(m_ResponseTable), &needle, is_less_than);
+       auto iterator{ std::lower_bound(std::begin(m_ResponseTable), std::end(m_ResponseTable), &needle, is_less_than) };
 
        if (iterator not_eq std::end(m_ResponseTable) and (*iterator)->Mnemonic.compare(mnemonic) == 0)
        {

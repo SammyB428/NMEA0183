@@ -73,32 +73,30 @@ bool ZLZ::Parse( SENTENCE const& sentence ) noexcept
        return( false );
    }
 
-   auto temp_time = time(nullptr);
-
-   auto tm_p = gmtime(&temp_time);
-
-   int year = tm_p->tm_year + 1900;
-   int month = tm_p->tm_mon;
-   int day = tm_p->tm_mday;
+   auto temp_time{ time(nullptr) };
+   auto tm_p{ gmtime(&temp_time) };
+   auto const year{ tm_p->tm_year + 1900 };
+   auto const month{ tm_p->tm_mon };
+   auto const day{ tm_p->tm_mday };
 
    UTCTimeString = sentence.Field( 1 );
 
-   int hours = 0;
-   (void)std::from_chars(UTCTimeString.data(), UTCTimeString.data() + 2, hours, 10);
+   int hours{ 0 };
+   std::ignore = std::from_chars(UTCTimeString.data(), UTCTimeString.data() + 2, hours, 10);
 
-   int minutes = 0;
-   (void)std::from_chars(UTCTimeString.data() + 2, UTCTimeString.data() + 4, minutes, 10);
+   int minutes{ 0 };
+   std::ignore = std::from_chars(UTCTimeString.data() + 2, UTCTimeString.data() + 4, minutes, 10);
 
-   int seconds = 0;
-   (void)std::from_chars(UTCTimeString.data() + 4, UTCTimeString.data() + 6, seconds, 10);
+   int seconds{ 0 };
+   std::ignore = std::from_chars(UTCTimeString.data() + 4, UTCTimeString.data() + 6, seconds, 10);
 
    UTCTime = ctime( year, month, day, hours, minutes, seconds );
 
    LocalTimeString = sentence.Field( 2 );
 
-   (void)std::from_chars(LocalTimeString.data(), LocalTimeString.data() + 2, hours, 10);
-   (void)std::from_chars(LocalTimeString.data() + 2, LocalTimeString.data() + 4, minutes, 10);
-   (void)std::from_chars(LocalTimeString.data() + 4, LocalTimeString.data() + 6, seconds, 10);
+   std::ignore = std::from_chars(LocalTimeString.data(), LocalTimeString.data() + 2, hours, 10);
+   std::ignore = std::from_chars(LocalTimeString.data() + 2, LocalTimeString.data() + 4, minutes, 10);
+   std::ignore = std::from_chars(LocalTimeString.data() + 4, LocalTimeString.data() + 6, seconds, 10);
 
    LocalTime = ctime( year, month, day, hours, minutes, seconds );
 

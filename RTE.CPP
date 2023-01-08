@@ -67,11 +67,11 @@ bool RTE::Parse( SENTENCE const& sentence ) noexcept
 
    Waypoints.clear();
 
-   int field_number = 1;
+   int field_number{ 1 };
 
    m_TotalNumberOfMessages = sentence.Double( 1 );
    
-   double this_message_number = sentence.Double( 2 );
+   double this_message_number{ sentence.Double(2) };
    
    if ( this_message_number == 1.0 )
    {
@@ -82,7 +82,7 @@ bool RTE::Parse( SENTENCE const& sentence ) noexcept
        Waypoints.clear();
    }
 
-   auto field_data = sentence.Field( 3 );
+   auto field_data{ sentence.Field(3) };
 
    if (field_data.length() == 1)
    {
@@ -106,7 +106,7 @@ bool RTE::Parse( SENTENCE const& sentence ) noexcept
 
    RouteName = sentence.Field( 4 );
 
-   int number_of_data_fields = sentence.GetNumberOfDataFields();
+   auto number_of_data_fields{ sentence.GetNumberOfDataFields() };
    field_number = 5;
 
    std::string string_to_add;
