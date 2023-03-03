@@ -117,7 +117,7 @@ bool RMC::Parse( SENTENCE const& sentence ) noexcept
 std::string RMC::PlainEnglish( void ) const noexcept
 {
    std::string return_string(STRING_VIEW("At "));
-   std::string const time_string = ctime(&Time);
+   std::string const time_string( ctime(&Time) );
    return_string.append(time_string.substr(0, time_string.length() - 1));
    return_string.append(STRING_VIEW(" you were at "));
    return_string.append(Position.PlainEnglish());

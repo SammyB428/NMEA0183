@@ -109,7 +109,7 @@ bool GGA::Parse( SENTENCE const& sentence ) noexcept
 std::string GGA::PlainEnglish( void ) const noexcept
 {
    std::string return_string(STRING_VIEW("At "));
-   std::string const time_string = ctime( &Time );
+   std::string const time_string( ctime( &Time ) );
    return_string.append(time_string.substr(0, time_string.length() - 1));
    return_string.append(STRING_VIEW(" UTC, you were at "));
    return_string.append(Position.PlainEnglish());
@@ -135,7 +135,7 @@ std::string GGA::PlainEnglish( void ) const noexcept
 
    char temp_string[ 128 ];
 
-   std::size_t const number_of_characters = ::sprintf( temp_string, ", %d satellites are in use.", NumberOfSatellitesInUse );
+   auto const number_of_characters{ ::sprintf(temp_string, ", %d satellites are in use.", NumberOfSatellitesInUse) };
    return_string.append(temp_string, number_of_characters);
 
    return( return_string );

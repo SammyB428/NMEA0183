@@ -72,7 +72,7 @@ bool RMA::Parse( SENTENCE const& sentence ) noexcept
    ** First we check the checksum...
    */
 
-   auto const check = sentence.IsChecksumBad( 12 );
+   auto const check{ sentence.IsChecksumBad(12) };
 
    if ( check == NMEA0183_BOOLEAN::True )
    {

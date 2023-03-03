@@ -225,7 +225,7 @@ GSA const& GSA::operator = ( GSA const& source ) noexcept
    OperatingMode = source.OperatingMode;
    FixMode       = source.FixMode;
 
-   std::size_t index = 0;
+   std::size_t index{ 0 };
 
    while( index < std::size(SatelliteNumber) )
    {

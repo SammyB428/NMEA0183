@@ -85,11 +85,11 @@ bool GSV::Parse( SENTENCE const& sentence ) noexcept
        return( false );
    }
 
-   auto const message_number = sentence.Integer( 2 );
+   auto const message_number{ sentence.Integer(2) };
 
    NumberOfSatellites = sentence.Integer( 3 );
 
-   int index = 0;
+   int index{ 0 };
 
    while( index < 4 )
    {
