@@ -44,10 +44,11 @@ class VTG : public RESPONSE
       ** Data
       */
 
-      double TrackDegreesTrue{ 0.0 };
-      double TrackDegreesMagnetic{ 0.0 };
-      double SpeedKnots{ 0.0 };
-      double SpeedKilometersPerHour{ 0.0 };
+      double   TrackDegreesTrue{ 0.0 };
+      double   TrackDegreesMagnetic{ 0.0 };
+      double   SpeedKnots{ 0.0 };
+      double   SpeedKilometersPerHour{ 0.0 };
+      FAA_MODE FAAMode{ FAA_MODE::ModeUnknown };
 
       /*
       ** Methods
