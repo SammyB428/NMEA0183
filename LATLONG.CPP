@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,7 @@ bool LATLONG::Parse( int LatitudePositionFieldNumber, int NorthingFieldNumber, i
 
 std::string LATLONG::PlainEnglish( void ) const noexcept
 {
-   char temp_string[256];
+   char temp_string[256]{};
 
    auto number_of_characters{ ::sprintf(temp_string, "Latitude %d %.5f", Latitude.GetWholeDegrees(), Latitude.GetDecimalMinutes()) };
 

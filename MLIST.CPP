@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -169,6 +169,7 @@ void MANUFACTURER_LIST::Fill( void ) noexcept
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GES"), STRING_VIEW("Geostar Corporation")));
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GFC"), STRING_VIEW("Graphic Controls, Corporation")));
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GIS"), STRING_VIEW("Galax Integrated Systems")));
+   ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GLO"), STRING_VIEW("GLONASS, Quectel")));
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GPI"), STRING_VIEW("Global Positioning Instrument Corporation")));
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GRM"), STRING_VIEW("Garmin Corporation")));
    ManufacturerTable.push_back(MANUFACTURER(STRING_VIEW("GSC"), STRING_VIEW("Gold Star Company, Limited")));

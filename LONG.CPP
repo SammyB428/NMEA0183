@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -90,7 +90,7 @@ void LONGITUDE::Set( double position, std::string_view east_or_west ) noexcept
 
 void LONGITUDE::Write( SENTENCE& sentence ) const noexcept
 {
-   char temp_string[ 80 ];
+   char temp_string[80]{};
 
    auto number_of_characters{ ::sprintf(temp_string, "%08.2f", Longitude) };
    sentence += std::string_view(temp_string, number_of_characters );

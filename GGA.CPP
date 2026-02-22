@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -133,7 +133,7 @@ std::string GGA::PlainEnglish( void ) const noexcept
          break;
    }
 
-   char temp_string[ 128 ];
+   char temp_string[128]{};
 
    auto const number_of_characters{ ::sprintf(temp_string, ", %d satellites are in use.", NumberOfSatellitesInUse) };
    return_string.append(temp_string, number_of_characters);

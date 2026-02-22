@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2021 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -243,7 +243,7 @@ void SENTENCE::Finish( void ) noexcept
 {
    auto const checksum{ ComputeChecksum() };
 
-   char temp_string[ 10 ];
+   char temp_string[10]{};
 
    auto const number_of_characters{ ::sprintf(temp_string, "*%02X%c%c", static_cast<int>(checksum), CARRIAGE_RETURN, LINE_FEED) };
 
@@ -541,7 +541,7 @@ SENTENCE const& SENTENCE::operator += ( std::string_view source ) noexcept
 
 SENTENCE const& SENTENCE::operator += ( double const value ) noexcept
 {
-   char temp_string[ 80 ];
+   char temp_string[80]{};
 
    auto const number_of_characters{ ::sprintf(temp_string, "%.3f", value) };
 
@@ -695,7 +695,7 @@ SENTENCE const& SENTENCE::operator += ( NORTHSOUTH const northing ) noexcept
 
 SENTENCE const& SENTENCE::operator += ( int const value ) noexcept
 {
-   char temp_string[ 80 ];
+   char temp_string[80]{};
 
    auto conversion{ std::to_chars(temp_string, temp_string + std::size(temp_string), value) };
 
@@ -748,7 +748,7 @@ SENTENCE const& SENTENCE::operator += ( time_t const time_value ) noexcept
 {
    auto tm_p{ gmtime(&time_value) };
 
-   char temp_string[65];
+   char temp_string[65]{};
 
    auto const number_of_characters{ ::sprintf(temp_string, "%02d%02d%02d", tm_p->tm_hour, tm_p->tm_min, tm_p->tm_sec) };
 

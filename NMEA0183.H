@@ -147,7 +147,7 @@ enum class FAA_MODE
 ** Misc Function Prototypes
 */
 
-inline uint32_t HexValue(std::string_view hex_string) noexcept
+[[nodiscard]] constexpr inline uint32_t HexValue(std::string_view hex_string) noexcept
 {
     uint32_t return_value{ 0 };
 
@@ -156,10 +156,10 @@ inline uint32_t HexValue(std::string_view hex_string) noexcept
     return(return_value);
 }
 
-std::string expand_talker_id( std::string_view talker ) noexcept;
-std::string Hex( uint32_t const value ) noexcept;
-std::string talker_id( std::string_view sentence ) noexcept;
-time_t ctime( int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept;
+[[nodiscard]] std::string expand_talker_id( std::string_view talker ) noexcept;
+[[nodiscard]] std::string Hex( uint32_t const value ) noexcept;
+[[nodiscard]] std::string talker_id( std::string_view sentence ) noexcept;
+[[nodiscard]] time_t ctime( int const year, int const month, int const day, int const hour, int const minute, int const second) noexcept;
 
 #include "nmea0183.hpp"
 

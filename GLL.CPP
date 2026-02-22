@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@ bool GLL::Parse( SENTENCE const& sentence ) noexcept
 std::string GLL::PlainEnglish( void ) const noexcept
 {
    std::string return_string(STRING_VIEW("At "));
-   std::string const time_string = ctime(&Time);
+   std::string const time_string( ctime(std::addressof(Time)) );
    return_string.append(time_string.substr(0, time_string.length() - 1));
    return_string.append(STRING_VIEW(" you were at "));
    return_string.append(Position.PlainEnglish());

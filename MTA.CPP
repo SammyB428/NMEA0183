@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ std::string MTA::PlainEnglish(void) const noexcept
 {
     std::string return_string(STRING_VIEW("The air temperature is "));
 
-    char temp_string[65];
+    char temp_string[65]{};
 
     auto const number_of_characters{ ::sprintf(temp_string, "%.1f ", Temperature) };
 

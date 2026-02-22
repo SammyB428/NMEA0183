@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -87,7 +87,7 @@ void LATITUDE::Set( double position, std::string_view north_or_south ) noexcept
 
 void LATITUDE::Write( SENTENCE& sentence ) const noexcept
 {
-   char temp_string[ 80 ];
+    char temp_string[80]{};
 
    auto const number_of_characters{ ::sprintf(temp_string, "%07.2f", Latitude) };
    sentence += std::string_view( temp_string, number_of_characters);
@@ -131,7 +131,7 @@ double COORDINATE::GetDecimalDegrees( void ) const noexcept
 
    double throw_away{ 0.0 };
 
-   auto fractional_minutes{ ::modf(Coordinate, &throw_away) };
+   auto fractional_minutes{ ::modf(Coordinate, std::addressof(throw_away)) };
 
    degrees -= minutes;
    degrees /= 100;
@@ -149,7 +149,7 @@ double COORDINATE::GetDecimalMinutes(void) const noexcept
    int minutes{ degrees % 100 };
 
    double throw_away{ 0.0 };
-   auto fractional_minutes{ ::modf(Coordinate, &throw_away) };
+   auto fractional_minutes{ ::modf(Coordinate, std::addressof(throw_away)) };
    double return_value{ static_cast<double>(minutes) };
    return_value += fractional_minutes;
 
@@ -160,7 +160,7 @@ double COORDINATE::GetDecimalSeconds( void ) const noexcept
 {
    auto minutes{ GetDecimalMinutes() };
    double throw_away{ 0.0 };
-   auto fractional_minutes{ ::modf(minutes, &throw_away) };
+   auto fractional_minutes{ ::modf(minutes, std::addressof(throw_away)) };
    auto return_value{ static_cast<double>(static_cast<double>(fractional_minutes) * static_cast<double>(60.0)) };
 
    return( return_value );

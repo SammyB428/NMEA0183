@@ -7,7 +7,7 @@ Dr. Richard Garwin
 
 The MIT License (MIT)
 
-Copyright (c) 1996-2019 Sam Blackburn
+Copyright (c) 1996-2026 Sam Blackburn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -82,9 +82,9 @@ std::string BOD::PlainEnglish(void) const noexcept
 {
    std::string return_string(STRING_VIEW("You are bearing "));
 
-   char temp_string [ 22 ];
+   char temp_string[22]{};
 
-   std::size_t number_of_characters = ::sprintf( temp_string, "%5.2f", BearingTrue );
+   auto number_of_characters{ ::sprintf(temp_string, "%5.2f", BearingTrue) };
 
    return_string.append(temp_string, number_of_characters);
    return_string.append(STRING_VIEW(" degrees true ("));
