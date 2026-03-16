@@ -65,12 +65,31 @@ bool VTG::Parse( SENTENCE const& sentence ) noexcept
    /*
    ** First we check the checksum...
    */
+   
+   int checksum_field = 9;
 
-   if ( sentence.IsChecksumBad( 9 ) == NMEA0183_BOOLEAN::True )
+   // Version 2.3 of the standard has things different
+
+   FAAMode = sentence.FAAMode(9);
+
+   if (FAAMode != FAA_MODE::ModeUnknown)
+   {
+       checksum_field = 10;
+   }
+
+   auto const check = sentence.IsChecksumBad(checksum_field);
+
+   if ( check == NMEA0183_BOOLEAN::True )
    {
        SetErrorMessage(STRING_VIEW("Invalid Checksum"));
        return( false );
-   } 
+   }
+
+   if (check == NMEA0183_BOOLEAN::NMEA_Unknown)
+   {
+       SetErrorMessage(STRING_VIEW("Missing Checksum"));
+       return(false);
+   }
 
    TrackDegreesTrue       = sentence.Double( 1 );
    TrackDegreesMagnetic   = sentence.Double( 3 );
@@ -108,6 +127,7 @@ VTG const& VTG::operator = ( VTG const& source ) noexcept
    TrackDegreesMagnetic   = source.TrackDegreesMagnetic;
    SpeedKnots             = source.SpeedKnots;
    SpeedKilometersPerHour = source.SpeedKilometersPerHour;
+   FAAMode                = source.FAAMode;
 
    return( *this );
 }

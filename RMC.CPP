@@ -163,6 +163,7 @@ RMC const& RMC::operator = ( RMC const& source ) noexcept
    Date                       = source.Date;
    MagneticVariation          = source.MagneticVariation;
    MagneticVariationDirection = source.MagneticVariationDirection;
+   FAAMode                    = source.FAAMode;
 
   return( *this );
 }
